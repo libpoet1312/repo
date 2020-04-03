@@ -1,0 +1,42 @@
+<div class="searchbar">
+    <h3>Αναζήτηση στο αποθετήριο</h3>
+    <input class="m-3" type="text" placeholder="Search"/>
+    <br>
+
+    <a class="in" style="cursor: pointer">Ετικέτες<span class="caret-icon fa fa-caret-down"></span></a>
+
+    <ul id="menu" class="dropdown-menu" style="background: white">
+
+        <div class="inline-block dropdown-item" style="border: black solid">
+        {% for tag in tags %}
+            <input id="{{ tag.slug }}" type="checkbox" value="{{ tag }}"/>
+            <label style="vertical-align: middle;margin-right: 5px;" for="{{ tag.slug }}">{{ tag }}</label>
+            {% if forloop.counter|divisibleby:6 %}<br class="m-auto">{% endif %}
+        {% endfor %}
+        </div>
+
+
+
+
+
+    </ul>
+</div>
+
+
+<div class="card" style="margin-top: 20px">
+                    <div class="card-header"><strong>Επιστημονικές Περιοχές</strong></div>
+                    <div class="card-body">
+                        <!-- AREAS -->
+
+                        <div id="Areatree" style="text-align: left"></div>
+                    </div>
+                </div>
+                <hr/>
+                <div class="card">
+                    <div class="card-header"><strong>Κατηγορίες</strong></div>
+                    <div class="card-body">
+                        <!-- CATEGORIES -->
+                        <input id="cattreesearch" type="text" placeholder="search">
+                        <div id="Cattree" style="text-align: left" ></div>
+                    </div>
+                </div>

@@ -1,0 +1,3 @@
+sudo apt-get install python3-dev libmysqlclient-dev
+Unicode-2.7
+Unidecode

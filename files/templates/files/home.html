@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="container card">
+
+    <h2 class="card-header">
+        Καλώς ήρθατε
+    </h2>
+    <div class="card-body px-0">
+        <p>Το αποθετήριο έχει συνολικά <strong>{{ num_files }}</strong> καταχωρήσεις</p>
+        <p>που αφορούν <strong>{{num_courses}}</strong> μαθήματα.</p>
+        <p>Για να καταχωρήσετε μια εργασία είναι απαραίτητο να συνδεθείτε.</p>
+    </div>
+
+    <a class="card-link btn btn-dark" href="{% url 'list_files' %}" >Browse Files</a>
+
+
+</div>
+{% endblock %}

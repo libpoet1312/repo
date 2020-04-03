@@ -1,0 +1,49 @@
+{% load static %}
+{% load widget_tweaks %}
+
+
+
+<!-- FILE LIST -->
+
+    {% for file in file_list %}
+
+        <div class="card">
+            <div class="card-header"><h5>{{ file }}</h5></div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="">
+                            <img {% if file.thumbnail.url %}
+                                src="{{ file.thumbnail.url }}"
+                            {% else %}
+                                src="{% static 'images/no_thumbnail.png' %}"
+                            {% endif %}
+                                alt="File thumbnail" style="width: 100px; height: 100px"
+                            />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row col-margin card-semi-title">
+                            Περιγραφή:
+                        </div>
+                        <div class="row col-margin text-justify align-middle">
+                            {{ file.summary|truncatechars:250 }}
+                        </div>
+                    </div>
+                    <div class="col text-left">
+                        <p><a class="card-semi-title" style="color: #007489;" >Κατηγορία:</a><i> {{ file.category.name }}</i></p>
+                        <p><a class="card-semi-title" style="color: #007489;">Επιστημονικές Περιοχές:</a>
+                            {% for area in file.area.all %}
+                                <i> {{ area }}</i> {% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                        </p>
+                        <p><a class="card-semi-title" style="color: #007489;">Ετικέτες:</a>
+                            {% for tag in file.tags.all %}
+                                <i> {{ tag }}</i> {% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
