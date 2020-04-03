@@ -17,6 +17,11 @@ class HomeView(TemplateView):
     template_name = 'files/home.html'
 
 
+class FileDetailView(DetailView):
+    model = File
+
+
+
 def ListView(request):
     files = File.objects.all()
     if request.is_ajax():

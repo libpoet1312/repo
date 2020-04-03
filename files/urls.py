@@ -11,7 +11,10 @@ urlpatterns = [
 
     path(r'list/', ListView, name='list_files'), # This is used
 
+
     path(r'cat/', get_cat_tree_ajax, name='cat_ajax_tree'),
     path(r'area/', get_area_tree_ajax, name='area_ajax_tree'),
+
+    path('<slug:slug>/', FileDetailView.as_view(), name='file_detail'),
 
 ]

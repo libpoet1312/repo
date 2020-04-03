@@ -3,6 +3,8 @@
 {% load taggit_templatetags2_tags %}
 {% get_taglist as tags %}
 
+{% block title %}Αποθετήριο{% endblock %}
+
 {% block content %}
 
     <!-- Search Bar -->
@@ -61,33 +63,34 @@
                 {% for file in file_list %}
 
                     <div class="card">
-                        <div class="card-header"><h5>{{ file }}</h5></div>
+                        <a class="card-header" href="{% url 'file_detail' file.slug %}"><h5>{{ file }}</h5></a>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-2">
-                                    <div class="">
-                                        <img
+                                <div class="col-2 my-auto">
+
+                                        <img class="thumbimage"
                                             {% if file.thumbnail.url %}
                                                 src="{{ file.thumbnail.url }}"
                                             {% else %}
                                                 src="{% static 'images/no_thumbnail.png' %}"
                                             {% endif %}
-                                    alt="File thumbnail" style="width: 100px; height: 100px"
+                                    alt="File thumbnail" style=""
                                     />
-                                    </div>
+
 
                                 </div>
-                                <div class="col">
-                                    <div class="row col-margin card-semi-title">
+                                <div class="col my-auto">
+                                    <div class="row card-semi-title">
                                         Περιγραφή:
+                                        <p></p>
                                     </div>
                                     <div class="row col-margin text-justify align-middle">
                                         {{ file.summary|truncatechars:250 }}
                                     </div>
 
                                 </div>
-                                <div class="col text-left">
-                                    <p><a class="card-semi-title" style="color: #007489;" >Κατηγορία:</a><i> {{ file.category.name }}</i></p>
+                                <div class="col my-auto text-left">
+                                    <p><a class="card-semi-title my-auto" style="color: #007489;" >Κατηγορία:</a><i> {{ file.category.name }}</i></p>
                                     <p><a class="card-semi-title" style="color: #007489;">Επιστημονικές Περιοχές:</a>
                                         {% for area in file.area.all %}
                                             <i> {{ area }}</i> {% if not forloop.last %},{% endif %}

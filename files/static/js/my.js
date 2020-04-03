@@ -86,7 +86,7 @@ $(document).ready( function () {
 
         const categorytree = document.getElementById('Cattree');
         const areatree = document.getElementById('Areatree');
-        // console.log(categorytree);
+
 
 
         // CATEGORY TREE
@@ -150,7 +150,9 @@ $(document).ready( function () {
         Ajax()
     }
 
-
+    /// CATEGORY
+    /// TREE SEARCH
+    ///
     $('#cattreesearch').keyup(function(){
 
         // console.log($(this).val());
@@ -218,6 +220,25 @@ $(document).ready( function () {
     $('form').on('reset', function (e) {
         Reset();
     });
+
+
+
+    ///                 ///
+    ///  CATEGORY TREE  ///
+    ///     FILTER      ///
+
+    $('#Cattree').on('check_node.jstree', function (e, data) {
+        console.log(data);
+    });
+
+
+    // when clicked fetch the selected by name only!
+    $('#Cattree').bind('changed.jstree', function (e, data) {
+        console.log(data)
+    })
+
+
+
 
 });
 
