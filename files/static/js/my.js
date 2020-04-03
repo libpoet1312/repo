@@ -1,5 +1,5 @@
 let tags = [];
-let category = [];
+let categories = [];
 let areas = [];
 let text_search;
 
@@ -7,7 +7,7 @@ let text_search;
 
 function createTree(jsonData, tree) {
     let parsedJson = $.parseJSON(jsonData);
-    // console.log(parsedJson);
+    console.log(parsedJson);
 
     $(tree).jstree({
         core: {
@@ -25,7 +25,8 @@ function createTree(jsonData, tree) {
             "show_only_matches" : true,
             "show_only_matches_children": true
         },
-        plugins: ['search', "types", "checkbox", 'changed']
+        checkbox:{},
+        plugins: ['search', "types", "checkbox", 'changed', 'wholerow']
     }).on('search.jstree', function (nodes, str, res) {
         // console.log(str);
         if (str.nodes.length===0) {
@@ -43,7 +44,7 @@ function Ajax(){
             traditional : true,
             data: {
                 tags : tags,
-                category: category,
+                categories: categories,
                 areas: areas,
                 text_search: text_search
             },
@@ -61,7 +62,7 @@ function Ajax(){
 }
 
 function Reset(){
-    category = [];
+    categories = [];
     text_search = '';
     tags = [];
     $(":checkbox").each(function () {
@@ -227,15 +228,33 @@ $(document).ready( function () {
     ///  CATEGORY TREE  ///
     ///     FILTER      ///
 
-    $('#Cattree').on('check_node.jstree', function (e, data) {
-        console.log(data);
+    // when clicked fetch the selected by name only!
+    $('#Cattree').bind('changed.jstree', function (e, data) {
+        // console.log(data);
+        var checked = [];
+
+        var checkedids = $('#Cattree').jstree('get_bottom_checked');
+        if(checkedids){
+            $.each(checkedids, (i, value) => {
+                var path = $('#Cattree').jstree(true).get_path(value, '/');
+                console.log(path);
+                checked.push(path);
+            });
+        }else {
+            checked =[];
+        }
+        categories = checked;
+        // console.log(checked);
+        Ajax();
+
+
+
+        //console.log(data.changed.selected) //
+
+
     });
 
 
-    // when clicked fetch the selected by name only!
-    $('#Cattree').bind('changed.jstree', function (e, data) {
-        console.log(data)
-    })
 
 
 

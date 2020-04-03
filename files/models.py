@@ -16,6 +16,9 @@ class Category(MPTTModel):
     def __str__(self):
         return self.name
 
+    def get_category_greek(self):
+        return '/'.join([x['name'] for x in self.get_ancestors(include_self=True).values()])
+
     class MPTTMeta:
         order_insertion_by = ['name']
 
@@ -69,10 +72,10 @@ class File(models.Model):
     author = models.CharField(max_length=100, help_text='Δημιουργός', verbose_name='Δημιουργός')
     author_email = models.CharField(max_length=100,  help_text='email δημιουργού', verbose_name='Email δημιουργού')
 
-
     def __str__(self):
         """String for representing the Model object."""
         return self.name
+
 
     class Meta:
         verbose_name = 'Αρχείο'

@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.dispatch import receiver
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
@@ -37,6 +38,25 @@ def ListView(request):
         tags = request.GET.getlist('tags')
         if tags:
             files = files.filter(tags__name__in=tags).distinct()
+
+        categories = request.GET.getlist('categories')
+        if categories:
+            cat_path = []
+            cat_obj = []
+            query = []
+            cat = Category.objects.all()
+            for c in cat:
+                cat_obj.append(c)
+                cat_path.append(c.get_category_greek())
+
+            for category in categories:
+                print('category=' + category)
+                if category in cat_path:
+                    index = cat_path.index(category)
+                    print(cat_obj[index])
+                    query.append(cat_obj[index])
+            files = files.filter(category__in=query)
+
         print(files)
 
         html = render_to_string('files/renderlist.html', {'file_list': files})
@@ -53,6 +73,7 @@ def ListView(request):
 def get_cat_tree_ajax(request):
     if request.is_ajax():
         tree_set = Category._tree_manager.values()
+        # print(tree_set)
         data = []
         for i in tree_set:
             if not i['parent_id']:
@@ -60,7 +81,7 @@ def get_cat_tree_ajax(request):
             else:
                 parent_id = 'j1_' + str(i['parent_id'])
             data.append(
-                {"id": 'j1_' + str(i['id']), "parent": parent_id, "text": i['name']}
+                {"id": 'j1_' + str(i['id']), "parent": parent_id, "text": i['name'], "slug": i['slug'] }
             )
         # print(json.dumps(data))
         return JsonResponse(json.dumps(data), safe=False)
