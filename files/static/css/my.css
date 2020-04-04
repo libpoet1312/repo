@@ -238,7 +238,10 @@ th {
 /*-------------------------------------------
                  JSTREES
 ---------------------------------------------*/
-
+#Areatree > .jstree-container-ul > .jstree-node > .jstree-ocl {
+    background:transparent !important;
+    margin-left:-26px;
+}
 
 
 #tooltipText{

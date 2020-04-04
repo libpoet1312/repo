@@ -5,9 +5,9 @@ let text_search;
 
 // FUNCTION'S AREA ///
 
-function createTree(jsonData, tree) {
+function createCATEGORYTree(jsonData, tree) {
     let parsedJson = $.parseJSON(jsonData);
-    console.log(parsedJson);
+    //console.log(parsedJson);
 
     $(tree).jstree({
         core: {
@@ -34,6 +34,43 @@ function createTree(jsonData, tree) {
         }
     });
 }
+
+function createAREATree(jsonData, tree) {
+    let parsedJson = $.parseJSON(jsonData);
+    //console.log(parsedJson);
+
+    $(tree).jstree({
+        core: {
+            themes: {
+                name: 'proton',
+                responsive: true,
+                dots: false,
+                icons: false,
+            },
+            check_callback: !0,
+            data: parsedJson
+        },
+        'search': {
+            "case_insensitive": true,
+            "show_only_matches" : true,
+            "show_only_matches_children": true
+        },
+        checkbox:{
+            three_state: false,
+            two_state: true,
+            whole_node: true,
+            tie_selection: true,
+            "keep_selected_style": true
+        },
+        plugins: ['search', "types", "checkbox", 'changed', 'wholerow']
+    }).on('search.jstree', function (nodes, str, res) {
+        // console.log(str);
+        if (str.nodes.length===0) {
+            $(tree).jstree(true).hide_all();
+        }
+    });
+}
+
 
 function Ajax(){
     $.ajax({
@@ -77,9 +114,13 @@ function Reset(){
 
 /// DOM READY AREA ///
 $(document).ready( function () {
+
     //////////////
     /// JSTREES ///
     //////////////
+
+
+    // create trees
     $(function() {
         const script = document.getElementById('myscript');
         const caturl = script.getAttribute('caturl');
@@ -103,7 +144,7 @@ $(document).ready( function () {
                 // console.log("Call trigger");
                 const dataset = json;
 
-                createTree(dataset, categorytree);
+                createCATEGORYTree(dataset, categorytree);
             },
 
             error : function(xhr, ajaxOptions, thrownError) {
@@ -125,9 +166,8 @@ $(document).ready( function () {
                 // console.log("Call trigger");
 
                 var dataset = json;
-                // console.log(dataset);
 
-                createTree(dataset, areatree);
+                createAREATree(dataset, areatree);
             },
 
             error : function(xhr, ajaxOptions, thrownError) {
@@ -254,8 +294,129 @@ $(document).ready( function () {
 
     });
 
+    ///                 ///
+    ///    AREA TREE    ///
+    ///     FILTER      ///
 
 
+    $('#Areatree').bind('select_node.jstree  deselect_node.jstree', function (e, data) {
+        // console.log('area');
+
+        // console.log(e);
+        console.log(data);
+        const cur = data.node;
+        const parent = $('#Areatree').jstree(true).get_parent(cur); // id of parent
+        const parentobj = data.instance.get_node(data.node.parent);
+        console.log('parentobj= ', parentobj);
+        var children = $('#Areatree').jstree(true).get_children_dom(parentobj); // get children
+
+
+
+
+
+
+        if($('#Areatree').jstree(true).is_parent(cur)){
+            $('#Areatree').jstree(true).toggle_node(cur); // toggle full tree of node
+        }
+        const path = $('#Areatree').jstree(true).get_path(cur, '/');
+        console.log(path);
+        let put = false;
+
+
+        //first is always parent node
+        if(areas.length===0){
+            if(e.type==='select_node'){
+                const index = areas.indexOf(path);
+                console.log(index);
+                if (index === -1){
+                    areas.push(path);
+                }
+            }
+        }else{
+            // more than one in areas
+            // most cases here
+
+            if( parent === '#') {
+                // is parent
+                if (e.type === 'select_node') {
+                    areas.push(path);
+                } else {
+                    const index = areas.indexOf(path);
+                    if (index > -1) {
+                        areas.splice(index, 1);
+                    }
+                }
+            }else{
+                // is child
+                if (e.type === 'select_node') {
+                    $.each(areas, function (i, area) {
+                       if(path.includes(area)){
+                           console.log(area, ' of ', path);
+                           areas[i] = path;
+                           put = true;
+                       }
+                    });
+                    if(!put){
+                        areas.push(path);
+                    }
+                }else{
+                    // delete
+                    const index = areas.indexOf(path);
+                    if (index > -1) {
+                        areas.splice(index, 1);
+                    }
+                    let c = false;
+                    $.each(children, function (i, child) {
+                        if($('#Areatree').jstree(true).is_selected(child)){
+                            c = true;
+                        }
+                    });
+                    if(!c){
+                        areas.push(parentobj.text)
+                    }
+
+
+                }
+
+
+
+
+            }
+
+        }
+
+        // $.each(areas, function (i, area) {
+        //     if(path.includes(area)){
+        //         console.log(area, path);
+        //         areas[i] = path
+        //     }else{
+        //        if($('#Areatree').jstree(true).is_parent(cur)){
+        //             const index = areas.indexOf(path);
+        //         console.log(index);
+        //         if (index === -1){
+        //             areas.push(path);
+        //         }
+        //         }
+        //
+        //     }
+        // });
+
+
+
+
+
+
+
+
+        // if($('#Areatree').jstree(true).is_parent(data.node)){
+        //     console.log('parent')
+        // }
+
+
+
+
+        console.log('areas=  ',areas);
+    });
 
 
 

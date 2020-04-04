@@ -14,7 +14,8 @@ class Category(MPTTModel):
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
     def __str__(self):
-        return self.name
+        # return self.name
+        return '/'.join([x['name'] for x in self.get_ancestors(include_self=True).values()])
 
     def get_category_greek(self):
         return '/'.join([x['name'] for x in self.get_ancestors(include_self=True).values()])
@@ -36,6 +37,10 @@ class Area(MPTTModel):
     thumbnail = models.ImageField(upload_to='Area_Images', null=True, verbose_name='Εικόνα Επιστημονικής Περιοχής')
 
     def __str__(self):
+        return self.name
+        # return '/'.join([x['name'] for x in self.get_ancestors(include_self=True).values()])
+
+    def get_name(self):
         return self.name
 
     class MPTTMeta:

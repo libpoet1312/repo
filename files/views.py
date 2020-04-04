@@ -49,6 +49,8 @@ def ListView(request):
                 cat_obj.append(c)
                 cat_path.append(c.get_category_greek())
 
+            print(cat_obj)
+
             for category in categories:
                 print('category=' + category)
                 if category in cat_path:

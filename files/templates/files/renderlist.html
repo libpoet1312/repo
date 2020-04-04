@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="col text-left">
-                        <p><a class="card-semi-title" style="color: #007489;" >Κατηγορία:</a><i> {{ file.category.name }}</i></p>
+                        <p><a class="card-semi-title" style="color: #007489;" >Κατηγορία:</a><i> {{ file.category }}</i></p>
                         <p><a class="card-semi-title" style="color: #007489;">Επιστημονικές Περιοχές:</a>
                             {% for area in file.area.all %}
                                 <i> {{ area }}</i> {% if not forloop.last %},{% endif %}
