@@ -3,6 +3,10 @@ let categories = [];
 let areas = [];
 let text_search;
 
+const areatree = $('#Areatree');
+const categorytree = $('#Cattree');
+
+
 // FUNCTION'S AREA ///
 
 function createCATEGORYTree(jsonData, tree) {
@@ -99,7 +103,6 @@ function Ajax(){
 }
 
 function Reset(){
-    categories = [];
     text_search = '';
     tags = [];
     $(":checkbox").each(function () {
@@ -108,6 +111,12 @@ function Reset(){
     });
 
     areas = [];
+    areatree.jstree("deselect_all");
+
+
+
+    categories = [];
+    categorytree.jstree("deselect_all");
 
     Ajax();
 }
@@ -193,15 +202,22 @@ $(document).ready( function () {
 
     /// CATEGORY
     /// TREE SEARCH
-    ///
     $('#cattreesearch').keyup(function(){
 
-        // console.log($(this).val());
-
-
-        $('#Cattree').jstree(true).show_all();
+        categorytree.jstree(true).show_all();
         $('.jstree-node').show();
-        $('#Cattree').jstree('search', $(this).val());
+        categorytree.jstree('search', $(this).val());
+        $('.jstree-hidden').hide();
+        $('a.jstree-search').parent('li').find('.jstree-hidden').show();
+    });
+
+    /// CATEGORY
+    /// TREE SEARCH
+    $('#areatreesearch').keyup(function(){
+
+        areatree.jstree(true).show_all();
+        $('.jstree-node').show();
+        areatree.jstree('search', $(this).val());
         $('.jstree-hidden').hide();
         $('a.jstree-search').parent('li').find('.jstree-hidden').show();
     });
@@ -257,27 +273,17 @@ $(document).ready( function () {
         Ajax();
     });
 
-    // RESET FILTERS
-    $('form').on('reset', function (e) {
-        Reset();
-    });
 
-
-
-    ///                 ///
     ///  CATEGORY TREE  ///
     ///     FILTER      ///
-
-    // when clicked fetch the selected by name only!
-    $('#Cattree').bind('changed.jstree', function (e, data) {
-        // console.log(data);
+    categorytree.bind('changed.jstree', function (e, data) {
         var checked = [];
 
-        var checkedids = $('#Cattree').jstree('get_bottom_checked');
+        var checkedids = categorytree.jstree('get_bottom_checked');
         if(checkedids){
             $.each(checkedids, (i, value) => {
-                var path = $('#Cattree').jstree(true).get_path(value, '/');
-                console.log(path);
+                var path = categorytree.jstree(true).get_path(value, '/');
+                // console.log(path);
                 checked.push(path);
             });
         }else {
@@ -294,40 +300,33 @@ $(document).ready( function () {
 
     });
 
-    ///                 ///
+
     ///    AREA TREE    ///
     ///     FILTER      ///
+    areatree.bind('select_node.jstree  deselect_node.jstree', function (e, data) {
+        // console.log(data);
 
-
-    $('#Areatree').bind('select_node.jstree  deselect_node.jstree', function (e, data) {
-        // console.log('area');
-
-        // console.log(e);
-        console.log(data);
         const cur = data.node;
-        const parent = $('#Areatree').jstree(true).get_parent(cur); // id of parent
+        const parent = areatree.jstree(true).get_parent(cur); // id of parent
         const parentobj = data.instance.get_node(data.node.parent);
-        console.log('parentobj= ', parentobj);
-        var children = $('#Areatree').jstree(true).get_children_dom(parentobj); // get children
+        // console.log('parentobj= ', parentobj);
+
+        const siblings = areatree.jstree(true).get_children_dom(parentobj); // get cur siblings
+        const children = areatree.jstree(true).get_children_dom(cur); // get children
 
 
 
-
-
-
-        if($('#Areatree').jstree(true).is_parent(cur)){
-            $('#Areatree').jstree(true).toggle_node(cur); // toggle full tree of node
+        if(areatree.jstree(true).is_parent(cur)){
+            areatree.jstree(true).toggle_node(cur); // toggle full tree of node
         }
-        const path = $('#Areatree').jstree(true).get_path(cur, '/');
-        console.log(path);
+        const path = areatree.jstree(true).get_path(cur, '/');
+        // console.log(path);
         let put = false;
-
 
         //first is always parent node
         if(areas.length===0){
             if(e.type==='select_node'){
                 const index = areas.indexOf(path);
-                console.log(index);
                 if (index === -1){
                     areas.push(path);
                 }
@@ -341,7 +340,19 @@ $(document).ready( function () {
                 if (e.type === 'select_node') {
                     areas.push(path);
                 } else {
+
+
+                    //uncheck ALL CHILDREN
+                    $.each(children, (i, child) => {
+                        const index = areas.indexOf(areatree.jstree(true).get_text(child));
+                        if (index > -1) {
+                            areas.splice(index, 1);
+                        }
+                        areatree.jstree(true).uncheck_node(child);
+                    });
+
                     const index = areas.indexOf(path);
+                    console.log(index);
                     if (index > -1) {
                         areas.splice(index, 1);
                     }
@@ -351,7 +362,7 @@ $(document).ready( function () {
                 if (e.type === 'select_node') {
                     $.each(areas, function (i, area) {
                        if(path.includes(area)){
-                           console.log(area, ' of ', path);
+                           // console.log(area, ' of ', path);
                            areas[i] = path;
                            put = true;
                        }
@@ -366,79 +377,27 @@ $(document).ready( function () {
                         areas.splice(index, 1);
                     }
                     let c = false;
-                    $.each(children, function (i, child) {
-                        if($('#Areatree').jstree(true).is_selected(child)){
+                    $.each(siblings, function (i, sibling) {
+                        if(areatree.jstree(true).is_selected(sibling)){
                             c = true;
                         }
                     });
                     if(!c){
                         areas.push(parentobj.text)
                     }
-
-
                 }
-
-
-
-
             }
-
         }
-
-        // $.each(areas, function (i, area) {
-        //     if(path.includes(area)){
-        //         console.log(area, path);
-        //         areas[i] = path
-        //     }else{
-        //        if($('#Areatree').jstree(true).is_parent(cur)){
-        //             const index = areas.indexOf(path);
-        //         console.log(index);
-        //         if (index === -1){
-        //             areas.push(path);
-        //         }
-        //         }
-        //
-        //     }
-        // });
-
-
-
-
-
-
-
-
-        // if($('#Areatree').jstree(true).is_parent(data.node)){
-        //     console.log('parent')
-        // }
-
-
-
-
         console.log('areas=  ',areas);
+        Ajax();
+
+    });
+
+    // RESET FILTERS
+    $('form').on('reset', function (e) {
+        Reset();
     });
 
 
 
 });
-
-
- // trigger move node event
- // $('#tree').on("move_node.jstree", function (e, data) {
- //
-	//   $.ajax({
-	//         async : true,
-	//         type : "POST",
-	//         url : "/inventory/move_node_ajax/",
-	//         dataType : "json",
-	// 		data : {'node_id': data.node.id, 'parent_id': data.node.parent, csrfmiddlewaretoken: '{{ csrf_token }}'},
-	//         success : function(json) {
-	//         	console.log("move trigger")
-	//         },
- //
-	//         error : function(xhr, ajaxOptions, thrownError) {
-	//             alert(xhr.status);
-	//             alert(thrownError);
-	//         }
-	//     });
-	// });

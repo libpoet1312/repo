@@ -59,6 +59,24 @@ def ListView(request):
                     query.append(cat_obj[index])
             files = files.filter(category__in=query)
 
+        areas = request.GET.getlist('areas')
+
+        if areas:
+            q = Q()
+            print(areas)
+            for area in areas:
+                area_obj = get_object_or_404(Area, name=area)
+                area_obj_descendants = area_obj.get_descendants()
+
+                n = area.split('/')
+
+                files += files.filter(
+                    Q(area__name__contains=area) |
+                    Q(area__name__contains=n[-1]) |
+                    Q(area__in=area_obj_descendants)
+                )
+
+
         print(files)
 
         html = render_to_string('files/renderlist.html', {'file_list': files})
