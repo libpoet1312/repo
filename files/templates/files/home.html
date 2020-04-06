@@ -1,22 +1,69 @@
 {% extends 'base.html' %}
+{% load taggit_templatetags2_tags %}
+{% load area_children %}
+
 
 {% block title %}Αρχική{% endblock %}
+{% block head %}
+    {% include "taggit_templatetags2/tagcanvas_include_js_static.html" %}
+
+
+{% endblock %}
 
 {% block content %}
+    <div class="container text-center">
+        <div class="greeter">
+            <h2>Καλώς ήρθατε</h2>
+            <h4>στο αποθετήριο εργασιών του τμήματος </h4>
+            <h4>Δημοτικής Αγωγής του Πανεπιστημίου Θεσσαλίας</h4>
+        </div>
 
-<div class="card">
+        <div class="home-content">
+            <p class="">
+                Το αποθετήριο έχει συνολικά <strong>{{ num_files }}</strong> καταχωρήσεις
+            </p>
+            <a class="card-link btn btn-outline-light" href="{% url 'list_files' %}">
+                <h3><i class="fas fa-folder-open"></i> Περιήγηση στα αρχεία <i class="fas fa-file"></i></h3></a>
+            <hr/>
+            <div>
+                <h4>Ετικέτες:</h4>
+                {% include_tagcanvas 'id' '500' '200' '' 'files.file' %}
+            </div>
+            <hr/>
+            <div class="container">
+                <div class="">
+                    <h4>Επιστημονικές Περιοχές: <i class="fa fa-list-alt"></i></h4>
+                </div>
 
-    <h2 class="card-header">
-        Καλώς ήρθατε
-    </h2>
-    <div class="card-body px-0">
-        <p>Το αποθετήριο έχει συνολικά <strong>{{ num_files }}</strong> καταχωρήσεις</p>
-        <p>που αφορούν <strong>{{num_courses}}</strong> μαθήματα.</p>
-        <p>Για να καταχωρήσετε μια εργασία είναι απαραίτητο να συνδεθείτε.</p>
+                <div class="row">
+                    {% for area in areas %}
+                        <div class="col-3 border border-dark">
+                            <div class="grid border border-primary">
+                                <figure class="effect-goliath border border-danger">
+                                    <img src="{{ area.thumbnail.url }}" alt="thumbnail"/>
+                                    <figcaption>
+                                        <h2>{{area}}</h2>
+
+                                        <p>
+                                            {{ area|get_children }}
+                                        </p>
+                                        <a href="{% url 'list_files' area.name %}"></a>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <!-- if last column in row -->
+                        {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                        </div><div class="row">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+
+        </div>
+
+
     </div>
-
-    <a class="card-link btn btn-dark" href="{% url 'list_files' %}" >Browse Files</a>
-
-
-</div>
 {% endblock %}

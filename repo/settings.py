@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     #
     # 3rd party apps
     #
@@ -48,11 +49,26 @@ INSTALLED_APPS = [
     'taggit_templatetags2',
     'widget_tweaks',
     'sass_processor',
+    'taggit_autosuggest',
+
+    ## comments
+    #'fluent_comments',
+    'crispy_forms',
+    #'django_comments',
+
+    'rest_framework',
+    'star_ratings',
 
     # file app
     'files',
 
 ]
+
+SITE_ID = 1
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+COMMENTS_APP = 'fluent_comments'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

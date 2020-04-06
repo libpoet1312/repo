@@ -17,13 +17,22 @@ from django.shortcuts import get_object_or_404
 class HomeView(TemplateView):
     template_name = 'files/home.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['num_files'] = File.objects.all().count()
+        context['categories'] = Category.objects.all()
+        context['areas'] = Area.objects.all().filter(level=0)
+        return context
+
 
 class FileDetailView(DetailView):
     model = File
 
+class TagView(ListView):
+    model = File
 
 
-def ListView(request):
+def ListView(request, area):
     files = File.objects.all()
     if request.is_ajax():
         print('AJAX')
@@ -62,28 +71,39 @@ def ListView(request):
         areas = request.GET.getlist('areas')
 
         if areas:
-            q = Q()
-            print(areas)
-            for area in areas:
-                area_obj = get_object_or_404(Area, name=area)
-                area_obj_descendants = area_obj.get_descendants()
+            q = []
+            q1 = []
+            print('ORIGINAL AREAS', areas)
+            for idx, area in enumerate(areas):
+                print(area)
+                if '/' in area:
+                    n = area.split('/')
+                    areas[idx] = n[1]
+                else:
+                    area_obj = get_object_or_404(Area, name=area)
+                    area_obj_descendants = area_obj.get_descendants(include_self=True)
+                    for child in area_obj_descendants:
+                        q.append(child)
 
-                n = area.split('/')
+                print('NEW AREAS=', areas)
+                print('Q=', q)
 
-                files += files.filter(
-                    Q(area__name__contains=area) |
-                    Q(area__name__contains=n[-1]) |
-                    Q(area__in=area_obj_descendants)
-                )
 
+
+            files = files.filter(
+                    Q(area__name__in=areas) |
+                    Q(area__name__in=q)
+                ).distinct()
 
         print(files)
 
         html = render_to_string('files/renderlist.html', {'file_list': files})
         return JsonResponse(html, safe=False)
-
-
     else:
+        print(area)
+        string_utf = area.encode()
+        print(string_utf)
+
         return render(request, "files/file_list.html", {
             'file_list': files,
         })
@@ -101,7 +121,7 @@ def get_cat_tree_ajax(request):
             else:
                 parent_id = 'j1_' + str(i['parent_id'])
             data.append(
-                {"id": 'j1_' + str(i['id']), "parent": parent_id, "text": i['name'], "slug": i['slug'] }
+                {"id": 'j1_' + str(i['id']), "parent": parent_id, "text": i['name'], "slug": i['slug']}
             )
         # print(json.dumps(data))
         return JsonResponse(json.dumps(data), safe=False)

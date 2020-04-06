@@ -18,12 +18,21 @@ from django.urls import path
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.i18n import JavaScriptCatalog
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('files.urls')),
+
+    path(r'jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
+
     path(r'select2/', include('django_select2.urls')),
+
+    path(r'taggit_autosuggest/', include('taggit_autosuggest.urls')),
+
+    path(r'ratings/', include('star_ratings.urls', namespace='ratings')),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

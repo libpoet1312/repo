@@ -3,137 +3,164 @@
 {% load taggit_templatetags2_tags %}
 {% get_taglist as tags %}
 
+{% load ratings %}
+
 {% block title %}{{ file }}{% endblock %}
 
 {% block content %}
 
     <div id="main-content" class="container wrapper">
-        <div class="profile-card js-profile-card">
-            <div class="">
-                <button onclick="location.href='{% url 'list_files' %}';" class="profile-card__button button--gray ">
-                    <i class="fas fa-arrow-circle-left fa-2x"></i>
-                </button>
-                <button onclick="location.href='{{ file.file.url }}';" class="profile-card__button button--blue float-right">
-                    <i class="fas fa-download fa-2x"></i>
-                </button>
+    <div class="profile-card js-profile-card">
+        <div class="">
+            <button onclick="location.href='{% url 'list_files' %}';" class="profile-card__button button--gray ">
+                <i class="fas fa-arrow-circle-left fa-2x"></i>
+            </button>
+            <button onclick="location.href='{{ file.file.url }}';"
+                    class="profile-card__button button--blue float-right">
+                <i class="fas fa-download fa-2x"></i>
+            </button>
 
-                <div class="profile-card__img">
+            <div class="profile-card__img">
                 <img src="{{ file.thumbnail.url }}" alt="thumbnail">
-                </div>
             </div>
+        </div>
 
-            <div class="profile-card__cnt js-profile-cnt">
-                <div class="profile-card__name">{{ file }}</div>
-                <div class="profile-card-inf align-self-center">
-                    <div class="row">
-                        <div class="col align-self-center dh-valign-center-module">
-                            <div class="profile-card-inf__item">
-                                <div class="profile-card-inf__title">Περιγραφή</div>
-                                <div class="profile-card-inf__txt text-justify">{{ file.summary }}</div>
-                            </div>
-
-                        </div>
-                        <div class="col">
-                            <div class="profile-card-inf__item dh-valign-center-module">
-                                <div class="profile-card-inf__title2">Ημερομηνία Μεταμόρφωσης</div>
-                                <div class="profile-card-inf__txt2">{{ file.dateCreated }}</div>
-                            </div>
-                            <div class="profile-card-inf__item dh-valign-center-module">
-                                <div class="profile-card-inf__title2">Μεταμορφωτής</div>
-                                <div class="profile-card-inf__txt2">{{ file.uploader }}</div>
-                            </div>
+        <div class="profile-card__cnt js-profile-cnt">
+            <div class="profile-card__name">{{ file }}</div>
+            <div class="profile-card-inf align-self-center">
+                <div class="row">
+                    <div class="col align-self-center dh-valign-center-module">
+                        <div class="profile-card-inf__item">
+                            <div class="profile-card-inf__title">Περιγραφή</div>
+                            <div class="profile-card-inf__txt text-justify">{{ file.summary }}</div>
                         </div>
 
                     </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <div class="profile-card-inf__item dh-valign-center-module">
-                                <div class="profile-card-inf__title">Ετικέτες</div>
-                                <div class="profile-card-inf__txt">
-                                    {% for tag in file.tags.all %}
-                                        <i> {{ tag }}</i> {% if not forloop.last %},{% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
+                    <div class="col">
+                        <div class="profile-card-inf__item dh-valign-center-module">
+                            <div class="profile-card-inf__title2">Ημερομηνία Μεταμόρφωσης</div>
+                            <div class="profile-card-inf__txt2">{{ file.dateCreated }}</div>
                         </div>
-                        <div class="col">
-                            <div class="profile-card-inf__item dh-valign-center-module">
-                                <div class="profile-card-inf__title">Κατηγορία</div>
-                                <div class="profile-card-inf__txt">{{ file.category }}</div>
-                            </div>
-
-                        </div>
-                        <div class="col">
-                            <div class="profile-card-inf__item dh-valign-center-module">
-                                <div class="profile-card-inf__title">Επιστημονικές Περιοχές</div>
-                                <div class="profile-card-inf__txt">
-                                    {% for area in file.area.all %}
-                                        <i> {{ area }}</i> {% if not forloop.last %},{% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-
+                        <div class="profile-card-inf__item dh-valign-center-module">
+                            <div class="profile-card-inf__title2">Μεταμορφωτής</div>
+                            <div class="profile-card-inf__txt2">{{ file.uploader }}</div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="profile-card-inf__item dh-valign-center-module">
-                                <div class="profile-card-inf__title">Δημιουργός</div>
-                                <div class="profile-card-inf__txt">{{ file.author }}</div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="profile-card-inf__item dh-valign-center-module">
-                                <div class="profile-card-inf__title">Email Δημιουργού</div>
-                                <div class="profile-card-inf__txt">{{ file.author_email }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    {% if user.is_authenticated %}
-                        <div class="row">
-
-                                <div class="col">
-                                    <div class="profile-card-ctr">
-                                    <button class="profile-card__button button--blue js-message-btn">Rate</button>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="profile-card-ctr">
-                                    <button class="profile-card__button button--orange">Edit</button>
-                                    </div>
-                                </div>
-                        </div>
-                    {% endif %}
-
-
-
-
-
 
                 </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="profile-card-inf__item dh-valign-center-module">
+                            <div class="profile-card-inf__title">Ετικέτες</div>
+                            <div class="profile-card-inf__txt">
+                                {% for tag in file.tags.all %}
+                                    <i> {{ tag }}</i> {% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="profile-card-inf__item dh-valign-center-module">
+                            <div class="profile-card-inf__title">Κατηγορία</div>
+                            <div class="profile-card-inf__txt">{{ file.category }}</div>
+                        </div>
+
+                    </div>
+                    <div class="col">
+                        <div class="profile-card-inf__item dh-valign-center-module">
+                            <div class="profile-card-inf__title">Επιστημονικές Περιοχές</div>
+                            <div class="profile-card-inf__txt">
+                                {% for area in file.area.all %}
+                                    <i> {{ area }}</i> {% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="profile-card-inf__item dh-valign-center-module">
+                            <div class="profile-card-inf__title">Δημιουργός</div>
+                            <div class="profile-card-inf__txt">{{ file.author }}</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="profile-card-inf__item dh-valign-center-module">
+                            <div class="profile-card-inf__title">Email Δημιουργού</div>
+                            <div class="profile-card-inf__txt">{{ file.author_email }}</div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
 
                 {% if user.is_authenticated %}
+                    <div class="row">
+                        <div class="col">
+                            <div class="profile-card-ctr">
+                                <button class="profile-card__button button--blue js-message-btn">Σχολιάστε</button>
+                            </div>
+                        </div>
+                {% endif %}
+                        <div class="col">
+                            <div class="profile-card-ctr">
+                                {% ratings object %}
 
-                <div class="profile-card-message js-message">
-                    <form class="profile-card-form">
-                        <div class="profile-card-form__container">
-                            <textarea placeholder="Say something..."></textarea>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="profile-card-ctr">
+                                <button class="profile-card__button button--orange">Επεξεργασία</button>
+
+                            </div>
                         </div>
 
-                        <div class="profile-card-form__bottom">
-                            <button class="profile-card__button button--blue js-message-close">
-                                Send
-                            </button>
 
-                            <button class="profile-card__button button--gray js-message-close">
-                                Cancel
-                            </button>
-                        </div>
-                    </form>
-
-                    <div class="profile-card__overlay js-message-close"></div>
                 </div>
+
+
+
+
+
+
+
+                </div>
+
+
+
+                <!-- COMMENT FORM -->
+
+                {% if user.is_authenticated %}
+                    <div class="profile-card-message js-message">
+
+                        <form class="profile-card-form" action='' method="POST">
+                            {% csrf_token %}
+
+                            <div class="profile-card-form__container">
+
+                            </div>
+
+                            <div class="profile-card-form__bottom">
+                                <button type="submit" class="profile-card__button button--blue js-message">
+                                    Send
+                                </button>
+
+                                <button class="profile-card__button button--gray js-message-close">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="profile-card__overlay js-message-close"></div>
+                    </div>
                 {% endif %}
             </div>
         </div>
@@ -146,23 +173,49 @@
 
 
 {% block extrascripts %}
-<script>
-var messageBox = document.querySelector('.js-message');
-  var btn = document.querySelector('.js-message-btn');
-  var card = document.querySelector('.js-profile-card');
-  var closeBtn = document.querySelectorAll('.js-message-close');
+    <script>
+        var messageBox = document.querySelector('.js-message');
+        var btn = document.querySelector('.js-message-btn');
+        var card = document.querySelector('.js-profile-card');
+        var closeBtn = document.querySelectorAll('.js-message-close');
 
-  btn.addEventListener('click',function (e) {
-      e.preventDefault();
-      card.classList.add('active');
-  });
+        // open add comment
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            card.classList.add('active');
 
-  closeBtn.forEach(function (element, index) {
-     console.log(element);
-      element.addEventListener('click',function (e) {
-          e.preventDefault();
-          card.classList.remove('active');
-      });
-  });
-</script>
+        });
+
+        // form submit
+        {#$(document).on('submit', '.profile-card-form',function(e) {#}
+        {#    e.preventDefault();#}
+        {#    $.ajax({#}
+        {#        type: 'POST',#}
+        {#        url: '{% comment_form_target %}',#}
+        {#        data: {#}
+        {#            'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val(),#}
+        {#            'content_type': content_type,#}
+        {##}
+        {#        },#}
+        {#        success: function (res) {#}
+        {#            console.log(res)#}
+        {#        },#}
+        {#        error : function(xhr,errmsg,err) {#}
+        {#            console.log(xhr.status + ": " + xhr.responseText);#}
+        {#        }#}
+        {#    });#}
+        {#});#}
+
+
+
+        closeBtn.forEach(function (element, index) {
+            console.log(element);
+            element.addEventListener('click', function (e) {
+                e.preventDefault();
+                card.classList.remove('active');
+            });
+        });
+    </script>
+
+
 {% endblock %}

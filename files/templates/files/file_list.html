@@ -62,7 +62,7 @@
             <div id="list">
                 {% for file in file_list %}
 
-                    <div class="card">
+                    <div class="card" id="card">
                         <a class="card-header" href="{% url 'file_detail' file.slug %}"><h5>{{ file }}</h5></a>
                         <div class="card-body border border-primary">
                             <div class="row border border-success">

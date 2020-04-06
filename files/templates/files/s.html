@@ -40,3 +40,47 @@
                         <div id="Cattree" style="text-align: left" ></div>
                     </div>
                 </div>
+
+
+
+
+ <div class="container">
+                                 <div class="card card-area">
+                                     <img src="{{ area.thumbnail.url }}" alt="area" style="width:100%" class="catimg">
+                                     <div class="container">
+                                         <h3><b>{{ area }}</b></h3>
+                                         <div class="middle">
+                                             <div class="text">John Doe</div>
+                                         </div>
+                                     </div>
+                                 </div>
+                            </div>
+
+
+
+
+            # for area in areas:
+            #     print(area)
+            #     if '/' in area:
+            #         n = area.split('/')
+            #         print('n=', n)
+            #         area_obj = get_object_or_404(Area, name=n[1])
+            #         print('AREA OBJ= ', area_obj)
+            #         q.append(area_obj)
+            #     else:
+            #         area_obj = get_object_or_404(Area, name=area)
+            #         area_obj_descendants = area_obj.get_descendants(include_self=True)
+            #         q1.append(area_obj_descendants.values('name'))
+            #
+            #     print('Q', q)
+            #     print('Q1', q1)
+            #
+            #     # files = files.filter(
+            #     #     Q(area__name__contains=area) |
+            #     #     Q(area__name__contains=n[-1]) |
+            #     #     Q(area__in=area_obj_descendants)
+            #     # )
+            # files = files.filter(
+            #     Q(area__name__in=q) |
+            #     Q(area__name__in=q1)
+            # )

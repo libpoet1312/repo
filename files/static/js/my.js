@@ -186,6 +186,18 @@ $(document).ready( function () {
         });
     });
 
+    $(function () {
+
+        var pathArray = window.location.pathname.split('/');
+        console.log(pathArray[2]);
+
+        var s = areatree.jstree('search', 'Αγγλικά');
+        $('.jstree-hidden').hide();
+        $('a.jstree-search').parent('li').find('.jstree-hidden').show();
+        console.log(s);
+
+    });
+
     // ALWAYS load from selectors the checkbox and reload
     const tagscheckbox = document.querySelectorAll("input[type=checkbox]");
     tagscheckbox.forEach( (item, i) => {

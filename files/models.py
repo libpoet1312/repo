@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from autoslug import AutoSlugField
 from mptt.models import MPTTModel, TreeForeignKey
-from taggit.managers import TaggableManager
+# from taggit.managers import TaggableManager
+from taggit_autosuggest.managers import TaggableManager
 
 # Create your models here.
 
@@ -37,8 +38,8 @@ class Area(MPTTModel):
     thumbnail = models.ImageField(upload_to='Area_Images', null=True, verbose_name='Εικόνα Επιστημονικής Περιοχής')
 
     def __str__(self):
-        #return self.name
-        return '/'.join([x['name'] for x in self.get_ancestors(include_self=True).values()])
+        return self.name
+        #return '/'.join([x['name'] for x in self.get_ancestors(include_self=True).values()])
 
     def get_name(self):
         return self.name
