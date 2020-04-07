@@ -64,21 +64,18 @@
 
                     <div class="card" id="card">
                         <a class="card-header" href="{% url 'file_detail' file.slug %}"><h5>{{ file }}</h5></a>
-                        <div class="card-body border border-primary">
-                            <div class="row border border-success">
-                                <div class="col-2 my-auto">
-
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-2 center">
                                         <img class="thumbimage"
                                             {% if file.thumbnail.url %}
                                                 src="{{ file.thumbnail.url }}"
                                             {% else %}
                                                 src="{% static 'images/no_thumbnail.png' %}"
                                             {% endif %}
-                                    alt="File thumbnail" style=""
-                                    />
-
+                                    alt="File thumbnail"/>
                                 </div>
-                                <div class="col my-auto">
+                                <div class="col center">
                                     <div class="row card-semi-title">
                                         Περιγραφή:
                                         <p></p>
@@ -88,18 +85,19 @@
                                     </div>
 
                                 </div>
-                                <div class="col my-auto text-left">
-                                    <p><a class="card-semi-title my-auto" style="color: #007489;" >Κατηγορία:</a><i> {{ file.category }}</i></p>
+                                <hr/>
+                                <div class="col center text-left">
+                                    <p><a class="card-semi-title" style="color: #007489;" >Κατηγορία:</a><i> {{ file.category }}</i></p>
                                     <p><a class="card-semi-title" style="color: #007489;">Επιστημονικές Περιοχές:</a>
                                         {% for area in file.area.all %}
                                             <i> {{ area }}</i> {% if not forloop.last %},{% endif %}
                                         {% endfor %}
                                     </p>
-                                    <p><a class="card-semi-title" style="color: #007489;">Ετικέτες:</a>
+                                    <div><a class="card-semi-title" style="color: #007489;">Ετικέτες:</a>
                                         {% for tag in file.tags.all %}
                                             <i> {{ tag }}</i> {% if not forloop.last %},{% endif %}
                                         {% endfor %}
-                                        </p>
+                                        </div>
 
                                 </div>
                             </div>

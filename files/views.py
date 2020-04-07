@@ -28,11 +28,22 @@ class HomeView(TemplateView):
 class FileDetailView(DetailView):
     model = File
 
+class FileCreateView(CreateView):
+    model = File
+    form_class = FileForm
+    template_name = 'files/file_add.html'
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.uploader = self.request.user
+        return super(FileCreateView, self).form_valid(form)
+
+
 class TagView(ListView):
     model = File
 
 
-def ListView(request, area):
+def ListView(request, area=''):
     files = File.objects.all()
     if request.is_ajax():
         print('AJAX')
@@ -88,12 +99,10 @@ def ListView(request, area):
                 print('NEW AREAS=', areas)
                 print('Q=', q)
 
-
-
             files = files.filter(
-                    Q(area__name__in=areas) |
-                    Q(area__name__in=q)
-                ).distinct()
+                Q(area__name__in=areas) |
+                Q(area__name__in=q)
+            ).distinct()
 
         print(files)
 
@@ -139,11 +148,28 @@ def get_area_tree_ajax(request):
             else:
                 parent_id = 'j1_' + str(i['parent_id'])
             data.append(
-                {"id": 'j1_' + str(i['id']), "parent": parent_id, "text": i['name']}
+                {"id": 'j1_' + str(i['id']), "parent": parent_id, "text": i['name'], "slug": i['slug']}
             )
         # print(json.dumps(data))
         return JsonResponse(json.dumps(data), safe=False)
 
+
+def load_first_category(request):
+    category = request.GET.get('firstlevel')
+    firstlevel = Category.objects.all().filter(level=0)
+    print(firstlevel)
+
+    return 0
+
+
+class FileCategoryListView(View):
+    template_name = "movies/movie_category_list.html"
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            "categories": Category.objects.all(),
+        }
+        return render(request, self.template_name, context)
 
 class SignUpView(BSModalCreateView):
     form_class = CustomUserCreationForm

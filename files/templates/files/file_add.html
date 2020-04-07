@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}Προσθήκη Αρχείου{% endblock %}
+{% block head %}
+{{ form.media.css }}
+{% endblock %}
+
+{% block content %}
+    <div id="main-content" class="container wrapper">
+    <div class="profile-card js-profile-card">
+
+        <form method="post" id="Form" data-cities-url="{% url 'load_first_category' %}" novalidate>
+            {% csrf_token %}
+            <table>
+              {{ form.as_table }}
+            </table>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="">Nevermind</a>
+          </form>
+
+{#        {{ form|crispy }}#}
+{#        {% include 'files/form.html' %}#}
+    </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block extrascripts %}
+{{ form.media.js }}
+{% endblock %}

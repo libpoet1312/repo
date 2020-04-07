@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from autoslug import AutoSlugField
 from mptt.models import MPTTModel, TreeForeignKey
 # from taggit.managers import TaggableManager
-from taggit_autosuggest.managers import TaggableManager
+from taggit_selectize.managers import TaggableManager
 
 # Create your models here.
 
@@ -15,8 +15,8 @@ class Category(MPTTModel):
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
     def __str__(self):
-        # return self.name
-        return '/'.join([x['name'] for x in self.get_ancestors(include_self=True).values()])
+        return self.name
+        #return '/'.join([x['name'] for x in self.get_ancestors(include_self=True).values()])
 
     def get_category_greek(self):
         return '/'.join([x['name'] for x in self.get_ancestors(include_self=True).values()])

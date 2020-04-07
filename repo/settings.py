@@ -49,12 +49,10 @@ INSTALLED_APPS = [
     'taggit_templatetags2',
     'widget_tweaks',
     'sass_processor',
-    'taggit_autosuggest',
+    'taggit_selectize',
 
     ## comments
-    #'fluent_comments',
     'crispy_forms',
-    #'django_comments',
 
     'rest_framework',
     'star_ratings',
@@ -66,8 +64,11 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-COMMENTS_APP = 'fluent_comments'
+
+TAGGIT_SELECTIZE = {
+    'CREATE': False,
+    'LOAD_THROTTLE': 5,
+}
 
 
 MIDDLEWARE = [

@@ -37,17 +37,16 @@
 
                 <div class="row">
                     {% for area in areas %}
-                        <div class="col-3 border border-dark">
-                            <div class="grid border border-primary">
-                                <figure class="effect-goliath border border-danger">
+                        <div class="col-3">
+                            <div class="grid">
+                                <figure class="effect-goliath">
                                     <img src="{{ area.thumbnail.url }}" alt="thumbnail"/>
                                     <figcaption>
                                         <h2>{{area}}</h2>
-
                                         <p>
                                             {{ area|get_children }}
                                         </p>
-                                        <a href="{% url 'list_files' area.name %}"></a>
+                                        <a href="{% url 'list_files' area.slug %}"></a>
                                     </figcaption>
                                 </figure>
                             </div>

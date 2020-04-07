@@ -76,12 +76,13 @@ a, a:hover {
     align-content: center;
     padding-left: 10px;
     padding-right: 10px;
-    border: black solid; }
+    border: black solid;
+    padding-bottom: 20px; }
   .profile-card__name {
     font-weight: 700;
     font-size: 24px;
     color: black;
-    margin-top: -30px;
+    margin-top: -50px;
     margin-bottom: 20px; }
   .profile-card__txt {
     font-size: 18px;

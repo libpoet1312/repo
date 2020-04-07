@@ -41,7 +41,7 @@ function createCATEGORYTree(jsonData, tree) {
 
 function createAREATree(jsonData, tree) {
     let parsedJson = $.parseJSON(jsonData);
-    //console.log(parsedJson);
+    console.log(parsedJson);
 
     $(tree).jstree({
         core: {
@@ -186,17 +186,66 @@ $(document).ready( function () {
         });
     });
 
-    $(function () {
 
-        var pathArray = window.location.pathname.split('/');
-        console.log(pathArray[2]);
+    areatree.on('ready.jstree', function () {
+        let pathArray = window.location.pathname.split('/');
+        console.log('pathArray= ', pathArray[2]);
 
-        var s = areatree.jstree('search', 'Αγγλικά');
-        $('.jstree-hidden').hide();
-        $('a.jstree-search').parent('li').find('.jstree-hidden').show();
-        console.log(s);
+        let instance = areatree.jstree(true);
+        // console.log('tree instance ', instance);
 
+        let nodes = instance._model.data;
+
+        $.each(nodes, function (index, node) {
+            let original = node.original;
+            if(original !== undefined){
+                console.log('slug', original.slug);
+                if(original.slug && original.slug === pathArray[2]) {
+                    instance.select_node(node);
+                    return false;
+                }
+
+            }
+
+        });
+
+        // var branchCont = instance._model.data;
+        // console.log('branchCont ', branchCont);
+        //
+        // for(var branchKey in branchCont) {
+        //     var branch = branchCont[branchKey];
+        //     var slug = branch.original;
+        //     console.log(slug);
+        //     if(branch.text && branch.text === pathArray[2]) {
+        //
+        //         instance.select_node(branchKey);
+        //         break;
+        //     }
+        // }
     });
+
+    // $(function () {
+    //
+    //     var pathArray = window.location.pathname.split('/');
+    //     console.log(pathArray[2]);
+    //
+    //
+    //
+    //
+    //     var instance = areatree;
+    //     console.log('tree instance ', instance);
+    //     m = instance._model.data;
+    //     console.log('m', m);
+    //
+    //
+    //     for(var i in m) {
+    //         if(m.hasOwnProperty(i) && i !== '#' && m[i].li_attr.name && m[i].li_attr.name === "asdf") {
+    //             instance.select_node(i);
+    //             break;
+    //         }
+    //     }
+    //
+    // });
 
     // ALWAYS load from selectors the checkbox and reload
     const tagscheckbox = document.querySelectorAll("input[type=checkbox]");
