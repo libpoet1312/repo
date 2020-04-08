@@ -1,27 +1,50 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
 
 
 {% block title %}Προσθήκη Αρχείου{% endblock %}
 {% block head %}
-{{ form.media.css }}
+    {{ form.media.css }}
+    <link rel="stylesheet" href="{% static 'css/select2.css' %}">
+
 {% endblock %}
 
 {% block content %}
     <div id="main-content" class="container wrapper">
     <div class="profile-card js-profile-card">
 
-        <form method="post" id="Form" data-cities-url="{% url 'load_first_category' %}" novalidate>
-            {% csrf_token %}
-            <table>
-              {{ form.as_table }}
-            </table>
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a href="">Nevermind</a>
-          </form>
+        <form method="post" id="Form" novalidate style="margin: 20px">
 
-{#        {{ form|crispy }}#}
-{#        {% include 'files/form.html' %}#}
+        {{ form|crispy }}
+
+            <hr/>
+
+            <select id="cat1" class="js-example-basic-single js-states form-control" name="cat1">
+                <option></option>
+                <optgroup label="Προπτυχιακό">
+                    {% for p in prop %}
+                        <option value="{{ p }}">{{ p }}</option>
+                    {% endfor %}
+                </optgroup>
+                <optgroup label="Μεταπτυχιακό">
+                    {% for m in meta %}
+                        <option value="{{ m }}">{{ m }}</option>
+                    {% endfor %}
+                </optgroup>
+
+            </select>
+
+            <hr/>
+            <select id="cat2" class="js-example-basic-single js-states form-control" name="cat1">
+                <option></option>
+
+            </select>
+
+
+        </form>
+
+
     </div>
     </div>
 
@@ -31,4 +54,87 @@
 
 {% block extrascripts %}
 {{ form.media.js }}
+    <script src="{% static 'js/select2.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            let cat1 = $('#cat1');
+            let cat2 = $('#cat2');
+
+            cat1.select2({
+                placeholder: 'Κατηγορία',
+                allowClear: true,
+            });
+
+            cat2.select2({
+                placeholder: 'Μάθημα',
+                allowClear: true,
+                enable: false,
+            });
+
+            cat2.prop("disabled", true);
+
+
+            cat1.change( function () {
+                let selected = $("#cat1 option:selected").val();
+                {#console.log(selected);#}
+
+                if(selected==='Μάθημα'){
+                    $.ajax({
+                    async : true,
+                    type : "GET",
+                    url : {% url 'file_add' %},
+                    dataType : "json",
+                    traditional : true,
+                    data: {cat1: selected},
+
+
+                    success : function(data) {
+                        data = $.parseJSON(data);
+                        console.log(data);
+                        //generate <options from JSON
+                        let list_html = '';
+
+                        list_html += ' <option value=""></option>';
+
+                        $.each(data, function(i, item) {
+                            list_html += '<option value='+data[i]+'>'+data[i]+'</option>';
+                        });
+
+                        cat2.prop("disable", [false]);
+                        cat2.select2('enable', [true]);
+
+                        $('#cat2').html(list_html);
+
+                        console.log(list_html);
+
+                        //set to enabled|disabled
+
+                    },
+
+                    error : function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+                }else{
+                    cat2.prop("disable", [true]);
+                    cat2.prop("disabled", true);
+                    cat2.prop('enable', false);
+                    cat2.prop('enable', [false]);
+                }
+
+
+            });
+
+
+
+
+
+
+
+
+
+        });
+    </script>
+
 {% endblock %}

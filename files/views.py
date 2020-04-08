@@ -6,7 +6,7 @@ from .forms import *
 from .models import *
 from django.urls import reverse_lazy
 import json
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.template.loader import render_to_string
 from django.dispatch import receiver
 from django.db.models import Q
@@ -27,6 +27,7 @@ class HomeView(TemplateView):
 
 class FileDetailView(DetailView):
     model = File
+
 
 class FileCreateView(CreateView):
     model = File
@@ -154,22 +155,15 @@ def get_area_tree_ajax(request):
         return JsonResponse(json.dumps(data), safe=False)
 
 
-def load_first_category(request):
-    category = request.GET.get('firstlevel')
-    firstlevel = Category.objects.all().filter(level=0)
-    print(firstlevel)
-
-    return 0
-
-
 class FileCategoryListView(View):
-    template_name = "movies/movie_category_list.html"
+    template_name = "files/category_list.html"
 
     def get(self, request, *args, **kwargs):
         context = {
             "categories": Category.objects.all(),
         }
         return render(request, self.template_name, context)
+
 
 class SignUpView(BSModalCreateView):
     form_class = CustomUserCreationForm
@@ -215,3 +209,52 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
     if not old_file == new_file:
         if os.path.isfile(old_file.path):
             os.remove(old_file.path)
+
+
+def load_first_category(request):
+    if request.is_ajax():
+        cat = request.GET.get('category2')
+        skata = request.GET.get('skata')
+        print('cat = ', cat)
+        print('skata = ', skata)
+
+        data = Category.objects.all().filter(name=cat)
+
+        print(data)
+
+        return JsonResponse(json.dumps(data), safe=False)
+
+
+def AddFile(request):
+    if request.method == 'GET':
+        if request.is_ajax():
+            cat1 = request.GET.get('cat1')
+            if cat1:
+                obj = get_object_or_404(Category, name=cat1)
+                print(obj)
+                obj_descendants = obj.get_children()
+                print(obj_descendants)
+                res = [str(m) for m in obj_descendants]
+
+                return JsonResponse(json.dumps(res), safe=False)
+
+            return JsonResponse('dsad', safe=False)
+
+        else:
+            form = FileForm()
+            proptypiako = Category.objects.get(name='Προπτυχιακό').get_children()
+            prop = [str(p) for p in proptypiako]
+
+            metaptyxiako = Category.objects.get(name='Μεταπτυχιακό').get_children()
+            meta = [str(m) for m in metaptyxiako]
+            print(meta)
+
+            return render(request, 'files/file_add.html', {'form': form, 'prop': prop, 'meta': meta})
+
+    else:
+        form = FileForm()
+        if form.is_valid():
+            print(form)
+            return HttpResponse('This is POST request')
+        else:
+            return HttpResponse('This is POST request')

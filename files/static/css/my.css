@@ -33,6 +33,7 @@ br {
   font-size: 14px;
   line-height: 1;
   margin-bottom: 0.5rem;
+    width: 100%;
 }
 
 h1,
@@ -281,8 +282,6 @@ figure.effect-goliath:hover p {
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 }
-
-
 
 /*-------------------------------------------
                     FILE CARDS
