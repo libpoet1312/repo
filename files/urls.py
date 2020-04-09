@@ -11,7 +11,7 @@ urlpatterns = [
 
     path(r'cat/', get_cat_tree_ajax, name='cat_ajax_tree'),
     path(r'area/', get_area_tree_ajax, name='area_ajax_tree'),
-    path(r'add/ajax/load_first_category', load_first_category, name='load_first_category'),
+
 
     path('category/', FileCategoryListView.as_view(), name='category_list'),
 

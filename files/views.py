@@ -1,4 +1,5 @@
 import os
+
 from django.shortcuts import render
 from django.views.generic import *
 from bootstrap_modal_forms.generic import BSModalLoginView, BSModalCreateView
@@ -11,6 +12,7 @@ from django.template.loader import render_to_string
 from django.dispatch import receiver
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
@@ -46,6 +48,8 @@ class TagView(ListView):
 
 def ListView(request, area=''):
     files = File.objects.all()
+    page = request.GET.get('page', 1)
+
     if request.is_ajax():
         print('AJAX')
 
@@ -110,12 +114,17 @@ def ListView(request, area=''):
         html = render_to_string('files/renderlist.html', {'file_list': files})
         return JsonResponse(html, safe=False)
     else:
-        print(area)
-        string_utf = area.encode()
-        print(string_utf)
+        paginator = Paginator(files, 3)
+
+        try:
+            file_list = paginator.page(page)
+        except PageNotAnInteger:
+            file_list = paginator.page(1)
+        except EmptyPage:
+            file_list = paginator.page(paginator.num_pages)
 
         return render(request, "files/file_list.html", {
-            'file_list': files,
+            'file_list': file_list,
         })
 
 
@@ -226,11 +235,18 @@ def load_first_category(request):
 
 
 def AddFile(request):
+    proptypiako = Category.objects.get(name='Προπτυχιακό').get_children()
+    prop = [str(p) for p in proptypiako]
+
+    metaptyxiako = Category.objects.get(name='Μεταπτυχιακό').get_children()
+    meta = [str(m) for m in metaptyxiako]
+
     if request.method == 'GET':
         if request.is_ajax():
             cat1 = request.GET.get('cat1')
             if cat1:
-                obj = get_object_or_404(Category, name=cat1)
+                c = cat1.split('/')
+                obj = get_object_or_404(Category, name=c[1])
                 print(obj)
                 obj_descendants = obj.get_children()
                 print(obj_descendants)
@@ -242,19 +258,50 @@ def AddFile(request):
 
         else:
             form = FileForm()
-            proptypiako = Category.objects.get(name='Προπτυχιακό').get_children()
-            prop = [str(p) for p in proptypiako]
 
-            metaptyxiako = Category.objects.get(name='Μεταπτυχιακό').get_children()
-            meta = [str(m) for m in metaptyxiako]
             print(meta)
 
             return render(request, 'files/file_add.html', {'form': form, 'prop': prop, 'meta': meta})
 
     else:
-        form = FileForm()
+        form = FileForm(request.POST, request.FILES)
+
         if form.is_valid():
-            print(form)
-            return HttpResponse('This is POST request')
+            # process the data in form.cleaned_data as required
+            print('PASSED')
+            obj = form.save(commit=False)
+
+            # find category
+            cat1 = request.POST.get('cat1')
+            if cat1:
+                obj.uploader = request.user
+
+                c = cat1.split('/')
+                print(c)
+                parent = get_object_or_404(Category, name=c[0])
+
+                o = Category.objects.all().get(Q(name=c[1]) & Q(parent=parent))
+                print('O=', o)
+
+                # set category
+                cat2 = request.POST.get('cat2')
+                if cat2:
+                    # if category = μαθημα
+                    print(cat2)
+                    o = Category.objects.all().get(name=cat2)
+
+                obj.category = o
+                obj.save()
+
+                return HttpResponse('all good')
+
+
         else:
-            return HttpResponse('This is POST request')
+
+            cat1 = request.POST.get('cat1')
+            print(cat1)
+
+        return HttpResponse('Error')
+
+        # else:
+        #   return render(request, 'files/file_add.html', {'form': form, 'prop': prop, 'meta': meta})

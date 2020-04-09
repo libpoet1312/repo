@@ -27,6 +27,7 @@ urlpatterns = [
     path(r'ratings/', include('star_ratings.urls', namespace='ratings')),
 
 
+
     path('', include('files.urls')),
 
     # path(r'jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),

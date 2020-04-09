@@ -106,7 +106,11 @@
                 {% endfor %}
             </div>
 
+
+
             </div>
+        <div id="paginator"></div>
+            {% include 'files/pagination.html' %}
 
 
 
@@ -119,4 +123,5 @@
 {% block extrascripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
     <script id="myscript" src="{% static 'js/my.js' %}" caturl="{% url 'cat_ajax_tree' %}" areaurl="{% url 'area_ajax_tree' %}"></script>
+    <script src="{% static 'js/pagination.js' %}"></script>
 {% endblock %}

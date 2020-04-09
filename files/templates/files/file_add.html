@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load widget_tweaks %}
 
 
 {% block title %}Προσθήκη Αρχείου{% endblock %}
@@ -12,34 +13,91 @@
 
 {% block content %}
     <div id="main-content" class="container wrapper">
-    <div class="profile-card js-profile-card">
 
-        <form method="post" id="Form" novalidate style="margin: 20px">
+    <br>
+    <div class="profile-card js-profile-card" style="margin: 20px">
+        <h3 class="profile-card__name" style="text-align: center">Προσθήκη Αρχείου</h3>
 
-        {{ form|crispy }}
+
+        <form method="post" id="Form" action="" enctype="multipart/form-data" novalidate style="margin: 40px">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <ul>
+                  {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% for hidden_field in form.hidden_fields %}
+            {% if hidden_field.errors %}
+                <ul>
+                    {% for error in hidden_field.errors %}
+                        <li>(Hidden field {{ hidden_field.name }}) {{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {{ hidden_field }}
+            {% endfor %}
+
+
+            {% for field in form.visible_fields %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+
+                    {% if form.is_bound %}
+                      {% if field.errors %}
+{#                          {{ field }}#}
+                        {% render_field field class="form-control is-invalid" %}
+                        {% for error in field.errors %}
+                          <div class="invalid-feedback">
+                            {{ error }}
+                          </div>
+                        {% endfor %}
+                      {% else %}
+{#                          {{ field }}#}
+                        {% render_field field class="form-control is-valid" %}
+                      {% endif %}
+                    {% else %}
+{#                        {{ field }}#}
+                      {% render_field field class="form-control" %}
+                    {% endif %}
+
+{#                    {% if field.help_text %}#}
+{#                      <small class="form-text text-muted">{{ field.help_text }}</small>#}
+{#                    {% endif %}#}
+                  </div>
+
+            {% endfor %}
+
+
 
             <hr/>
 
-            <select id="cat1" class="js-example-basic-single js-states form-control" name="cat1">
+            <label for="cat1">Επιλογή Κατηγορίας</label><select id="cat1" class="js-example-basic-single js-states form-control" name="cat1">
                 <option></option>
                 <optgroup label="Προπτυχιακό">
                     {% for p in prop %}
-                        <option value="{{ p }}">{{ p }}</option>
+                        <option value="Προπτυχιακό/{{ p }}">{{ p }}</option>
                     {% endfor %}
                 </optgroup>
                 <optgroup label="Μεταπτυχιακό">
                     {% for m in meta %}
-                        <option value="{{ m }}">{{ m }}</option>
+                        <option value="Μεταπτυχιακό/{{ m }}">{{ m }}</option>
                     {% endfor %}
                 </optgroup>
 
             </select>
 
             <hr/>
-            <select id="cat2" class="js-example-basic-single js-states form-control" name="cat1">
+            <label for="cat2">Επιλογή Μαθήματος</label><select id="cat2" class="js-example-basic-single js-states form-control" name="cat2">
                 <option></option>
-
             </select>
+
+             <div class="profile-card-ctr">
+                 <button type="reset" class="profile-card__button button--gray">Άκυρο</button>
+                 <button type="submit" class="profile-card__button button--blue js-message-btn">Προσθήκη</button>
+             </div>
 
 
         </form>
@@ -76,9 +134,10 @@
 
             cat1.change( function () {
                 let selected = $("#cat1 option:selected").val();
-                {#console.log(selected);#}
+                console.log(selected);
 
-                if(selected==='Μάθημα'){
+
+                if(selected==='Προπτυχιακό/Μάθημα'){
                     $.ajax({
                     async : true,
                     type : "GET",
@@ -97,11 +156,14 @@
                         list_html += ' <option value=""></option>';
 
                         $.each(data, function(i, item) {
-                            list_html += '<option value='+data[i]+'>'+data[i]+'</option>';
+                            console.log(data[i]);
+                            list_html += '<option value='+"'"+data[i] +"'"+ '>'+data[i]+'</option>';
                         });
 
                         cat2.prop("disable", [false]);
                         cat2.select2('enable', [true]);
+
+
 
                         $('#cat2').html(list_html);
 
@@ -128,7 +190,10 @@
 
 
 
-
+            cat2.change(function () {
+                let selected = $("#cat2 option:selected").val();
+                console.log(selected);
+            });
 
 
 

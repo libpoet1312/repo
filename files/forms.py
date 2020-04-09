@@ -54,3 +54,4 @@ class FileForm(forms.ModelForm):
             'name', 'summary', 'tags', 'file', 'thumbnail',
             'author',
             'author_email',)
+
