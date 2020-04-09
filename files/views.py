@@ -294,14 +294,12 @@ def AddFile(request):
                 obj.save()
 
                 return HttpResponse('all good')
-
+            else:
+                return render(request, 'files/file_add.html', {'form': form, 'prop': prop, 'meta': meta})
 
         else:
 
             cat1 = request.POST.get('cat1')
             print(cat1)
 
-        return HttpResponse('Error')
-
-        # else:
-        #   return render(request, 'files/file_add.html', {'form': form, 'prop': prop, 'meta': meta})
+            return render(request, 'files/file_add.html', {'form': form, 'prop': prop, 'meta': meta})
