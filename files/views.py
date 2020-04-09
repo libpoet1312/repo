@@ -199,6 +199,7 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
             os.remove(instance.file.path)
 
 
+
 @receiver(models.signals.pre_save, sender=File)
 def auto_delete_file_on_change(sender, instance, **kwargs):
     """
