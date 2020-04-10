@@ -125,7 +125,6 @@ function Reset(){
 
 
 $(document).on('click', '#prev', function(e) {
-
     e.preventDefault();
     page = ($( '#prev' )[0].href).split('=');
     console.log("Previous button Debuggin...", page);
@@ -205,7 +204,12 @@ $(document).ready( function () {
         });
     });
 
-
+    /*
+    *
+    *       GET AREA FROM URL AND SELECT ATTRIBUTE
+    *       THEN IT WILL AUTOMATICALLY CALL THE EVENT AND THEN AJAX
+    *
+    * */
     areatree.on('ready.jstree', function () {
         let pathArray = window.location.pathname.split('/');
         console.log('pathArray= ', pathArray[2]);
@@ -225,27 +229,12 @@ $(document).ready( function () {
                 }
 
             }
-
         });
-
-        // var branchCont = instance._model.data;
-        // console.log('branchCont ', branchCont);
-        //
-        // for(var branchKey in branchCont) {
-        //     var branch = branchCont[branchKey];
-        //     var slug = branch.original;
-        //     console.log(slug);
-        //     if(branch.text && branch.text === pathArray[2]) {
-        //
-        //         instance.select_node(branchKey);
-        //         break;
-        //     }
-        // }
     });
 
 
 
-    // ALWAYS load from selectors the checkbox and reload
+    // load from selectors the checkbox and reload
     const tagscheckbox = document.querySelectorAll("input[type=checkbox]");
     tagscheckbox.forEach( (item, i) => {
         if(item.checked === true){
@@ -253,11 +242,8 @@ $(document).ready( function () {
         }
     });
 
-    if( true ){
-        // AJAX CALL
-        console.log('from reload');
-        Ajax();
-    }
+    // always call ajax when ready document
+    Ajax();
 
 
 
@@ -354,11 +340,6 @@ $(document).ready( function () {
         categories = checked;
         // console.log(checked);
         Ajax();
-
-
-
-        //console.log(data.changed.selected) //
-
 
     });
 

@@ -13,9 +13,9 @@ body {
 
 .center{
     display: flex;
-   flex-direction: column;
-   justify-content: center;
-  text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 
 /*--------------------------------------------------------------
@@ -95,6 +95,12 @@ strong {
 .sidebar{
     background-color: #007489;
     border-radius: 6px;
+    /*width: 480px;*/
+    height: auto;
+    position: relative;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 table {
@@ -296,8 +302,9 @@ figure.effect-goliath:hover p {
     margin-top: 0px;
     margin-bottom: 10px;
     width: 100%;
-    margin-left: 50px;
+    /*margin-left: 50px;*/
     float: right;
+    /*margin-left: 480px;*/
 }
 
 
@@ -323,6 +330,54 @@ figure.effect-goliath:hover p {
     z-index: 4;
     box-shadow: 0px 5px 50px 0px rgba(19, 127, 212, 0.4), 0px 0px 0px 7px #a9babb;
 
+}
+
+/* --------------------------------
+        PAGINATION
+ ------------------------------- -*/
+
+.pagination {
+    text-align: center;
+    background-color: white;
+    border: black 1px solid;
+    position: center;
+    min-height: 45px;
+    /*margin-left: 50px;*/
+    /*margin-left: 480px;*/
+}
+
+.pagination a {
+    text-decoration: none;
+}
+
+
+.pagination-current,
+.pagination-total {
+    padding: 0.5em 0.8em;
+    border-radius: 2px;
+    color: #fff;
+    background-color: #30BF61;
+}
+
+.pagination-total {
+    background-color: #B9B9B9;
+}
+
+.pagination-action {
+    margin-left: 10px;
+    display: inline-block;
+    color: #B9B9B9;
+    font-size: 1.3em;
+}
+
+.pagination-of {
+
+    color: #B9B9B9;
+    padding: 0 1em;
+}
+
+.pagination-action:hover {
+    color: #3354AA;
 }
 
 /*-------------------------------------------

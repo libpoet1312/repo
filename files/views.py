@@ -1,5 +1,6 @@
 import os
 
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 from django.template import RequestContext
@@ -32,6 +33,7 @@ class FileDetailView(DetailView):
     model = File
 
 
+@login_required
 class FileCreateView(CreateView):
     model = File
     form_class = FileForm
@@ -42,97 +44,127 @@ class FileCreateView(CreateView):
         obj.uploader = self.request.user
         return super(FileCreateView, self).form_valid(form)
 
-
-class TagView(ListView):
-    model = File
+def filter(request, files):
 
 
-def ListView(request, area=''):
-    files = File.objects.all()
+    text_search = request.GET.get('text_search')
+    if text_search:
+        files = files.filter(
+            Q(name__contains=text_search) |
+            Q(summary__contains=text_search)
+        )
+
+    tags = request.GET.getlist('tags')
+    if tags:
+        files = files.filter(tags__name__in=tags).distinct()
+
+    categories = request.GET.getlist('categories')
+    if categories:
+        cat_path = []
+        cat_obj = []
+        query = []
+        cat = Category.objects.all()
+        for c in cat:
+            cat_obj.append(c)
+            cat_path.append(c.get_category_greek())
+
+        print(cat_obj)
+
+        for category in categories:
+            print('category=' + category)
+            if category in cat_path:
+                index = cat_path.index(category)
+                print(cat_obj[index])
+                query.append(cat_obj[index])
+        files = files.filter(category__in=query)
+
+    areas = request.GET.getlist('areas')
+
+    if areas:
+        q = []
+        q1 = []
+        print('ORIGINAL AREAS', areas)
+        for idx, area in enumerate(areas):
+            print(area)
+            if '/' in area:
+                n = area.split('/')
+                areas[idx] = n[1]
+            else:
+                area_obj = get_object_or_404(Area, name=area)
+                area_obj_descendants = area_obj.get_descendants(include_self=True)
+                for child in area_obj_descendants:
+                    q.append(child)
+
+            print('NEW AREAS=', areas)
+            print('Q=', q)
+
+        files = files.filter(
+            Q(area__name__in=areas) |
+            Q(area__name__in=q)
+        ).distinct()
+
+    return files
+
+
+@login_required()
+def Myfiles(request):
+    print('MY FILES')
+    files = File.objects.all().order_by('dateCreated')
     page = 1
-
-
+    files = files.filter(uploader__username__exact=request.user)
     if request.is_ajax():
         pageres = request.GET.get('page')
         if pageres is not None:
             page = pageres
 
-        print('PAGE=', page)
-        print('AJAX')
+        files = filter(request, files)
 
-        text_search = request.GET.get('text_search')
-        if text_search:
-            files = files.filter(
-                Q(name__contains=text_search) |
-                Q(summary__contains=text_search)
-            )
-
-        tags = request.GET.getlist('tags')
-        if tags:
-            files = files.filter(tags__name__in=tags).distinct()
-
-        categories = request.GET.getlist('categories')
-        if categories:
-            cat_path = []
-            cat_obj = []
-            query = []
-            cat = Category.objects.all()
-            for c in cat:
-                cat_obj.append(c)
-                cat_path.append(c.get_category_greek())
-
-            print(cat_obj)
-
-            for category in categories:
-                print('category=' + category)
-                if category in cat_path:
-                    index = cat_path.index(category)
-                    print(cat_obj[index])
-                    query.append(cat_obj[index])
-            files = files.filter(category__in=query)
-
-        areas = request.GET.getlist('areas')
-
-        if areas:
-            q = []
-            q1 = []
-            print('ORIGINAL AREAS', areas)
-            for idx, area in enumerate(areas):
-                print(area)
-                if '/' in area:
-                    n = area.split('/')
-                    areas[idx] = n[1]
-                else:
-                    area_obj = get_object_or_404(Area, name=area)
-                    area_obj_descendants = area_obj.get_descendants(include_self=True)
-                    for child in area_obj_descendants:
-                        q.append(child)
-
-                print('NEW AREAS=', areas)
-                print('Q=', q)
-
-            files = files.filter(
-                Q(area__name__in=areas) |
-                Q(area__name__in=q)
-            ).distinct()
-
-        print(files)
         paginator = Paginator(files, 3)
 
         try:
-            print('PAGEdsda=', page)
             file_list = paginator.page(page)
         except PageNotAnInteger:
             file_list = paginator.page(1)
         except EmptyPage:
             file_list = paginator.page(paginator.num_pages)
 
+        html = render_to_string('files/renderlist.html', {'file_list': file_list})
+        return JsonResponse(html, safe=False)
+    else:
+        return render(request, "files/file_list.html", {})
+
+
+
+
+def ListView(request, area='', category=''):
+    print('LIST VIEW')
+    files = File.objects.all().order_by('dateCreated')
+    page = 1
+    print(request.user.is_authenticated)
+    if request.user.is_authenticated:
+        files = files.filter(uploader__username__exact=request.user)
+
+    if request.is_ajax():
+        pageres = request.GET.get('page')
+        if pageres is not None:
+            page = pageres
+
+        files = filter(request, files)
+
+        print(files)
+        paginator = Paginator(files, 3)
+
+        try:
+            file_list = paginator.page(page)
+        except PageNotAnInteger:
+            file_list = paginator.page(1)
+        except EmptyPage:
+            file_list = paginator.page(paginator.num_pages)
 
         html = render_to_string('files/renderlist.html', {'file_list': file_list})
         return JsonResponse(html, safe=False)
 
     else:
-
 
         return render(request, "files/file_list.html", {})
 
@@ -197,6 +229,7 @@ class CustomLoginView(BSModalLoginView):
     success_url = reverse_lazy('home')
 
 
+@login_required
 @receiver(models.signals.post_delete, sender=File)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
     print('DELETE')
@@ -206,7 +239,7 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
             os.remove(instance.file.path)
 
 
-
+@login_required
 @receiver(models.signals.pre_save, sender=File)
 def auto_delete_file_on_change(sender, instance, **kwargs):
     """
@@ -241,7 +274,7 @@ def load_first_category(request):
 
         return JsonResponse(json.dumps(data), safe=False)
 
-
+@login_required
 def AddFile(request):
     proptypiako = Category.objects.get(name='Προπτυχιακό').get_children()
     prop = [str(p) for p in proptypiako]

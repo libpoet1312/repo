@@ -22,7 +22,7 @@ from django.views.i18n import JavaScriptCatalog
 
 urlpatterns = [
     path('taggit/', include('taggit_selectize.urls')),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path(r'select2/', include('django_select2.urls')),
     path(r'ratings/', include('star_ratings.urls', namespace='ratings')),
 

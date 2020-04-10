@@ -1,5 +1,6 @@
 {% load static %}
 {% load sass_tags %}
+{% load admin_urls %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,10 +73,10 @@
                               {{ user }} <i class="fas fa-user"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item " href="{% url 'file_add' %}">Νέο Αρχείο <i class="fas fa-plus-circle fa-2x"></i></a>
-                                <a class="dropdown-item" href="">Τα αρχεία μου <i class="fas fa-server fa-2x"></i></a>
-                                <a class="dropdown-item" href="">Διαχείρηση <i class="fas fa-user-cog fa-2x"></i></a>
-                                <a href="{% url 'logout' %}" class="dropdown-item" >Αποσύνδεση <i class="fas fa-sign-out-alt fa-2x"></i></a>
+                                <a class="dropdown-item" href="{% url 'file_add' %}">Νέο Αρχείο &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-plus-circle fa-2x"></i></a>
+                                <a class="dropdown-item" href="{% url 'my_files' %}">Τα αρχεία μου &nbsp;&nbsp;&nbsp;<i class="fas fa-server fa-2x"></i></a>
+                                <a class="dropdown-item" href="{% url 'admin:index' %}">Διαχείρηση&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-user-cog fa-2x"></i></a>
+                                <a href="{% url 'logout' %}" class="dropdown-item" >Αποσύνδεση&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-sign-out-alt fa-2x"></i></a>
                             </div>
                         </li>
                     </ul>
