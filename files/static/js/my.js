@@ -2,6 +2,7 @@ let tags = [];
 let categories = [];
 let areas = [];
 let text_search;
+let page;
 
 const areatree = $('#Areatree');
 const categorytree = $('#Cattree');
@@ -87,7 +88,8 @@ function Ajax(){
                 tags : tags,
                 categories: categories,
                 areas: areas,
-                text_search: text_search
+                text_search: text_search,
+                page: page,
             },
 
             success : function(json) {
@@ -120,6 +122,23 @@ function Reset(){
 
     Ajax();
 }
+
+
+$(document).on('click', '#prev', function(e) {
+
+    e.preventDefault();
+    page = ($( '#prev' )[0].href).split('=');
+    console.log("Previous button Debuggin...", page);
+    Ajax();
+});
+
+$(document).on('click', '#next', function(e) {
+
+    e.preventDefault();
+    page = ($( '#next' )[0].href).split('=');
+    console.log("Next button Debuggin...", page);
+    Ajax();
+});
 
 /// DOM READY AREA ///
 $(document).ready( function () {
@@ -199,7 +218,7 @@ $(document).ready( function () {
         $.each(nodes, function (index, node) {
             let original = node.original;
             if(original !== undefined){
-                console.log('slug', original.slug);
+                // console.log('slug', original.slug);
                 if(original.slug && original.slug === pathArray[2]) {
                     instance.select_node(node);
                     return false;
@@ -224,28 +243,7 @@ $(document).ready( function () {
         // }
     });
 
-    // $(function () {
-    //
-    //     var pathArray = window.location.pathname.split('/');
-    //     console.log(pathArray[2]);
-    //
-    //
-    //
-    //
-    //     var instance = areatree;
-    //     console.log('tree instance ', instance);
-    //     m = instance._model.data;
-    //     console.log('m', m);
-    //
-    //
-    //     for(var i in m) {
-    //         if(m.hasOwnProperty(i) && i !== '#' && m[i].li_attr.name && m[i].li_attr.name === "asdf") {
-    //             instance.select_node(i);
-    //             break;
-    //         }
-    //     }
-    //
-    // });
+
 
     // ALWAYS load from selectors the checkbox and reload
     const tagscheckbox = document.querySelectorAll("input[type=checkbox]");
@@ -254,12 +252,15 @@ $(document).ready( function () {
             tags.push(item.value)
         }
     });
-    console.log(tags);
-    if( tags.length ){
+
+    if( true ){
         // AJAX CALL
         console.log('from reload');
-        Ajax()
+        Ajax();
     }
+
+
+
 
     /// CATEGORY
     /// TREE SEARCH
@@ -462,3 +463,5 @@ $(document).ready( function () {
 
 
 });
+
+

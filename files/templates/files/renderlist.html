@@ -2,50 +2,82 @@
 {% load widget_tweaks %}
 
 
-
 <!-- FILE LIST -->
+<div class="container">
+    <div class="row">
 
-    {% for file in file_list %}
-
-        <div class="card">
-            <div class="card-header"><h5>{{ file }}</h5></div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-2">
-                        <div class="">
-                            <img {% if file.thumbnail.url %}
-                                src="{{ file.thumbnail.url }}"
-                            {% else %}
-                                src="{% static 'images/no_thumbnail.png' %}"
-                            {% endif %}
-                                alt="File thumbnail" style="width: 100px; height: 100px"
-                            />
+        {% for file in file_list %}
+            <div id="card" class="card">
+                <div class="card-header"><a href="{% url 'file_detail' file.slug %}"><h5>{{ file }}</h5></a></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="">
+                                <img {% if file.thumbnail.url %}
+                                    src="{{ file.thumbnail.url }}"
+                                {% else %}
+                                    src="{% static 'images/no_thumbnail.png' %}"
+                                {% endif %}
+                                    alt="File thumbnail" class="thumbimage"
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="row col-margin card-semi-title">
-                            Περιγραφή:
+                        <div class="col">
+                            <div class="row col-margin card-semi-title">
+                                Περιγραφή:
+                            </div>
+                            <div class="row col-margin text-justify align-middle">
+                                {{ file.summary|truncatechars:250 }}
+                            </div>
                         </div>
-                        <div class="row col-margin text-justify align-middle">
-                            {{ file.summary|truncatechars:250 }}
+                        <div class="col text-left">
+                            <p><a class="card-semi-title" style="color: #007489;" >Κατηγορία:</a><i> {{ file.category }}</i></p>
+                            <p><a class="card-semi-title" style="color: #007489;">Επιστημονικές Περιοχές:</a>
+                                {% for area in file.area.all %}
+                                    <i> {{ area }}</i> {% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            </p>
+                            <p><a class="card-semi-title" style="color: #007489;">Ετικέτες:</a>
+                                {% for tag in file.tags.all %}
+                                    <i> {{ tag }}</i> {% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            </p>
                         </div>
-                    </div>
-                    <div class="col text-left">
-                        <p><a class="card-semi-title" style="color: #007489;" >Κατηγορία:</a><i> {{ file.category }}</i></p>
-                        <p><a class="card-semi-title" style="color: #007489;">Επιστημονικές Περιοχές:</a>
-                            {% for area in file.area.all %}
-                                <i> {{ area }}</i> {% if not forloop.last %},{% endif %}
-                            {% endfor %}
-                        </p>
-                        <p><a class="card-semi-title" style="color: #007489;">Ετικέτες:</a>
-                            {% for tag in file.tags.all %}
-                                <i> {{ tag }}</i> {% if not forloop.last %},{% endif %}
-                            {% endfor %}
-                        </p>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+
+        <div class="pagination card" id="card">
+                <span class="card-body step-links">
+                    {% if file_list.has_previous %}
+                    <a id="prev" href="?page={{ file_list.previous_page_number }}">previous</a>
+                    {% else %}
+                    <span style="visibility:hidden;">previous</span>
+                    {% endif %}
+
+                    <span class="current">
+                    Page {{ file_list.number }} of {{ file_list.paginator.num_pages }}.
+                    </span>
+
+                    {% if file_list.has_next %}
+                                <a id="next" href="?page={{ file_list.number|add:1 }}">next</a>
+                    {% else %}
+                                <span style="visibility:hidden;">next</span>
+                    {% endif %}
+                </span>
+            </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
 
 

@@ -84,3 +84,74 @@
             #     Q(area__name__in=q) |
             #     Q(area__name__in=q1)
             # )
+
+
+
+{% for file in file_list %}
+
+                    <div class="card" id="card">
+                        <a class="card-header" href="{% url 'file_detail' file.slug %}"><h5>{{ file }}</h5></a>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-2 center">
+                                        <img class="thumbimage"
+                                            {% if file.thumbnail.url %}
+                                                src="{{ file.thumbnail.url }}"
+                                            {% else %}
+                                                src="{% static 'images/no_thumbnail.png' %}"
+                                            {% endif %}
+                                    alt="File thumbnail"/>
+                                </div>
+                                <div class="col center">
+                                    <div class="row card-semi-title">
+                                        Περιγραφή:
+                                        <p></p>
+                                    </div>
+                                    <div class="row col-margin text-justify align-middle">
+                                        {{ file.summary|truncatechars:250 }}
+                                    </div>
+
+                                </div>
+                                <hr/>
+                                <div class="col center text-left">
+                                    <p><a class="card-semi-title" style="color: #007489;" >Κατηγορία:</a><i> {{ file.category }}</i></p>
+                                    <p><a class="card-semi-title" style="color: #007489;">Επιστημονικές Περιοχές:</a>
+                                        {% for area in file.area.all %}
+                                            <i> {{ area }}</i> {% if not forloop.last %},{% endif %}
+                                        {% endfor %}
+                                    </p>
+                                    <div><a class="card-semi-title" style="color: #007489;">Ετικέτες:</a>
+                                        {% for tag in file.tags.all %}
+                                            <i> {{ tag }}</i> {% if not forloop.last %},{% endif %}
+                                        {% endfor %}
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+
+    // $(function () {
+    //
+    //     var pathArray = window.location.pathname.split('/');
+    //     console.log(pathArray[2]);
+    //
+    //
+    //
+    //
+    //     var instance = areatree;
+    //     console.log('tree instance ', instance);
+    //     m = instance._model.data;
+    //     console.log('m', m);
+    //
+    //
+    //     for(var i in m) {
+    //         if(m.hasOwnProperty(i) && i !== '#' && m[i].li_attr.name && m[i].li_attr.name === "asdf") {
+    //             instance.select_node(i);
+    //             break;
+    //         }
+    //     }
+    //
+    // });

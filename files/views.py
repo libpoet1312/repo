@@ -1,6 +1,8 @@
 import os
 
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
+from django.template import RequestContext
 from django.views.generic import *
 from bootstrap_modal_forms.generic import BSModalLoginView, BSModalCreateView
 from .forms import *
@@ -12,7 +14,6 @@ from django.template.loader import render_to_string
 from django.dispatch import receiver
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
@@ -48,9 +49,15 @@ class TagView(ListView):
 
 def ListView(request, area=''):
     files = File.objects.all()
-    page = request.GET.get('page', 1)
+    page = 1
+
 
     if request.is_ajax():
+        pageres = request.GET.get('page')
+        if pageres is not None:
+            page = pageres
+
+        print('PAGE=', page)
         print('AJAX')
 
         text_search = request.GET.get('text_search')
@@ -110,22 +117,24 @@ def ListView(request, area=''):
             ).distinct()
 
         print(files)
-
-        html = render_to_string('files/renderlist.html', {'file_list': files})
-        return JsonResponse(html, safe=False)
-    else:
         paginator = Paginator(files, 3)
 
         try:
+            print('PAGEdsda=', page)
             file_list = paginator.page(page)
         except PageNotAnInteger:
             file_list = paginator.page(1)
         except EmptyPage:
             file_list = paginator.page(paginator.num_pages)
 
-        return render(request, "files/file_list.html", {
-            'file_list': file_list,
-        })
+
+        html = render_to_string('files/renderlist.html', {'file_list': file_list})
+        return JsonResponse(html, safe=False)
+
+    else:
+
+
+        return render(request, "files/file_list.html", {})
 
 
 ## CATEGORY TREE
@@ -190,10 +199,8 @@ class CustomLoginView(BSModalLoginView):
 
 @receiver(models.signals.post_delete, sender=File)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
-    """
-    Deletes file from filesystem
-    when corresponding `MediaFile` object is deleted.
-    """
+    print('DELETE')
+
     if instance.file:
         if os.path.isfile(instance.file.path):
             os.remove(instance.file.path)
