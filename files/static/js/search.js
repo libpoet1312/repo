@@ -1,6 +1,6 @@
 // variable that keeps all the filter information
 
-var send_data = {}
+var send_data = {};
 
 $(document).ready(function () {
     // reset all parameters on page load
@@ -18,7 +18,7 @@ $(document).ready(function () {
     $('#course').on('change', function () {
         // get the api data of updated variety
 
-        if(this.value == "all")
+        if(this.value === "all")
             send_data['course'] = "";
         else
             send_data['course'] = this.value;
@@ -29,13 +29,13 @@ $(document).ready(function () {
     $('#tag').on('change', function () {
         // get the api data of updated variety
 
-        if(this.value == "all")
+        if(this.value === "all")
             send_data['tag'] = "";
         else
             send_data['tag'] = this.value;
         getAPIData();
     });
-})
+});
 
 /**
     Function that resets all the filters
@@ -46,7 +46,7 @@ function resetFilters() {
 }
 
 function getAPIData() {
-    let url = $('#list_data').attr("url")
+    let url = $('#list_data').attr("url");
     $.ajax({
         method: 'GET',
         url: url,

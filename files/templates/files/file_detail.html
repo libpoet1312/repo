@@ -2,6 +2,7 @@
 {% load static %}
 {% load taggit_templatetags2_tags %}
 {% get_taglist as tags %}
+{% load isOwner %}
 
 {% load ratings %}
 
@@ -113,23 +114,16 @@
                         <div class="col">
                             <div class="profile-card-ctr">
                                 {% ratings object %}
-
                             </div>
                         </div>
+                {% if user|isOwner:file %}
                         <div class="col">
                             <div class="profile-card-ctr">
                                 <button class="profile-card__button button--orange">Επεξεργασία</button>
-
                             </div>
                         </div>
-                </div>
-
-
-
-
-
-
-
+                {% endif %}
+                    </div>
                 </div>
 
 

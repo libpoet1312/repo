@@ -44,9 +44,8 @@ class FileCreateView(CreateView):
         obj.uploader = self.request.user
         return super(FileCreateView, self).form_valid(form)
 
+
 def filter(request, files):
-
-
     text_search = request.GET.get('text_search')
     if text_search:
         files = files.filter(
@@ -134,15 +133,13 @@ def Myfiles(request):
         return render(request, "files/file_list.html", {})
 
 
-
-
 def ListView(request, area='', category=''):
     print('LIST VIEW')
     files = File.objects.all().order_by('dateCreated')
     page = 1
     print(request.user.is_authenticated)
-    if request.user.is_authenticated:
-        files = files.filter(uploader__username__exact=request.user)
+    #if request.user.is_authenticated:
+    #    files = files.filter(uploader__username__exact=request.user)
 
     if request.is_ajax():
         pageres = request.GET.get('page')
@@ -273,6 +270,7 @@ def load_first_category(request):
         print(data)
 
         return JsonResponse(json.dumps(data), safe=False)
+
 
 @login_required
 def AddFile(request):
