@@ -15,10 +15,12 @@ urlpatterns = [
     # CRUD VIEWS #
     path(r'files/myfiles/', Myfiles, name='my_files'),  # LIST MY FILES
 
-    path('files/<slug:slug>/', FileDetailView.as_view(), name='file_detail'),  # FILE DETAIL VIEW
-
     path(r'files/<area>/', ListView, name='list_files'),  # LIST FILES BY AREA
     path(r'files/<category>/', ListView, name='list_files'),  # LIST FILES BY CATEGORY
+
+    path('files/<slug:slug>/', FileDetailView.as_view(), name='file_detail'),  # FILE DETAIL VIEW
+
+
 
 
     path(r'files/', ListView, name='list_files'),
