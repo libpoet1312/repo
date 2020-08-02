@@ -14,96 +14,94 @@
 {% block content %}
     <div id="main-content" class="container wrapper">
 
-    <br>
-    <div class="profile-card js-profile-card" style="margin: 20px">
-        <h3 class="profile-card__name" style="text-align: center">Προσθήκη Αρχείου</h3>
+        <br>
+        <div class="profile-card js-profile-card" style="margin: 20px">
+            <h3 class="profile-card__name" style="text-align: center">Προσθήκη Αρχείου</h3>
 
 
-        <form method="post" id="Form" action="" enctype="multipart/form-data" novalidate style="margin: 40px">
-            {% csrf_token %}
-            {% if form.non_field_errors %}
-                <ul>
-                  {% for error in form.non_field_errors %}
-                    <li>{{ error }}</li>
-                  {% endfor %}
-                </ul>
-            {% endif %}
+            <form method="post" id="Form" action="" enctype="multipart/form-data" novalidate style="margin: 40px">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <ul>
+                      {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                      {% endfor %}
+                    </ul>
+                {% endif %}
 
-            {% for hidden_field in form.hidden_fields %}
-            {% if hidden_field.errors %}
-                <ul>
-                    {% for error in hidden_field.errors %}
-                        <li>(Hidden field {{ hidden_field.name }}) {{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            {{ hidden_field }}
-            {% endfor %}
-
-
-            {% for field in form.visible_fields %}
-                <div class="form-group">
-                    {{ field.label_tag }}
-
-                    {% if form.is_bound %}
-                      {% if field.errors %}
-{#                          {{ field }}#}
-                        {% render_field field class="form-control is-invalid" %}
-                        {% for error in field.errors %}
-                          <div class="invalid-feedback">
-                            {{ error }}
-                          </div>
+                {% for hidden_field in form.hidden_fields %}
+                {% if hidden_field.errors %}
+                    <ul>
+                        {% for error in hidden_field.errors %}
+                            <li>(Hidden field {{ hidden_field.name }}) {{ error }}</li>
                         {% endfor %}
-                      {% else %}
-{#                          {{ field }}#}
-                        {% render_field field class="form-control is-valid" %}
-                      {% endif %}
-                    {% else %}
-{#                        {{ field }}#}
-                      {% render_field field class="form-control" %}
-                    {% endif %}
-
-{#                    {% if field.help_text %}#}
-{#                      <small class="form-text text-muted">{{ field.help_text }}</small>#}
-{#                    {% endif %}#}
-                  </div>
-
-            {% endfor %}
+                    </ul>
+                {% endif %}
+                {{ hidden_field }}
+                {% endfor %}
 
 
+                {% for field in form.visible_fields %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
 
-            <hr/>
+                        {% if form.is_bound %}
+                          {% if field.errors %}
+    {#                          {{ field }}#}
+                            {% render_field field class="form-control is-invalid" %}
+                            {% for error in field.errors %}
+                              <div class="invalid-feedback">
+                                {{ error }}
+                              </div>
+                            {% endfor %}
+                          {% else %}
+    {#                          {{ field }}#}
+                            {% render_field field class="form-control is-valid" %}
+                          {% endif %}
+                        {% else %}
+    {#                        {{ field }}#}
+                          {% render_field field class="form-control" %}
+                        {% endif %}
 
-            <label for="cat1">Επιλογή Κατηγορίας</label><select id="cat1" class="js-example-basic-single js-states form-control" name="cat1">
-                <option></option>
-                <optgroup label="Προπτυχιακό">
-                    {% for p in prop %}
-                        <option value="Προπτυχιακό/{{ p }}">{{ p }}</option>
-                    {% endfor %}
-                </optgroup>
-                <optgroup label="Μεταπτυχιακό">
-                    {% for m in meta %}
-                        <option value="Μεταπτυχιακό/{{ m }}">{{ m }}</option>
-                    {% endfor %}
-                </optgroup>
+    {#                    {% if field.help_text %}#}
+    {#                      <small class="form-text text-muted">{{ field.help_text }}</small>#}
+    {#                    {% endif %}#}
+                      </div>
 
-            </select>
-
-            <hr/>
-            <label for="cat2">Επιλογή Μαθήματος</label><select id="cat2" class="js-example-basic-single js-states form-control" name="cat2">
-                <option></option>
-            </select>
-
-             <div class="profile-card-ctr">
-                 <button type="reset" onClick="window.location='{% url 'list_files' %}'" class="profile-card__button button--gray">Άκυρο</button>
-                 <button type="submit" class="profile-card__button button--blue js-message-btn float-right">Προσθήκη</button>
-             </div>
-
-
-        </form>
+                {% endfor %}
 
 
-    </div>
+
+                <hr/>
+
+                <label for="cat1">Επιλογή Κατηγορίας</label>
+                <select id="cat1" class="js-example-basic-single js-states form-control" name="cat1">
+                    <option></option>
+                    <optgroup label="Προπτυχιακό">
+                        {% for p in prop %}
+                            <option value="Προπτυχιακό/{{ p }}">Προπτυχιακό/{{ p }}</option>
+                        {% endfor %}
+                    </optgroup>
+                    <optgroup label="Μεταπτυχιακό">
+                        {% for m in meta %}
+                            <option value="Μεταπτυχιακό/{{ m }}">Μεταπτυχιακό/{{ m }}</option>
+                        {% endfor %}
+                    </optgroup>
+
+                </select>
+
+                <hr/>
+                <label for="cat2">Επιλογή Υποκατηγορίας</label>
+                <select id="cat2" class="js-example-basic-single js-states form-control" name="cat2">
+                    <option></option>
+                </select>
+
+                 <div class="profile-card-ctr">
+                     <button type="reset" onClick="window.location='{% url 'list_files' %}'" class="profile-card__button button--gray">Άκυρο</button>
+                     <button type="submit" class="profile-card__button button--blue js-message-btn float-right">Προσθήκη</button>
+                 </div>
+            </form>
+        </div>
     </div>
 
 
@@ -124,7 +122,7 @@
             });
 
             cat2.select2({
-                placeholder: 'Μάθημα',
+                placeholder: 'Μάθημα/Σ.Π.Α.',
                 allowClear: true,
                 enable: false,
             });
@@ -178,14 +176,47 @@
                         alert(thrownError);
                     }
                 });
+                }else if(selected==='Προπτυχιακό/Σ.Π.Α.'){
+                    $.ajax({
+                        async : true,
+                        type : "GET",
+                        url : {% url 'file_add' %},
+                        dataType : "json",
+                        traditional : true,
+                        data: {cat1: selected},
+
+
+                        success : function(data) {
+                            data = $.parseJSON(data);
+                            console.log(data);
+                            //generate <options from JSON
+                            let list_html = '';
+
+                            list_html += ' <option value=""></option>';
+
+                            $.each(data, function (i, item) {
+                                console.log(data[i]);
+                                list_html += '<option value=' + "'" + data[i] + "'" + '>' + data[i] + '</option>';
+                            });
+
+                            cat2.prop("disable", [false]);
+                            cat2.select2('enable', [true]);
+
+
+                            $('#cat2').html(list_html);
+
+                            console.log(list_html);
+                        },
+                    error : function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }});
                 }else{
                     cat2.prop("disable", [true]);
                     cat2.prop("disabled", true);
                     cat2.prop('enable', false);
                     cat2.prop('enable', [false]);
                 }
-
-
             });
 
 

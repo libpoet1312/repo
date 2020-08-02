@@ -11,7 +11,6 @@ a, a:hover {
 
 .wrapper {
   width: 100%;
-  width: 100%;
   height: auto;
   min-height: 50vh;
   padding: 100px 50px 80px;
@@ -34,13 +33,13 @@ a, a:hover {
   width: 100%;
   min-height: 460px;
   margin: auto;
-  box-shadow: 0px 8px 60px -10px rgba(13, 28, 39, 0.6);
+  box-shadow: 0 8px 60px -10px rgba(13, 28, 39, 0.6);
   background: #fff;
   border-radius: 12px;
   max-width: 1000px;
   min-width: 500px;
   position: relative;
-  border: black solid; }
+  border: red solid; }
   .profile-card.active .profile-card-message,
   .profile-card.active .profile-card__overlay {
     opacity: 1;
@@ -60,7 +59,7 @@ a, a:hover {
     overflow: hidden;
     position: relative;
     z-index: 4;
-    box-shadow: 0px 5px 50px 0px rgba(19, 127, 212, 0.4), 0px 0px 0px 7px #a9babb; }
+    box-shadow: 0 5px 50px 0 rgba(19, 127, 212, 0.4), 0 0 0 7px #a9babb; }
     @media screen and (max-width: 576px) {
       .profile-card__img {
         width: 120px;
@@ -76,7 +75,7 @@ a, a:hover {
     align-content: center;
     padding-left: 10px;
     padding-right: 10px;
-    border: black solid;
+    border: red solid;
     padding-bottom: 20px; }
   .profile-card__name {
     font-weight: 700;
@@ -100,10 +99,13 @@ a, a:hover {
   .profile-card-inf__title {
     font-weight: 700;
     font-size: 22px;
-    color: #007489; }
+    color: #007489;
+    align-self: flex-start;
+    border: red 2px; }
   .profile-card-inf__txt {
     font-weight: 500;
-    margin-top: 7px; }
+    margin-top: 7px;
+    border: red 2px; }
   .profile-card-inf__title2 {
     font-weight: 500;
     font-size: 20px;
@@ -156,14 +158,14 @@ a, a:hover {
       margin-right: 0; }
     .profile-card__button.button--blue {
       background: linear-gradient(45deg, #007489, #0e71c8);
-      box-shadow: 0px 4px 30px rgba(19, 127, 212, 0.4); }
+      box-shadow: 0 4px 30px rgba(19, 127, 212, 0.4); }
       .profile-card__button.button--blue:hover {
-        box-shadow: 0px 7px 30px rgba(19, 127, 212, 0.75); }
+        box-shadow: 0 7px 30px rgba(19, 127, 212, 0.75); }
     .profile-card__button.button--orange {
       background: linear-gradient(45deg, #d5135a, #f05924);
-      box-shadow: 0px 4px 30px rgba(223, 45, 70, 0.35); }
+      box-shadow: 0 4px 30px rgba(223, 45, 70, 0.35); }
       .profile-card__button.button--orange:hover {
-        box-shadow: 0px 7px 30px rgba(223, 45, 70, 0.75); }
+        box-shadow: 0 7px 30px rgba(223, 45, 70, 0.75); }
     .profile-card__button.button--gray {
       box-shadow: none;
       background: rgba(54, 88, 128, 0.38);
@@ -231,5 +233,3 @@ a, a:hover {
     background: rgba(22, 33, 72, 0.35);
     border-radius: 12px;
     transition: all .3s; }
-
-/*# sourceMappingURL=style.css.map */

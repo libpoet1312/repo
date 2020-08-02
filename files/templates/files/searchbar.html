@@ -1,5 +1,4 @@
-{% load taggit_templatetags2_tags %}
-{% get_taglist as tags %}
+
 
 <div class="container">
     <div class="searchinput">
@@ -9,22 +8,22 @@
             <button type="submit" class="submit"><i class="fas fa-search"></i></button>
         </form>
     <br>
-        <form class="dropdown">
-            <a class="tags">Ετικέτες <i class="fa fa-caret-down caret-icon"></i></a>
-            <div class="dropdown-content" id="tagmenu">
-                <div>
-                    {% for tag in tags %}
-                        <div class="pretty p-default">
-                            <input id="{{ tag.slug }}" type="checkbox" value="{{ tag }}"/>
-                            <div class="state p-primary">
-                                <label style="vertical-align: middle;margin-right: 5px;" for="{{ tag.slug }}">{{ tag }}</label>
-                            </div>
-                        </div>
-                        {% if forloop.counter|divisibleby:6 %}<br>{% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-        </form>
+{#        <form class="dropdown">#}
+{#            <a class="tags">Ετικέτες <i class="fa fa-caret-down caret-icon"></i></a>#}
+{#            <div class="dropdown-content" id="tagmenu">#}
+{#                <div>#}
+{#                    {% for tag in tags %}#}
+{#                        <div class="pretty p-default">#}
+{#                            <input id="{{ tag.slug }}" type="checkbox" value="{{ tag }}"/>#}
+{#                            <div class="state p-primary">#}
+{#                                <label style="vertical-align: middle;margin-right: 5px;" for="{{ tag.slug }}">{{ tag }}</label>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        {% if forloop.counter|divisibleby:6 %}<br>{% endif %}#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </form>#}
     </div>
     <div>
         Ταξινομηση κατά:

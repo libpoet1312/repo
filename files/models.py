@@ -44,6 +44,9 @@ class Area(MPTTModel):
     def get_name(self):
         return self.name
 
+    def get_area_greek(self):
+        return '/'.join([x['name'] for x in self.get_ancestors(include_self=True).values()])
+
     class MPTTMeta:
         order_insertion_by = ['name']
 
@@ -66,8 +69,10 @@ class File(models.Model):
     # Date of uploading the file #
     dateCreated = models.DateTimeField(auto_now_add=True)
 
-    category = models.ForeignKey(Category, help_text='Επιλέξτε κατηγορία', verbose_name='Κατηγορία', on_delete=models.CASCADE)
-    area = models.ManyToManyField(Area, help_text='Επιλέξτε Επιστημονική κατηγορία', verbose_name='Επιστημονική κατηγορία')
+    category = models.ForeignKey(Category, help_text='Επιλέξτε κατηγορία', verbose_name='Κατηγορία',
+                                 on_delete=models.CASCADE)
+    area = models.ManyToManyField(Area, help_text='Επιλέξτε Επιστημονική κατηγορία', verbose_name='Επιστημονική '
+                                                                                                  'κατηγορία')
     tags = TaggableManager()
 
     file = models.FileField(upload_to='files', null=True, verbose_name='Αρχείο')

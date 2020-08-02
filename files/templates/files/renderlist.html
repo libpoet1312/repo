@@ -1,5 +1,6 @@
 {% load static %}
 {% load widget_tweaks %}
+{% load loadAncestors %}
 
 <!-- FILE LIST -->
 <div class="container">
@@ -29,10 +30,10 @@
                             </div>
                         </div>
                         <div class="col text-left">
-                            <p><a class="card-semi-title" style="color: #007489;" >Κατηγορία:</a><i> {{ file.category }}</i></p>
+                            <p><a class="card-semi-title" style="color: #007489;" >Κατηγορία:</a><i> {{ file.category.get_category_greek  }}</i></p>
                             <p><a class="card-semi-title" style="color: #007489;">Επιστημονικές Περιοχές:</a>
                                 {% for area in file.area.all %}
-                                    <i> {{ area }}</i> {% if not forloop.last %},{% endif %}
+                                    <i> {{ area.get_area_greek }}</i> {% if not forloop.last %},{% endif %}
                                 {% endfor %}
                             </p>
                             <p><a class="card-semi-title" style="color: #007489;">Ετικέτες:</a>

@@ -2,7 +2,7 @@ import os
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import RequestContext
 from django.views.generic import *
 from bootstrap_modal_forms.generic import BSModalLoginView, BSModalCreateView
@@ -138,7 +138,7 @@ def ListView(request, area='', category=''):
     files = File.objects.all().order_by('dateCreated')
     page = 1
     print(request.user.is_authenticated)
-    #if request.user.is_authenticated:
+    # if request.user.is_authenticated:
     #    files = files.filter(uploader__username__exact=request.user)
 
     if request.is_ajax():
@@ -272,8 +272,13 @@ def load_first_category(request):
         return JsonResponse(json.dumps(data), safe=False)
 
 
+
+
 @login_required
-def AddFile(request):
+def AddFile(request, slug):
+
+
+
     proptypiako = Category.objects.get(name='Προπτυχιακό').get_children()
     prop = [str(p) for p in proptypiako]
 
@@ -296,27 +301,30 @@ def AddFile(request):
             return JsonResponse('dsad', safe=False)
 
         else:
-            form = FileForm()
-
-            print(meta)
-
+            if slug:
+                print('edit')
+                file = get_object_or_404(File, slug=slug)
+                form = FileForm(request.POST or None, instance=file)
+                print(form.initial)
+            else:
+                form = FileForm()
             return render(request, 'files/file_add.html', {'form': form, 'prop': prop, 'meta': meta})
-
     else:
         form = FileForm(request.POST, request.FILES)
 
         if form.is_valid():
             # process the data in form.cleaned_data as required
-            print('PASSED')
+
             obj = form.save(commit=False)
 
             # find category
             cat1 = request.POST.get('cat1')
+
             if cat1:
                 obj.uploader = request.user
 
                 c = cat1.split('/')
-                print(c)
+                # print(c)
                 parent = get_object_or_404(Category, name=c[0])
 
                 o = Category.objects.all().get(Q(name=c[1]) & Q(parent=parent))
@@ -326,13 +334,17 @@ def AddFile(request):
                 cat2 = request.POST.get('cat2')
                 if cat2:
                     # if category = μαθημα
-                    print(cat2)
+                    # print(cat2)
                     o = Category.objects.all().get(name=cat2)
 
                 obj.category = o
+
                 obj.save()
 
-                return HttpResponse('all good')
+                form.save_m2m()
+
+                return redirect('file_detail', slug=obj.slug)
+
             else:
                 return render(request, 'files/file_add.html', {'form': form, 'prop': prop, 'meta': meta})
 

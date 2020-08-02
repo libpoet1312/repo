@@ -12,13 +12,14 @@ urlpatterns = [
     path(r'logout/', LogoutView.as_view(), name='logout'),
     ##############
 
-    # CRUD VIEWS #
-    path(r'files/myfiles/', Myfiles, name='my_files'),  # LIST MY FILES
-
     path(r'files/<area>/', ListView, name='list_files'),  # LIST FILES BY AREA
     path(r'files/<category>/', ListView, name='list_files'),  # LIST FILES BY CATEGORY
 
-    path('files/<slug:slug>/', FileDetailView.as_view(), name='file_detail'),  # FILE DETAIL VIEW
+
+    # CRUD VIEWS #
+    path('files/file/<slug:slug>/', FileDetailView.as_view(), name='file_detail'),  # FILE DETAIL VIEW
+    path(r'files/myfiles/', Myfiles, name='my_files'),  # LIST MY FILES
+
 
 
 
@@ -30,6 +31,7 @@ urlpatterns = [
 
 
     path(r'add/', AddFile, name='file_add'),
+    path(r'files/file/<slug:slug>/edit/', AddFile, name='file_edit'),
     ##############
 
     # AJAX VIEWS #
@@ -42,5 +44,6 @@ urlpatterns = [
 
     # OTHER VIEWS #
     path(r'tags/', include('taggit_templatetags2.urls')),
+
     ###############
 ]

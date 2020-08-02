@@ -1,0 +1,14 @@
+{% load taggit_templatetags2_tags %}
+{% get_taglist as tags %}
+
+<div style="display: inline-flex; flex-wrap: wrap; align-content: space-around; align-items: center; justify-content: flex-start">
+    {% for tag in tags %}
+        <div class="pretty p-default" style="margin: 7px;">
+            <input id="{{ tag.slug }}"  type="checkbox" value="{{ tag }}"/>
+            <div class="state p-primary">
+                <label style="align-self: center" for="{{ tag.slug }}">{{ tag }}</label>
+            </div>
+        </div>
+{#        {% if forloop.counter|divisibleby:4 %}<br style="margin-top: 5px">{% endif %}#}
+    {% endfor %}
+</div>

@@ -39,11 +39,11 @@
                     </div>
                     <div class="col">
                         <div class="profile-card-inf__item dh-valign-center-module">
-                            <div class="profile-card-inf__title2">Ημερομηνία Μεταμόρφωσης</div>
+                            <div class="profile-card-inf__title">Ημερομηνία Μεταμόρφωσης</div>
                             <div class="profile-card-inf__txt2">{{ file.dateCreated }}</div>
                         </div>
                         <div class="profile-card-inf__item dh-valign-center-module">
-                            <div class="profile-card-inf__title2">Μεταμορφωτής</div>
+                            <div class="profile-card-inf__title">Μεταφορτωτής</div>
                             <div class="profile-card-inf__txt2">{{ file.uploader }}</div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                     <div class="col">
                         <div class="profile-card-inf__item dh-valign-center-module">
                             <div class="profile-card-inf__title">Κατηγορία</div>
-                            <div class="profile-card-inf__txt">{{ file.category }}</div>
+                            <div class="profile-card-inf__txt">{{ file.category.get_category_greek }}</div>
                         </div>
 
                     </div>
@@ -73,7 +73,7 @@
                             <div class="profile-card-inf__title">Επιστημονικές Περιοχές</div>
                             <div class="profile-card-inf__txt">
                                 {% for area in file.area.all %}
-                                    <i> {{ area }}</i> {% if not forloop.last %},{% endif %}
+                                    <i> {{ area.get_area_greek }}</i> {% if not forloop.last %},{% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -119,7 +119,7 @@
                 {% if user|isOwner:file %}
                         <div class="col">
                             <div class="profile-card-ctr">
-                                <button class="profile-card__button button--orange">Επεξεργασία</button>
+                                <button onclick="location.href='{% url 'file_edit' file.slug %}';" class="profile-card__button button--orange">Επεξεργασία</button>
                             </div>
                         </div>
                 {% endif %}

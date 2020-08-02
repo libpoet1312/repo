@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     # 'adminlte3',
     # Optional: Django admin theme (must be before django.contrib.admin)
     # 'adminlte3_theme',
+
     'files.apps.SuitConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -61,7 +62,6 @@ INSTALLED_APPS = [
     'star_ratings',
     # file app
     'files',
-
 ]
 
 SITE_ID = 1
@@ -80,6 +80,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'repo.urls'
 
@@ -155,7 +156,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -166,5 +167,18 @@ STATICFILES_FINDERS = [
     'sass_processor.finders.CssFinder',
 ]
 
+# CACHES = {
+#     # … default cache config and others
+#     "select2": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379/2",
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#         }
+#     }
+# }
+#
+# # Tell select2 which cache configuration to use:
+# SELECT2_CACHE_BACKEND = "select2"
+
 # Django Sass
-SASS_PROCESSOR_ROOT = STATIC_ROOT
