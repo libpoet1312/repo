@@ -4,7 +4,7 @@
 {% load widget_tweaks %}
 
 
-{% block title %}Προσθήκη Αρχείου{% endblock %}
+{% block title %}{% if edit %}Ενημέρωση{% else %}Προσθήκη{% endif %} Αρχείου{% endblock %}
 {% block head %}
     {{ form.media.css }}
     <link rel="stylesheet" href="{% static 'css/select2.css' %}">
@@ -16,7 +16,7 @@
 
         <br>
         <div class="profile-card js-profile-card" style="margin: 20px">
-            <h3 class="profile-card__name" style="text-align: center">Προσθήκη Αρχείου</h3>
+            <h3 class="profile-card__name" style="text-align: center">{% if edit %}Ενημέρωση{% else %}Προσθήκη{% endif %} Αρχείου</h3>
 
 
             <form method="post" id="Form" action="" enctype="multipart/form-data" novalidate style="margin: 40px">
@@ -97,8 +97,10 @@
                 </select>
 
                  <div class="profile-card-ctr">
-                     <button type="reset" onClick="window.location='{% url 'list_files' %}'" class="profile-card__button button--gray">Άκυρο</button>
-                     <button type="submit" class="profile-card__button button--blue js-message-btn float-right">Προσθήκη</button>
+                     <button type="reset" onClick="window.history.back()" class="profile-card__button button--gray">Άκυρο</button>
+                     <button type="submit" class="profile-card__button button--blue js-message-btn float-right">
+                         {% if edit %}Ενημέρωση{% else %}Προσθήκη{% endif %}
+                     </button>
                  </div>
             </form>
         </div>
@@ -112,9 +114,13 @@
 {{ form.media.js }}
     <script src="{% static 'js/select2.js' %}"></script>
     <script>
+
+
+
         $(document).ready(function(){
             let cat1 = $('#cat1');
             let cat2 = $('#cat2');
+            let catfull = "{{ catfull }}";
 
             cat1.select2({
                 placeholder: 'Κατηγορία',
@@ -127,13 +133,59 @@
                 enable: false,
             });
 
-            cat2.prop("disabled", true);
+            if({catfull}){
+                let res = catfull.split('/');
+                console.log(res);
+                cat1.val(res[0]+'/'+res[1]).trigger('change');
+                cat2.prop('disabled', false);
+                cat2.prop("disable", [false]);
+                cat2.select2('enable', [true]);
+
+                $.ajax({
+                    async : true,
+                    type : "GET",
+                    url : {% url 'file_add' %},
+                    dataType : "json",
+                    traditional : true,
+                    data: {cat1: res[0]+'/'+res[1]},
+
+                    success : function(data) {
+                        data = $.parseJSON(data);
+                        console.log(data);
+                        //generate <options from JSON
+                        let list_html = '';
+
+                        list_html += ' <option value=""></option>';
+
+                        $.each(data, function(i, item) {
+                            console.log(data[i]);
+                            list_html += '<option value='+"'"+data[i] +"'"+ '>'+data[i]+'</option>';
+                        });
+
+                        cat2.prop("disable", [false]);
+                        cat2.select2('enable', [true]);
+
+                        $('#cat2').html(list_html);
+                        console.log(list_html);
+                        cat2.val(res).trigger('change');
+                    },
+
+                    error : function(xhr, ajaxOptions, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+                });
+
+            }else{
+                cat2.prop("disabled", true);
+            }
+
+
 
 
             cat1.change( function () {
                 let selected = $("#cat1 option:selected").val();
                 console.log(selected);
-
 
                 if(selected==='Προπτυχιακό/Μάθημα'){
                     $.ajax({
@@ -172,8 +224,8 @@
                     },
 
                     error : function(xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status);
-                        alert(thrownError);
+                        console.log(xhr.status);
+                        console.log(thrownError);
                     }
                 });
                 }else if(selected==='Προπτυχιακό/Σ.Π.Α.'){
@@ -208,8 +260,8 @@
                             console.log(list_html);
                         },
                     error : function(xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status);
-                        alert(thrownError);
+                        console.log(xhr.status);
+                        console.log(thrownError);
                     }});
                 }else{
                     cat2.prop("disable", [true]);

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Τα αρχεία μου{% endblock %}
+
+{% block content %}
+
+    <!-- Search Bar -->
+    {% include 'files/searchbar.html' %}
+
+
+    <!-- SIDEBAR & CONTENT -->
+    <div id="main-content" class="container-fluid">
+        <div class="row py-3">
+
+            <!-- SIDEBAR -->
+            <nav class="col-4 sidebar">
+                <!-- TAGS -->
+                <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    Ετικέτες
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {% include 'files/tags.html' %}
+                                </td>
+                            </tr>
+                        </tbody>
+                </table>
+                <hr/>
+
+                <!-- AREAS -->
+                <table class="table table-light">
+                    <thead class="">
+                        <tr>
+                            <th scope="col">
+                                Επιστημονικές Περιοχές
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label for="areatreesearch"></label><input id="areatreesearch" type="text" placeholder="search">
+                                <div id="Areatree" style="text-align: left"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr/>
+
+                <!-- CATEGORIES -->
+                <table class="table table-light">
+                    <thead>
+                        <tr>
+                          <th scope="col">Κατηγορίες</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label for="cattreesearch"></label><input id="cattreesearch" type="text" placeholder="search">
+                                <div id="Cattree" style="text-align: left" ></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </nav>
+
+
+            <!-- FILE LIST -->
+            <div  class="col-8">
+                <div id="list"></div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block extrascripts %}
+    {{ block.super }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+    <script id="myscript" src="{% static 'js/my.js' %}" caturl="{% url 'cat_ajax_tree' %}" areaurl="{% url 'area_ajax_tree' %}"></script>
+{% endblock %}
+

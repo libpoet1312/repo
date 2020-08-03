@@ -110,6 +110,7 @@ def Myfiles(request):
     print('MY FILES')
     files = File.objects.all().order_by('dateCreated')
     page = 1
+    print(request.user)
     files = files.filter(uploader__username__exact=request.user)
     if request.is_ajax():
         pageres = request.GET.get('page')
@@ -127,17 +128,17 @@ def Myfiles(request):
         except EmptyPage:
             file_list = paginator.page(paginator.num_pages)
 
-        html = render_to_string('files/renderlist.html', {'file_list': file_list})
+        html = render_to_string('files/myfiles_renderlist.html', {'file_list': file_list})
         return JsonResponse(html, safe=False)
     else:
-        return render(request, "files/file_list.html", {})
+        return render(request, "files/myfiles.html", {})
 
 
 def ListView(request, area='', category=''):
     print('LIST VIEW')
     files = File.objects.all().order_by('dateCreated')
     page = 1
-    print(request.user.is_authenticated)
+    # print(request.user.is_authenticated)
     # if request.user.is_authenticated:
     #    files = files.filter(uploader__username__exact=request.user)
 
@@ -272,18 +273,14 @@ def load_first_category(request):
         return JsonResponse(json.dumps(data), safe=False)
 
 
-
-
 @login_required
-def AddFile(request, slug):
-
-
-
+def AddFile(request, slug=''):
     proptypiako = Category.objects.get(name='Προπτυχιακό').get_children()
     prop = [str(p) for p in proptypiako]
 
     metaptyxiako = Category.objects.get(name='Μεταπτυχιακό').get_children()
     meta = [str(m) for m in metaptyxiako]
+    edit = False
 
     if request.method == 'GET':
         if request.is_ajax():
@@ -304,13 +301,32 @@ def AddFile(request, slug):
             if slug:
                 print('edit')
                 file = get_object_or_404(File, slug=slug)
-                form = FileForm(request.POST or None, instance=file)
-                print(form.initial)
+                print(file)
+                form = UpdateFileForm(instance=file)
+                category = file.category
+                ca = category.get_category_greek()
+                catfull = ca.split('/')
+                #  = [str(c) for c in ca.values('name')]
+                print(ca)
+                res = [str(m) for m in catfull]
+                edit = True
+                return render(request, 'files/file_add.html',
+                              {'form': form, 'prop': prop, 'meta': meta, 'edit': edit,
+                               'category': category, 'catfull': ca}
+                              )
+
             else:
                 form = FileForm()
-            return render(request, 'files/file_add.html', {'form': form, 'prop': prop, 'meta': meta})
+                return render(request, 'files/file_add.html',
+                              {'form': form, 'prop': prop, 'meta': meta, 'edit': edit,
+                               }
+                              )
+
     else:
-        form = FileForm(request.POST, request.FILES)
+        if slug:
+            form = UpdateFileForm(request.POST)
+        else:
+            form = FileForm(request.POST, request.FILES)
 
         if form.is_valid():
             # process the data in form.cleaned_data as required

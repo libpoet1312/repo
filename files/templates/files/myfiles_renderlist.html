@@ -42,6 +42,9 @@
                                 {% endfor %}
                             </p>
                         </div>
+                        <div style="display: flex;flex-direction: column; justify-content: space-around;">
+                            <button style="align-self: flex-start" onclick="location.href='{% url 'file_edit' file.slug %}';" type="button" class="btn btn-warning">Επεξεργασία</button>
+                        </div>
 
                     </div>
                 </div>
@@ -83,14 +86,8 @@
                             <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                         </span>
                     {% endif %}
-
             </div>
-
-
-
-
-            </div>
-
+        </div>
     </div>
 </div>
 

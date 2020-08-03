@@ -11,14 +11,14 @@ urlpatterns = [
     path('signup/', SignUpView.as_view(), name='signup'),
     path(r'logout/', LogoutView.as_view(), name='logout'),
     ##############
-
+    path(r'files/myfiles/', Myfiles, name='my_files'),  # LIST MY FILES
     path(r'files/<area>/', ListView, name='list_files'),  # LIST FILES BY AREA
     path(r'files/<category>/', ListView, name='list_files'),  # LIST FILES BY CATEGORY
 
 
     # CRUD VIEWS #
     path('files/file/<slug:slug>/', FileDetailView.as_view(), name='file_detail'),  # FILE DETAIL VIEW
-    path(r'files/myfiles/', Myfiles, name='my_files'),  # LIST MY FILES
+
 
 
 
