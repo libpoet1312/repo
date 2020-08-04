@@ -98,7 +98,7 @@
 
                  <div class="profile-card-ctr">
                      <button type="reset" onClick="window.history.back()" class="profile-card__button button--gray">Άκυρο</button>
-                     <button type="submit" class="profile-card__button button--blue js-message-btn float-right">
+                     <button type="submit" {% if edit %}value="Update"{% endif %} class="profile-card__button button--blue js-message-btn float-right">
                          {% if edit %}Ενημέρωση{% else %}Προσθήκη{% endif %}
                      </button>
                  </div>

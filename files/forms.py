@@ -30,8 +30,8 @@ class FileForm(forms.ModelForm):
 
 class UpdateFileForm(forms.ModelForm):
     area = TreeNodeMultipleChoiceField(queryset=Area.objects.all(), label="Επιστημονική Περιοχή", level_indicator=u'___',)
-    # file = forms.FileField(required=False,)
-    # thumbnail = forms.ImageField(required=False,)
+    file = forms.FileField(required=False,)
+    thumbnail = forms.ImageField(required=False,)
 
     class Meta:
         model = File

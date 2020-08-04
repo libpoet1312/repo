@@ -296,13 +296,12 @@ def AddFile(request, slug=''):
                 return JsonResponse(json.dumps(res), safe=False)
 
             return JsonResponse('dsad', safe=False)
-
         else:
             if slug:
                 print('edit')
                 file = get_object_or_404(File, slug=slug)
                 print(file)
-                form = UpdateFileForm(instance=file)
+                form = UpdateFileForm(request.POST or None, request.FILES or None, instance=file)
                 category = file.category
                 ca = category.get_category_greek()
                 catfull = ca.split('/')
@@ -321,52 +320,88 @@ def AddFile(request, slug=''):
                               {'form': form, 'prop': prop, 'meta': meta, 'edit': edit,
                                }
                               )
-
     else:
         if slug:
-            form = UpdateFileForm(request.POST)
-        else:
-            form = FileForm(request.POST, request.FILES)
+            print('update')
+            file = get_object_or_404(File, slug=slug)
+            form = UpdateFileForm(request.POST, request.FILES, instance=file)
+            if form.is_valid():
+                print('valid')
+                obj = form.save(commit=False)
+                print(obj)
+                # find category
+                cat1 = request.POST.get('cat1')
 
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
+                if cat1:
+                    c = cat1.split('/')
+                    # print(c)
+                    parent = get_object_or_404(Category, name=c[0])
 
-            obj = form.save(commit=False)
+                    o = Category.objects.all().get(Q(name=c[1]) & Q(parent=parent))
+                    # print('O=', o)
 
-            # find category
-            cat1 = request.POST.get('cat1')
+                    # set category
+                    cat2 = request.POST.get('cat2')
+                    if cat2:
+                        # if category = μαθημα
+                        print(cat2)
+                        o = Category.objects.all().get(name=cat2)
 
-            if cat1:
-                obj.uploader = request.user
+                    obj.category = o
 
-                c = cat1.split('/')
-                # print(c)
-                parent = get_object_or_404(Category, name=c[0])
+                    obj.save()
+                    #
+                    form.save_m2m()
+                    print(obj)
 
-                o = Category.objects.all().get(Q(name=c[1]) & Q(parent=parent))
-                print('O=', o)
-
-                # set category
-                cat2 = request.POST.get('cat2')
-                if cat2:
-                    # if category = μαθημα
-                    # print(cat2)
-                    o = Category.objects.all().get(name=cat2)
-
-                obj.category = o
-
-                obj.save()
-
-                form.save_m2m()
-
-                return redirect('file_detail', slug=obj.slug)
+                    return redirect('file_detail', slug=obj.slug)
 
             else:
-                return render(request, 'files/file_add.html', {'form': form, 'prop': prop, 'meta': meta})
-
+                print(form.errors)
+                return render(request, 'files/file_add.html',
+                              {'form': form, 'prop': prop, 'meta': meta, 'edit': edit,
+                               }
+                              )
         else:
+            print('add')
+            form = FileForm(request.POST, request.FILES)
+            if form.is_valid():
+                # process the data in form.cleaned_data as required
 
-            cat1 = request.POST.get('cat1')
-            print(cat1)
+                obj = form.save(commit=False)
 
-            return render(request, 'files/file_add.html', {'form': form, 'prop': prop, 'meta': meta})
+                # find category
+                cat1 = request.POST.get('cat1')
+
+                if cat1:
+                    obj.uploader = request.user
+
+                    c = cat1.split('/')
+                    # print(c)
+                    parent = get_object_or_404(Category, name=c[0])
+
+                    o = Category.objects.all().get(Q(name=c[1]) & Q(parent=parent))
+                    print('O=', o)
+
+                    # set category
+                    cat2 = request.POST.get('cat2')
+                    if cat2:
+                        # if category = μαθημα
+                        # print(cat2)
+                        o = Category.objects.all().get(name=cat2)
+
+                    obj.category = o
+
+                    obj.save()
+
+                    form.save_m2m()
+
+                    return redirect('file_detail', slug=obj.slug)
+                else:
+                    return render(request, 'files/file_add.html', {'form': form, 'prop': prop, 'meta': meta})
+            else:
+                print(form.errors)
+                cat1 = request.POST.get('cat1')
+                print('unvalid')
+
+                return render(request, 'files/file_add.html', {'form': form, 'prop': prop, 'meta': meta})
