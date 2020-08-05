@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path(r'select2/', include('django_select2.urls')),
     path(r'ratings/', include('star_ratings.urls', namespace='ratings')),
+    path(r'comments/', include('django_comments_xtd.urls')),
 
     path('', include('files.urls')),
 

@@ -52,7 +52,7 @@
             <div class="">
 
                     {% if file_list.has_previous %}
-                    <a id="prev" class="pagination-action centered" href="?page={{ file_list.previous_page_number }}">
+                    <a id="first" class="pagination-action centered" href="?page=1">
                         <i class="fa fa-angle-double-left" aria-hidden="true"></i>
                     </a>
                         <a id="prev" class="pagination-action centered" href="?page={{ file_list.previous_page_number }}">
@@ -75,7 +75,7 @@
                         <a id="next" class="pagination-action" href="?page={{ file_list.number|add:1 }}">
                             <i class="fa fa-angle-right" aria-hidden="true"></i>
                         </a>
-                        <a id="next" class="pagination-action" href="?page={{ file_list.number|add:1 }}">
+                        <a id="last" class="pagination-action" href="?page={{ file_list.paginator.num_pages }}">
                             <i class="fas fa-angle-double-right"></i>
                         </a>
                     {% else %}
@@ -85,12 +85,7 @@
                     {% endif %}
 
             </div>
-
-
-
-
-            </div>
-
+        </div>
     </div>
 </div>
 

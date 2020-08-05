@@ -3,153 +3,163 @@
 {% load taggit_templatetags2_tags %}
 {% get_taglist as tags %}
 {% load isOwner %}
+{% load comments %}
 
 {% load ratings %}
 
 {% block title %}{{ file }}{% endblock %}
 
 {% block content %}
-
     <div id="main-content" class="container wrapper">
-    <div class="profile-card js-profile-card">
-        <div class="">
-            <button onclick="location.href='{% url 'list_files' %}';" class="profile-card__button button--gray ">
-                <i class="fas fa-arrow-circle-left fa-2x"></i>
-            </button>
-            <button onclick="location.href='{{ file.file.url }}';"
-                    class="profile-card__button button--blue float-right">
-                <i class="fas fa-download fa-2x"></i>
-            </button>
+        <div class="profile-card js-profile-card">
+            <div class="">
+                <button onClick="window.history.back()" class="profile-card__button button--gray ">
+                    <i class="fas fa-arrow-circle-left fa-2x"></i>
+                </button>
+                <button onclick="location.href='{{ file.file.url }}';"
+                        class="profile-card__button button--blue float-right">
+                    <i class="fas fa-download fa-2x"></i>
+                </button>
 
-            <div class="profile-card__img">
-                <img src="{{ file.thumbnail.url }}" alt="thumbnail">
+                <div class="profile-card__img">
+                    <img src="{{ file.thumbnail.url }}" alt="thumbnail">
+                </div>
             </div>
-        </div>
 
-        <div class="profile-card__cnt js-profile-cnt">
-            <div class="profile-card__name">{{ file }}</div>
-            <div class="profile-card-inf align-self-center">
-                <div class="row">
-                    <div class="col align-self-center dh-valign-center-module">
-                        <div class="profile-card-inf__item">
-                            <div class="profile-card-inf__title">Περιγραφή</div>
-                            <div class="profile-card-inf__txt text-justify">{{ file.summary }}</div>
-                        </div>
-
-                    </div>
-                    <div class="col">
-                        <div class="profile-card-inf__item dh-valign-center-module">
-                            <div class="profile-card-inf__title">Ημερομηνία Μεταμόρφωσης</div>
-                            <div class="profile-card-inf__txt2">{{ file.dateCreated }}</div>
-                        </div>
-                        <div class="profile-card-inf__item dh-valign-center-module">
-                            <div class="profile-card-inf__title">Μεταφορτωτής</div>
-                            <div class="profile-card-inf__txt2">{{ file.uploader }}</div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <div class="profile-card-inf__item dh-valign-center-module">
-                            <div class="profile-card-inf__title">Ετικέτες</div>
-                            <div class="profile-card-inf__txt">
-                                {% for tag in file.tags.all %}
-                                    <i> {{ tag }}</i> {% if not forloop.last %},{% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="profile-card-inf__item dh-valign-center-module">
-                            <div class="profile-card-inf__title">Κατηγορία</div>
-                            <div class="profile-card-inf__txt">{{ file.category.get_category_greek }}</div>
-                        </div>
-
-                    </div>
-                    <div class="col">
-                        <div class="profile-card-inf__item dh-valign-center-module">
-                            <div class="profile-card-inf__title">Επιστημονικές Περιοχές</div>
-                            <div class="profile-card-inf__txt">
-                                {% for area in file.area.all %}
-                                    <i> {{ area.get_area_greek }}</i> {% if not forloop.last %},{% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="profile-card-inf__item dh-valign-center-module">
-                            <div class="profile-card-inf__title">Δημιουργός</div>
-                            <div class="profile-card-inf__txt">{{ file.author }}</div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="profile-card-inf__item dh-valign-center-module">
-                            <div class="profile-card-inf__title">Email Δημιουργού</div>
-                            <div class="profile-card-inf__txt">{{ file.author_email }}</div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-
-                {% if user.is_authenticated %}
+            <div class="profile-card__cnt js-profile-cnt">
+                <div class="profile-card__name">{{ file }}</div>
+                <div class="profile-card-inf align-self-center">
                     <div class="row">
+                        <div class="col align-self-center dh-valign-center-module">
+                            <div class="profile-card-inf__item">
+                                <div class="profile-card-inf__title">Περιγραφή</div>
+                                <div class="profile-card-inf__txt text-justify">{{ file.summary }}</div>
+                            </div>
+
+                        </div>
+                        <div class="col">
+                            <div class="profile-card-inf__item dh-valign-center-module">
+                                <div class="profile-card-inf__title">Ημερομηνία Μεταμόρφωσης</div>
+                                <div class="profile-card-inf__txt2">{{ file.dateCreated }}</div>
+                            </div>
+                            <div class="profile-card-inf__item dh-valign-center-module">
+                                <div class="profile-card-inf__title">Μεταφορτωτής</div>
+                                <div class="profile-card-inf__txt2">{{ file.uploader }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="profile-card-inf__item dh-valign-center-module">
+                                <div class="profile-card-inf__title">Ετικέτες</div>
+                                <div class="profile-card-inf__txt">
+                                    {% for tag in file.tags.all %}
+                                        <i> {{ tag }}</i> {% if not forloop.last %},{% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="profile-card-inf__item dh-valign-center-module">
+                                <div class="profile-card-inf__title">Κατηγορία</div>
+                                <div class="profile-card-inf__txt">{{ file.category.get_category_greek }}</div>
+                            </div>
+
+                        </div>
+                        <div class="col">
+                            <div class="profile-card-inf__item dh-valign-center-module">
+                                <div class="profile-card-inf__title">Επιστημονικές Περιοχές</div>
+                                <div class="profile-card-inf__txt">
+                                    {% for area in file.area.all %}
+                                        <i> {{ area.get_area_greek }}</i> {% if not forloop.last %},{% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="profile-card-inf__item dh-valign-center-module">
+                                <div class="profile-card-inf__title">Δημιουργός</div>
+                                <div class="profile-card-inf__txt">{{ file.author }}</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="profile-card-inf__item dh-valign-center-module">
+                                <div class="profile-card-inf__title">Email Δημιουργού</div>
+                                <div class="profile-card-inf__txt">{{ file.author_email }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if user.is_authenticated %}
+                        <div class="row">
                         <div class="col">
                             <div class="profile-card-ctr">
                                 <button class="profile-card__button button--blue js-message-btn">Σχολιάστε</button>
                             </div>
                         </div>
-                {% endif %}
-                        <div class="col">
-                            <div class="profile-card-ctr">
-                                {% ratings object %}
-                            </div>
+                    {% endif %}
+                    <div class="col">
+                        <div class="profile-card-ctr">
+                            {% ratings object %}
                         </div>
-                {% if user|isOwner:file %}
+                    </div>
+                    {% if user|isOwner:file %}
                         <div class="col">
                             <div class="profile-card-ctr">
                                 <button onclick="location.href='{% url 'file_edit' file.slug %}';" class="profile-card__button button--orange">Επεξεργασία</button>
                             </div>
                         </div>
-                {% endif %}
+                    {% endif %}
                     </div>
                 </div>
 
 
 
+                <div class="row">
+                  <div class="offset-lg-1 offset-md-1 col-lg-10 col-md-10">
+                    <div id="comments">
+                      {% get_comment_count for object as comment_count %}
+                      {% if comment_count %}
+                          <hr/>
+                          <H6 class="text-center">
+                              Υπάρχουν {{ comment_count }} σχόλια.
+                          </H6>
+                      {% endif %}
+                        {% if comment_count %}
+                            <hr/>
+                            {% render_comment_list for object %}
+                        {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <hr/>
+
+
+
                 <!-- COMMENT FORM -->
 
-                {% if user.is_authenticated %}
+                {% if user.is_authenticated and object.allow_comments %}
                     <div class="profile-card-message js-message">
 
-                        <form class="profile-card-form" action='' method="POST">
-                            {% csrf_token %}
+                        <div class="profile-card-form" style="height: 700px">
 
                             <div class="profile-card-form__container">
-
+                                <h5 class="text-center">Post your comment</h5>
+                                <div class="well my-4 text-center">
+                                    {% render_comment_form for object %}
+                                </div>
                             </div>
 
                             <div class="profile-card-form__bottom">
-                                <button type="submit" class="profile-card__button button--blue js-message">
-                                    Send
-                                </button>
-
                                 <button class="profile-card__button button--gray js-message-close">
                                     Cancel
                                 </button>
                             </div>
-                        </form>
+                        </div>
 
                         <div class="profile-card__overlay js-message-close"></div>
                     </div>
@@ -179,24 +189,24 @@
         });
 
         // form submit
-        {#$(document).on('submit', '.profile-card-form',function(e) {#}
-        {#    e.preventDefault();#}
-        {#    $.ajax({#}
-        {#        type: 'POST',#}
-        {#        url: '{% comment_form_target %}',#}
-        {#        data: {#}
-        {#            'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val(),#}
-        {#            'content_type': content_type,#}
-        {##}
-        {#        },#}
-        {#        success: function (res) {#}
-        {#            console.log(res)#}
-        {#        },#}
-        {#        error : function(xhr,errmsg,err) {#}
-        {#            console.log(xhr.status + ": " + xhr.responseText);#}
-        {#        }#}
-        {#    });#}
-        {#});#}
+        //$(document).on('submit', '.profile-card-form',function(e) {
+        //    e.preventDefault();
+        //    $.ajax({
+        //        type: 'POST',
+        //        url: '{% comment_form_target %}',
+        //        data: {
+        //            'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val(),
+        //            'content_type': content_type,
+//
+        //        },
+        //        success: function (res) {
+        //            console.log(res)
+        //        },
+        //        error : function(xhr,errmsg,err) {
+        //            console.log(xhr.status + ": " + xhr.responseText);
+        //        }
+        //    });
+        //});
 
 
 

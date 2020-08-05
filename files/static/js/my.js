@@ -3,6 +3,7 @@ let categories = [];
 let areas = [];
 let text_search;
 let page;
+let order_by = 'date';
 
 const areatree = $('#Areatree');
 const categorytree = $('#Cattree');
@@ -12,7 +13,7 @@ const categorytree = $('#Cattree');
 
 function createCATEGORYTree(jsonData, tree) {
     let parsedJson = $.parseJSON(jsonData);
-    //console.log(parsedJson);
+    // console.log(parsedJson);
 
     $(tree).jstree({
         core: {
@@ -42,7 +43,7 @@ function createCATEGORYTree(jsonData, tree) {
 
 function createAREATree(jsonData, tree) {
     let parsedJson = $.parseJSON(jsonData);
-    console.log(parsedJson);
+    // console.log(parsedJson);
 
     $(tree).jstree({
         core: {
@@ -90,6 +91,7 @@ function Ajax(){
                 areas: areas,
                 text_search: text_search,
                 page: page,
+                order_by: order_by
             },
 
             success : function(json) {
@@ -139,8 +141,39 @@ $(document).on('click', '#next', function(e) {
     Ajax();
 });
 
+$(document).on('click', '#first', e => {
+
+    e.preventDefault();
+    page = ($( '#first' )[0].href).split('=');
+    console.log("last button Debuggin...", page);
+    Ajax();
+});
+
+
+$(document).on('click', '#last', function(e) {
+
+    e.preventDefault();
+    page = ($( '#last' )[0].href).split('=');
+    console.log("last button Debuggin...", page);
+    Ajax();
+});
+
 /// DOM READY AREA ///
 $(document).ready( function () {
+    const order = $('#order');
+    order.select2({
+        placeholder: 'Ταξινόμηση κατά:',
+        AllowClear: true,
+        minimumResultsForSearch: -1
+    });
+
+    order.change(()=>{
+        let selected = $("#order option:selected").val();
+        console.log(selected);
+        order_by = selected;
+        Ajax();
+    });
+
 
     //////////////
     /// JSTREES ///
@@ -190,9 +223,7 @@ $(document).ready( function () {
 
 
             success : function(json) {
-                // console.log("Call trigger");
-
-                var dataset = json;
+                let dataset = json;
 
                 createAREATree(dataset, areatree);
             },
@@ -212,7 +243,7 @@ $(document).ready( function () {
     * */
     areatree.on('ready.jstree', function () {
         let pathArray = window.location.pathname.split('/');
-        console.log('pathArray= ', pathArray[2]);
+        // console.log('pathArray= ', pathArray[2]);
 
         let instance = areatree.jstree(true);
         // console.log('tree instance ', instance);
@@ -435,6 +466,8 @@ $(document).ready( function () {
         Ajax();
 
     });
+
+
 
     // RESET FILTERS
     $('form').on('reset', function (e) {

@@ -3,7 +3,8 @@ import os
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
-from django.template import RequestContext
+from django_comments.models import Comment
+from django.db.models import Count
 from django.views.generic import *
 from bootstrap_modal_forms.generic import BSModalLoginView, BSModalCreateView
 from .forms import *
@@ -15,6 +16,7 @@ from django.template.loader import render_to_string
 from django.dispatch import receiver
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+import operator
 
 
 # Create your views here.
@@ -45,7 +47,7 @@ class FileCreateView(CreateView):
         return super(FileCreateView, self).form_valid(form)
 
 
-def filter(request, files):
+def filterFunction(request, files):
     text_search = request.GET.get('text_search')
     if text_search:
         files = files.filter(
@@ -102,7 +104,31 @@ def filter(request, files):
             Q(area__name__in=q)
         ).distinct()
 
+    order = request.GET.get('order_by')
+    print(order)
+    if order == 'date':
+        files = files.order_by('dateCreated')
+    elif order == 'rating':
+        files = files.filter(ratings__isnull=False).order_by('-ratings__average')
+    elif order == 'comments':
+        sk = [dict() for x in range(files.count())]
+
+        for idx, file in enumerate(files):
+            sk[idx]['file'] = file
+            sk[idx]['comments'] = file.get_comments()
+
+        sk.sort(key=get_coms, reverse=True)
+        lol = []
+        for s in sk:
+            lol.append(s['file'])
+        files = lol
+    else:
+        files = files.order_by('dateCreated')
     return files
+
+
+def get_coms(s):
+    return s.get('comments')
 
 
 @login_required()
@@ -147,7 +173,7 @@ def ListView(request, area='', category=''):
         if pageres is not None:
             page = pageres
 
-        files = filter(request, files)
+        files = filterFunction(request, files)
 
         print(files)
         paginator = Paginator(files, 3)
@@ -350,9 +376,9 @@ def AddFile(request, slug=''):
                     obj.category = o
 
                     obj.save()
-                    #
+
                     form.save_m2m()
-                    print(obj)
+                    # print(obj)
 
                     return redirect('file_detail', slug=obj.slug)
 

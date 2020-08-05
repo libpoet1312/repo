@@ -1,9 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 from autoslug import AutoSlugField
+from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 # from taggit.managers import TaggableManager
 from taggit_selectize.managers import TaggableManager
+from django.contrib.contenttypes.fields import GenericRelation
+from star_ratings.models import Rating
+from django_comments.models import Comment
 
 # Create your models here.
 
@@ -82,11 +86,27 @@ class File(models.Model):
 
     author = models.CharField(max_length=100, help_text='Δημιουργός', verbose_name='Δημιουργός')
     author_email = models.CharField(max_length=100,  help_text='email δημιουργού', verbose_name='Email δημιουργού')
+    allow_comments = models.BooleanField('allow comments', default=True)
+
+    ratings = GenericRelation(Rating, related_query_name='foos')
+
 
     def __str__(self):
         """String for representing the Model object."""
         return self.name
 
+    def get_absolute_url(self):
+        return reverse(
+            'file_detail',
+            kwargs={'slug': self.slug})
+
+    def get_comments(self):
+
+        return Comment.objects.all().filter(object_pk=self.pk).count()
+
+    def comm(self):
+        aggregate = File.objects.aggregate(comment_count=File('comments'))
+        return aggregate['comment_count'] + 1
 
     class Meta:
         verbose_name = 'Αρχείο'

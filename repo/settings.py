@@ -56,15 +56,26 @@ INSTALLED_APPS = [
     'taggit_selectize',
 
     ## comments
+    'django_comments_xtd',
+    'django_comments',
+
     'crispy_forms',
 
     'rest_framework',
     'star_ratings',
+
     # file app
     'files',
 ]
 
 SITE_ID = 1
+
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_MAX_THREAD_LEVEL = 0
+COMMENTS_XTD_CONFIRM_EMAIL = False  # Set to True to request confirmations
+
+# Either enable sending mail messages to the console:
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 TAGGIT_SELECTIZE = {
     'CREATE': False,
@@ -167,18 +178,3 @@ STATICFILES_FINDERS = [
     'sass_processor.finders.CssFinder',
 ]
 
-# CACHES = {
-#     # … default cache config and others
-#     "select2": {
-#         "BACKEND": "django_redis.cache.RedisCache",
-#         "LOCATION": "redis://127.0.0.1:6379/2",
-#         "OPTIONS": {
-#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-#         }
-#     }
-# }
-#
-# # Tell select2 which cache configuration to use:
-# SELECT2_CACHE_BACKEND = "select2"
-
-# Django Sass
