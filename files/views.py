@@ -16,8 +16,6 @@ from django.template.loader import render_to_string
 from django.dispatch import receiver
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-import operator
-
 
 # Create your views here.
 class HomeView(TemplateView):
@@ -80,10 +78,8 @@ def filterFunction(request, files):
         files = files.filter(category__in=query)
 
     areas = request.GET.getlist('areas')
-
     if areas:
         q = []
-        q1 = []
         print('ORIGINAL AREAS', areas)
         for idx, area in enumerate(areas):
             print(area)
@@ -106,9 +102,8 @@ def filterFunction(request, files):
 
     order = request.GET.get('order_by')
     print(order)
-    if order == 'date':
-        files = files.order_by('dateCreated')
-    elif order == 'rating':
+
+    if order == 'rating':
         files = files.filter(ratings__isnull=False).order_by('-ratings__average')
     elif order == 'comments':
         sk = [dict() for x in range(files.count())]
@@ -143,7 +138,7 @@ def Myfiles(request):
         if pageres is not None:
             page = pageres
 
-        files = filter(request, files)
+        files = filterFunction(request, files)
 
         paginator = Paginator(files, 3)
 
@@ -160,15 +155,16 @@ def Myfiles(request):
         return render(request, "files/myfiles.html", {})
 
 
-def ListView(request, area='', category=''):
+def ListView(request, area='', category='', tag_id='', tag_slug=''):
     print('LIST VIEW')
     files = File.objects.all().order_by('dateCreated')
     page = 1
     # print(request.user.is_authenticated)
     # if request.user.is_authenticated:
     #    files = files.filter(uploader__username__exact=request.user)
-
+    print(request.is_ajax())
     if request.is_ajax():
+
         pageres = request.GET.get('page')
         if pageres is not None:
             page = pageres
@@ -189,11 +185,11 @@ def ListView(request, area='', category=''):
         return JsonResponse(html, safe=False)
 
     else:
-
+        print('edwwww:')
         return render(request, "files/file_list.html", {})
 
 
-## CATEGORY TREE
+# CATEGORY TREE
 def get_cat_tree_ajax(request):
     if request.is_ajax():
         tree_set = Category._tree_manager.values()
@@ -212,7 +208,7 @@ def get_cat_tree_ajax(request):
         # return HttpResponse(json.dumps(data), content_type="application/json")
 
 
-## GET AREA TREE
+# GET AREA TREE
 def get_area_tree_ajax(request):
     if request.is_ajax():
         tree_set = Area._tree_manager.values()
@@ -337,7 +333,7 @@ def AddFile(request, slug=''):
                 edit = True
                 return render(request, 'files/file_add.html',
                               {'form': form, 'prop': prop, 'meta': meta, 'edit': edit,
-                               'category': category, 'catfull': ca}
+                               'category': category, 'catfull': ca, 'file': file}
                               )
 
             else:

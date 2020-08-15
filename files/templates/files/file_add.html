@@ -96,12 +96,17 @@
                     <option></option>
                 </select>
 
-                 <div class="profile-card-ctr">
-                     <button type="reset" onClick="window.history.back()" class="profile-card__button button--gray">Άκυρο</button>
-                     <button type="submit" {% if edit %}value="Update"{% endif %} class="profile-card__button button--blue js-message-btn float-right">
-                         {% if edit %}Ενημέρωση{% else %}Προσθήκη{% endif %}
-                     </button>
-                 </div>
+                <div class="profile-card-ctr">
+                        <a  {% if edit %}href="{% url 'file_detail' file.slug %}"{% else %}href="#" onclick="window.history.back()" {% endif %}  class="float-left">
+                        <input type="button" value="Άκυρο" class="profile-card__button button--gray">
+                    </a>
+
+                        <button type="submit" {% if edit %}value="Update"{% endif %} class="profile-card__button button--blue js-message-btn float-right">
+                        {% if edit %}Ενημέρωση{% else %}Προσθήκη{% endif %}
+                    </button>
+{#                    <button type="reset" onClick="window.history.back()" class="profile-card__button button--gray">Άκυρο</button>#}
+
+                </div>
             </form>
         </div>
     </div>
@@ -114,8 +119,6 @@
 {{ form.media.js }}
     <script src="{% static 'js/select2.js' %}"></script>
     <script>
-
-
 
         $(document).ready(function(){
             let cat1 = $('#cat1');

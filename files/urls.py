@@ -1,3 +1,5 @@
+from taggit_templatetags2.views import TagCanvasListView
+
 from files.views import *
 from django.urls import path, include
 from django.contrib.auth.views import LogoutView
@@ -13,7 +15,7 @@ urlpatterns = [
     ##############
     path(r'files/myfiles/', Myfiles, name='my_files'),  # LIST MY FILES
     path(r'files/<area>/', ListView, name='list_files'),  # LIST FILES BY AREA
-    path(r'files/<category>/', ListView, name='list_files'),  # LIST FILES BY CATEGORY
+    # path(r'files/<category>/', ListView, name='list_files'),  # LIST FILES BY CATEGORY
 
 
     # CRUD VIEWS #
@@ -44,6 +46,9 @@ urlpatterns = [
 
     # OTHER VIEWS #
     path(r'tags/', include('taggit_templatetags2.urls')),
+    path(r'<tag_id>&<tag_slug>/', ListView, name='myurlname'),
+
+
 
     ###############
 ]

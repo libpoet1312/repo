@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/select2.css' %}">
+{% endblock %}
+
 {% block title %}Τα αρχεία μου{% endblock %}
 
 {% block content %}
@@ -15,6 +19,29 @@
 
             <!-- SIDEBAR -->
             <nav class="col-4 sidebar">
+                <!-- ORDER BY -->
+                <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    Tαξινόμηση κατά:
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select id="order" name="order">
+                                        <option value="date">Ημερομηνία Μεταφόρτωσης</option>
+                                        <option value="rating">Δημοτικότητα</option>
+                                        <option value="download">Αριθμός Μεταφορτώσεων</option>
+                                        <option value="comments">Αριθμός Σχόλιων</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                </table>
+                <hr/>
                 <!-- TAGS -->
                 <table class="table table-light">
                         <thead>
@@ -85,6 +112,7 @@
 
 {% block extrascripts %}
     {{ block.super }}
+    <script src="{% static 'js/select2.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
     <script id="myscript" src="{% static 'js/my.js' %}" caturl="{% url 'cat_ajax_tree' %}" areaurl="{% url 'area_ajax_tree' %}"></script>
 {% endblock %}

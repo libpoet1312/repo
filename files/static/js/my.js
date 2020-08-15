@@ -258,7 +258,6 @@ $(document).ready( function () {
                     instance.select_node(node);
                     return false;
                 }
-
             }
         });
     });
@@ -269,14 +268,28 @@ $(document).ready( function () {
     const tagscheckbox = document.querySelectorAll("input[type=checkbox]");
     tagscheckbox.forEach( (item, i) => {
         if(item.checked === true){
+            console.log(item);
             tags.push(item.value)
         }
     });
 
+    let pathArray = window.location.pathname.split('/');
+    const tagSlug = pathArray[1].split('&')[1];
+    console.log('pathArray= ',  tagSlug);
+    if(tagSlug){
+        let tag = document.getElementById(tagSlug);
+        if (tag.checked !== true){
+            tag.click();
+        }
+
+
+        // tags.push(tag.val());
+        Ajax();
+    }
+
+
     // always call ajax when ready document
     Ajax();
-
-
 
 
     /// CATEGORY
