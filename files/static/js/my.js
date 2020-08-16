@@ -278,12 +278,14 @@ $(document).ready( function () {
     console.log('pathArray= ',  tagSlug);
     if(tagSlug){
         let tag = document.getElementById(tagSlug);
+
         if (tag.checked !== true){
+            console.log(tag);
             tag.click();
         }
 
+        tags.push(tag.value);
 
-        // tags.push(tag.val());
         Ajax();
     }
 
