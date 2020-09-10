@@ -16,6 +16,8 @@ from django.template.loader import render_to_string
 from django.dispatch import receiver
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from django_cas_ng.views import LoginView
+
 
 # Create your views here.
 class HomeView(TemplateView):
@@ -27,6 +29,14 @@ class HomeView(TemplateView):
         context['categories'] = Category.objects.all()
         context['areas'] = Area.objects.all().filter(level=0)
         return context
+
+
+class InfoView(TemplateView):
+    template_name = 'files/info.html'
+
+
+class TermsView(TemplateView):
+    template_name = 'files/terms.html'
 
 
 class FileDetailView(DetailView):
@@ -242,7 +252,7 @@ class SignUpView(BSModalCreateView):
     success_url = reverse_lazy('home')
 
 
-class CustomLoginView(BSModalLoginView):
+class CustomLoginView(BSModalLoginView, LoginView):
     authentication_form = CustomAuthenticationForm
     template_name = 'files/login.html'
     success_message = 'Success: You were successfully logged in.'

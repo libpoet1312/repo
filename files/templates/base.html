@@ -59,7 +59,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive" style="cursor: pointer">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home"></i> Αρχική</a></li>
-                    <li class="nav-item"><a class="nav-link" href=""><i class="fas fa-info-circle"></i> Πληροφορίες</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'info' %}"><i class="fas fa-info-circle"></i> Πληροφορίες</a></li>
                 </ul>
 
                 {% if user.is_authenticated %}
@@ -72,7 +72,7 @@
                                 <a class="dropdown-item" href="{% url 'file_add' %}">Νέο Αρχείο &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-plus-circle fa-2x"></i></a>
                                 <a class="dropdown-item" href="{% url 'my_files' %}">Τα αρχεία μου &nbsp;&nbsp;&nbsp;<i class="fas fa-server fa-2x"></i></a>
                                 <a class="dropdown-item" href="{% url 'admin:index' %}">Διαχείρηση&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-user-cog fa-2x"></i></a>
-                                <a href="{% url 'logout' %}" class="dropdown-item" >Αποσύνδεση&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-sign-out-alt fa-2x"></i></a>
+                                <a href="{% url 'cas_ng_logout' %}" class="dropdown-item" >Αποσύνδεση&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-sign-out-alt fa-2x"></i></a>
                             </div>
                         </li>
                     </ul>
@@ -128,7 +128,7 @@
 
     <script type="text/javascript">
     $(document).ready(function() {
-        $(".login-btn").modalForm({formURL: "{% url 'login' %}"});
+        $(".login-btn").modalForm({formURL: "{% url 'cas_ng_login' %}"});
         $(".signup-btn").modalForm({formURL: "{% url 'signup' %}"});
     });
     </script>

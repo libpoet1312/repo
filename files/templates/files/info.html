@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}Πληροφορίες{% endblock %}
+
+{% block head %}
+<style>
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+.accordion:after {
+  content: '\002B';
+  color: #777;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.panel {
+  padding: 3px 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container text-center">
+    <div class="home-content">
+        <h2>Πληροφορίες</h2>
+        <p>Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα </p>
+        <button class="accordion">Τι είναι το αποθετήριο?</button>
+        <div class="panel">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+
+        <button class="accordion">Όροι χρήσης</button>
+        <div class="panel">
+          <p style="padding-top: 10px">Οι όροι χρήσης αναπτύσσονται στην υποσελίδα <a href="{% url 'terms' %}">Όροι Χρήσης</a>.</p>
+        </div>
+
+        <button class="accordion">Section 3</button>
+        <div class="panel">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+
+
+        <hr/>
+        <div style="padding: 10px">
+            <p>
+                Οι υπηρεσίες αναπτύχθηκαν από το ΙΤΥΕ «ΔΙΟΦΑΝΤΟΣ» στο πλαίσιο του έργου «Ψηφιακή Εκπαιδευτική Πλατφόρμα,
+                στο πλαίσιο του ΕΠ «Εκπαίδευση και Δια Βίου Μάθηση» του ΕΣΠΑ 2007-2013 και υλοποιείται από το ΙΕΛ του ΕΚ «ΑΘΗΝΑ».
+            </p>
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+{% endblock %}
+
+
+{% block extrascripts %}
+<script>
+const acc = document.getElementsByClassName("accordion");
+let i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  });
+}
+</script>
+
+{% endblock %}

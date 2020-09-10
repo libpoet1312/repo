@@ -7,6 +7,8 @@ from mptt.forms import TreeNodeMultipleChoiceField
 from django_comments_xtd.forms import XtdCommentForm
 from django_comments_xtd.models import TmpXtdComment
 
+from django.utils.translation import ugettext_lazy as _
+
 
 class MyCommentForm(XtdCommentForm):
 
@@ -16,12 +18,19 @@ class MyCommentForm(XtdCommentForm):
 
 
 class CustomUserCreationForm(PopRequestMixin, CreateUpdateAjaxMixin, UserCreationForm):
+    username = forms.CharField(label=_('username'))
+    password1 = forms.CharField(label=_('password1'))
+    password2 = forms.CharField(label=_('password2'))
+
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2', 'email']
 
 
 class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(label=_('username'))
+    password = forms.CharField(label=_('password1'))
+
     class Meta:
         model = User
         fields = ['username', 'password']
