@@ -18,9 +18,9 @@ class MyCommentForm(XtdCommentForm):
 
 
 class CustomUserCreationForm(PopRequestMixin, CreateUpdateAjaxMixin, UserCreationForm):
-    username = forms.CharField(label=_('username'))
-    password1 = forms.CharField(label=_('password1'))
-    password2 = forms.CharField(label=_('password2'))
+    username = forms.CharField(label=_('username'), error_messages={'required': 'Το πεδίο είναι απαραίτητο!'})
+    password1 = forms.CharField(label=_('password1'), error_messages={'required': 'Το πεδίο είναι απαραίτητο!'}, widget=forms.PasswordInput())
+    password2 = forms.CharField(label=_('password2'), error_messages={'required': 'Το πεδίο είναι απαραίτητο!'}, widget=forms.PasswordInput())
 
     class Meta:
         model = User
@@ -28,8 +28,8 @@ class CustomUserCreationForm(PopRequestMixin, CreateUpdateAjaxMixin, UserCreatio
 
 
 class CustomAuthenticationForm(AuthenticationForm):
-    username = forms.CharField(label=_('username'))
-    password = forms.CharField(label=_('password1'))
+    username = forms.CharField(label=_('username'), error_messages={'required': 'Το πεδίο είναι απαραίτητο!'})
+    password = forms.CharField(label=_('password1'), error_messages={'required': 'Το πεδίο είναι απαραίτητο!'}, widget=forms.PasswordInput())
 
     class Meta:
         model = User

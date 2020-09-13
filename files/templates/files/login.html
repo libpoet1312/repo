@@ -10,28 +10,34 @@
     </div>
 
     <div class="modal-body">
+
         <div class="{% if form.non_field_errors %}invalid{% endif %} mb-2">
             {% for error in form.non_field_errors %}
-                {{ error }}
+{#                {{ error }}#}
+                <p class="text-center" style="color: red; font-weight: bold">Λάθος όνομα χρήση ή κωδικός</p>
             {% endfor %}
         </div>
 
         {% for field in form %}
             <div class="form-group">
                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                {% render_field field class="form-control" placeholder=field.label autofocus="" %}
-                <div class="{% if field.errors %} invalid{% endif %}">
+                {% render_field field class="form-control"  autofocus="" %}
+                <div class="{% if field.errors %} invalid {% endif %}">
                     {% for error in field.errors %}
-                        <p class="help-block">{{ error }}</p>
+                        <p class="help-block" style="color: red">{{ error }}</p>
                     {% endfor %}
                 </div>
             </div>
         {% endfor %}
-{#        <a href="/" class="forgot-password">Forgot your password?</a>#}
+        <a href="/" class="forgot-password">Ξεχάσατε τον κωδικό σας?</a>
+
+        <!-- Hidden input field for custom redirection after successful login -->
+        <input type="hidden" name="next" value="{{ success_url }}">
     </div>
 
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" formnovalidate="formnovalidate">Log in</button>
+        <button type="button" class="submit-btn btn btn-primary">Σύνδεση</button>
+{#        <button type="button" class="btn btn-primary" formnovalidate="formnovalidate">Log in</button>#}
     </div>
 
 </form>
