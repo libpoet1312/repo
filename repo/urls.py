@@ -19,10 +19,12 @@ from django.conf.urls import include
 from django.conf.urls.static import static
 from django.conf import settings
 
+admin.autodiscover()
 
 urlpatterns = [
-    path('taggit/', include('taggit_selectize.urls')),
     path('admin/', admin.site.urls, name='admin'),
+    path('taggit/', include('taggit_selectize.urls')),
+    
     path(r'select2/', include('django_select2.urls')),
     path(r'ratings/', include('star_ratings.urls', namespace='ratings')),
     path(r'comments/', include('django_comments_xtd.urls')),

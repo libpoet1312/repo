@@ -17,6 +17,15 @@ from django.dispatch import receiver
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django_cas_ng.views import LoginView
+from bootstrap_modal_forms.generic import (
+  BSModalDeleteView
+)
+from django.http import Http404
+
+from .documents import FileDocument
+from elasticsearch_dsl import Search
+from elasticsearch_dsl.query import MultiMatch, Match
+from elasticsearch import Elasticsearch
 
 
 # Create your views here.
@@ -38,10 +47,23 @@ class InfoView(TemplateView):
 class TermsView(TemplateView):
     template_name = 'files/terms.html'
 
-
 class FileDetailView(DetailView):
     model = File
 
+
+    
+
+class FileDeleteView(BSModalDeleteView):
+    model = File
+    template_name = 'files/confirm-delete.html'
+    success_message = 'Delete!!!'
+    success_url = reverse_lazy('my_files')
+
+    def get_object(self, queryset=None):
+        obj = super(FileDeleteView, self).get_object()
+        if not obj.uploader == self.request.user:
+            raise Http404
+        return obj
 
 @login_required
 class FileCreateView(CreateView):
@@ -57,11 +79,31 @@ class FileCreateView(CreateView):
 
 def filterFunction(request, files):
     text_search = request.GET.get('text_search')
-    if text_search:
-        files = files.filter(
-            Q(name__contains=text_search) |
-            Q(summary__contains=text_search)
-        )
+    if(text_search):
+        print(text_search)
+        
+
+        client = Elasticsearch()
+
+        s = Search(using=client)
+        
+
+        
+
+        sqs_files = FileDocument.search().query("match", name=text_search)
+        print(sqs_files)
+
+        la = sqs_files.to_queryset()
+        print(la)
+        files = la
+        
+
+
+    # if text_search:
+    #     files = files.filter(
+    #         Q(name__contains=text_search) |
+    #         Q(summary__contains=text_search)
+    #     )
 
     tags = request.GET.getlist('tags')
     if tags:
@@ -252,9 +294,9 @@ class SignUpView(BSModalCreateView):
     success_url = reverse_lazy('home')
 
 
-class CustomLoginView(BSModalLoginView, LoginView):
+class CustomLoginView(BSModalLoginView):
     authentication_form = CustomAuthenticationForm
-    template_name = 'files/login.html'
+    template_name = 'files/loginModal.html'
     success_message = 'Success: You were successfully logged in.'
     success_url = reverse_lazy('home')
 
@@ -319,6 +361,7 @@ def AddFile(request, slug=''):
             cat1 = request.GET.get('cat1')
             if cat1:
                 c = cat1.split('/')
+                print(c, flush=True)
                 obj = get_object_or_404(Category, name=c[1])
                 print(obj)
                 obj_descendants = obj.get_children()

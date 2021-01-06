@@ -4,64 +4,74 @@
 {% block title %}Αποθετήριο{% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/select2.css' %}">
+<link rel="stylesheet" href="{% static 'css/select2.css' %}">
 {% endblock %}
 
 {% block content %}
 
-    <!-- Search Bar -->
-    {% include 'files/searchbar.html' %}
+<!-- Search Bar -->
+{% include 'files/searchbar.html' %}
 
-    <!-- SIDEBAR & CONTENT -->
-    <div id="main-content" class="container-fluid">
+<!-- SIDEBAR & CONTENT -->
+<div id="main-content" class="container-fluid">
 
-        <div class="row py-3">
 
-            <!-- SIDEBAR -->
-            <nav class="col-4 sidebar">
+    <div class="navbar navbar-default visible-xs">
+        <div class="container-fluid">
+            <button class="d-block d-lg-none btn btn-block mb-3 order-md-last" data-toggle="collapse" data-target="#filter-sidebar">
+                <i class="fa fa-filter"></i> Φίλτρα
+            </button>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+        <div class="row" >
+
+            <!-- filter sidebar -->
+            <div id="filter-sidebar" class="sidebar col-lg-3 collapse d-lg-block order-md-first" >
                 <!-- ORDER BY -->
                 <table class="table table-light">
-                        <thead>
-                            <tr>
-                                <th scope="col">
-                                    Tαξινόμηση κατά:
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <select id="order" name="order" style="width: 100%">
-                                        <option value="date">Ημερομηνία Μεταφόρτωσης</option>
-                                        <option value="rating">Δημοτικότητα</option>
-                                        <option value="download">Αριθμός Μεταφορτώσεων</option>
-                                        <option value="comments">Αριθμός Σχόλιων</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </tbody>
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                Tαξινόμηση κατά:
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select id="order" name="order" style="width: 100%">
+                                    <option value="date">Ημερομηνία Μεταφόρτωσης</option>
+                                    <option value="rating">Βαθμολόγηση χρηστών</option>
+                                    <option value="comments">Αριθμός Σχόλιων</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
-                <hr/>
+                <hr />
 
 
                 <!-- TAGS -->
                 <table class="table table-light">
-                        <thead>
-                            <tr>
-                                <th scope="col">
-                                    Ετικέτες
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    {% include 'files/tags.html' %}
-                                </td>
-                            </tr>
-                        </tbody>
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                Ετικέτες
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {% include 'files/tags.html' %}
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
-                <hr/>
+                <hr />
 
                 <!-- AREAS -->
                 <table class="table table-light">
@@ -75,47 +85,68 @@
                     <tbody>
                         <tr>
                             <td>
-                                <label for="areatreesearch"></label><input id="areatreesearch" type="text" placeholder="search">
+                                <label for="areatreesearch"></label><input id="areatreesearch" type="text"
+                                    placeholder="search">
                                 <div id="Areatree" style="text-align: left"></div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <hr/>
+                <hr />
 
                 <!-- CATEGORIES -->
                 <table class="table table-light">
                     <thead>
                         <tr>
-                          <th scope="col">Κατηγορίες</th>
+                            <th scope="col">Κατηγορίες</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>
-                                <label for="cattreesearch"></label><input id="cattreesearch" type="text" placeholder="search">
-                                <div id="Cattree" style="text-align: left" ></div>
+                                <label for="cattreesearch"></label><input id="cattreesearch" type="text"
+                                    placeholder="search">
+                                <div id="Cattree" style="text-align: left"></div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-            </nav>
 
 
-            <!-- FILE LIST -->
-            <div  class="col-8">
+            </div>
+
+            <!-- table container -->
+            <div class="col-sm-9" style='text-align: center;'>
                 <div id="list"></div>
             </div>
+
         </div>
     </div>
+
+
+</div>
 
 
 {% endblock %}
 
 {% block extrascripts %}
-    {{ block.super }}
-    <script src="{% static 'js/select2.js' %}"></script>
+{{ block.super }}
+<script src="{% static 'js/select2.js' %}"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-    <script id="myscript" src="{% static 'js/my.js' %}" caturl="{% url 'cat_ajax_tree' %}" areaurl="{% url 'area_ajax_tree' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script id="myscript" src="{% static 'js/my.js' %}" caturl="{% url 'cat_ajax_tree' %}"
+    areaurl="{% url 'area_ajax_tree' %}"></script>
+
+<script>
+    if (!isTouchDevice()) {
+        $('[data-toggle*="tooltip"]').tooltip();
+    }
+
+// utility
+
+function isTouchDevice() {
+	return !!('ontouchstart' in window || navigator.msMaxTouchPoints);
+}
+</script>
+
 {% endblock %}

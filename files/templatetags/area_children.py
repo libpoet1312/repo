@@ -10,6 +10,7 @@ def get_children(area):
     obj = get_object_or_404(Area, name=area)
     children = obj.get_children()
     print(children)
+    return children
     return ',\n'.join([x['name'] for x in children.values()])
 
 

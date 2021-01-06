@@ -30,16 +30,16 @@ a, a:hover {
   text-align: center; }
 
 .profile-card {
-  width: 100%;
   min-height: 460px;
   margin: auto;
   box-shadow: 0 8px 60px -10px rgba(13, 28, 39, 0.6);
   background: #fff;
   border-radius: 12px;
   max-width: 1000px;
-  min-width: 500px;
-  position: relative;
-  border: red solid; }
+  position: relative; }
+  /* .profile-card.active .profile-card__cnt {
+    filter: blur(6px); 
+  } */
   .profile-card.active .profile-card-message,
   .profile-card.active .profile-card__overlay {
     opacity: 1;
@@ -75,7 +75,6 @@ a, a:hover {
     align-content: center;
     padding-left: 10px;
     padding-right: 10px;
-    border: red solid;
     padding-bottom: 20px; }
   .profile-card__name {
     font-weight: 700;
@@ -100,7 +99,7 @@ a, a:hover {
     font-weight: 700;
     font-size: 22px;
     color: #007489;
-    align-self: flex-start;
+    align-self: center;
     border: red 2px; }
   .profile-card-inf__txt {
     font-weight: 500;

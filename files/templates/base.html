@@ -3,88 +3,117 @@
 {% load admin_urls %}
 <!DOCTYPE html>
 <html lang="gr">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <link rel="shortcut icon" href="../static/favicon.ico" type="image/x-icon">
     <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
 
 
-
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" >
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
     <link href="{% static 'css/my.css' %}" rel="stylesheet" type="text/css">
     <link href="{% sass_src 'scss/style.scss' %}" rel="stylesheet" type="text/css" />
-    <link href="{% static 'css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <!-- <link href="{% static 'css/fontawesome.css' %}" rel="stylesheet" type="text/css"> -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link href="{% static 'css/pretty-checkbox.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/autoSuggest.css' %}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/proton/style.css' %}" />
 
-    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <!-- <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script> -->
+    
 
 
-     <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
     {% block head %}
     {% endblock %}
 </head>
-<body class="">
+
+<body>
 
     <!-- MODALS -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal" style="width: 100%;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
 
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- HEADER IMAGE -->
-        <div class="masthead">
-          <a href="{% url 'home' %}"><img class="header-img" src="{% static 'images/dimotikis_gr.png' %}" alt=""></a>
-        </div>
+    <div class="masthead text-center">
+        <a href="{% url 'home' %}"><img class="header-img text-center" src="{% static 'images/repo-header.png' %}"
+                alt=""></a>
+    </div>
 
     <!-- HEADER START -->
 
-    <div class="">
-        <nav class="nav navbar navbar-light navbar-expand navbar-custom">
-            <!-- Button for next div -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarResponsive" style="cursor: pointer">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home"></i> Αρχική</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'info' %}"><i class="fas fa-info-circle"></i> Πληροφορίες</a></li>
-                </ul>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item"><a style="font-size: 18px;" class="nav-link" href="{% url 'home' %}"><i class="fas fa-home"></i> Αρχική</a>
+                </li>
+                <li class="nav-item"><a style="font-size: 18px;" class="nav-link" href="{% url 'info' %}"><i class="fas fa-info-circle"></i>
+                        Πληροφορίες</a></li>
+            </ul>
 
-                {% if user.is_authenticated %}
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              {{ user }} <i class="fas fa-user"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{% url 'file_add' %}">Νέο Αρχείο &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-plus-circle fa-2x"></i></a>
-                                <a class="dropdown-item" href="{% url 'my_files' %}">Τα αρχεία μου &nbsp;&nbsp;&nbsp;<i class="fas fa-server fa-2x"></i></a>
-                                <a class="dropdown-item" href="{% url 'admin:index' %}">Διαχείρηση&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-user-cog fa-2x"></i></a>
-                                <a href="{% url 'cas_ng_logout' %}" class="dropdown-item" >Αποσύνδεση&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-sign-out-alt fa-2x"></i></a>
-                            </div>
-                        </li>
-                    </ul>
-                {% else %}
-                    <ul class="navbar-nav">
-                        <button class="login-btn btn btn-light" type="button" name="button">Σύνδεση</button>
-                        <button class="signup-btn btn btn-outline-light" type="button" name="button">Εγγραφή</button>
-                    </ul>
-                {% endif %}
-            </div>
-        </nav>
-    </div>
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="cursor: pointer;">
+                        {{ user }} <i class="fas fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'file_add' %}" style="font-size: 16px;">Νέο Αρχείο
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-plus-circle fa-2x"></i></a>
+                        <a class="dropdown-item" href="{% url 'my_files' %}" style="font-size: 16px;">Τα αρχεία μου &nbsp;&nbsp;&nbsp;<i
+                                class="fas fa-server fa-2x"></i></a>
+                        {% if request.user.is_staff %}<a class="dropdown-item"
+                            href="{% url 'admin:index' %}" style="font-size: 16px;">Διαχείρηση&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                class="fas fa-user-cog fa-2x"></i></a>{% endif %}
+                        <a href="{% url 'cas_ng_logout' %}" style="font-size: 16px;"
+                            class="dropdown-item">Αποσύνδεση&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                class="fas fa-sign-out-alt fa-2x"></i></a>
+                    </div>
+                </li>
+            </ul>
+            {% else %}
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="cursor: pointer;">
+                        <i class="fas fa-sign-in-alt"></i> <span style="font-size: 17px;" > Σύνδεση/Εγγραφή</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink"
+                        style="width: 200px; text-align: center;">
+                        <a style="text-align: center;" class="dropdown-item btn btn-light"
+                            href="{% url 'cas_ng_login' %}" target="_parent"><span>Σύνδεση Π.Θ.</span></a>
+                        <hr />
+                        <div class="">
+                            <button class="login-btn btn btn-light" type="button" name="button">Σύνδεση</button>
+                            <button class="signup-btn btn btn-light" type="button" name="button">Εγγραφή</button>
+                        </div>
+
+                    </div>
+                </li>
+            </ul>
+            {% endif %}
+
+
+        </div>
+    </nav>
 
     <!-- HEADER END -->
 
@@ -102,7 +131,7 @@
     <!-- FOOTER -->
     <footer id="sticky-footer" class="py-4 bg-dark text-white">
         <div class="text-center">
-            <small>Copyright &copy; <a href="https://www.uth.gr/" class="text-white">University of Thessaly</a></small>
+            <small>Copyright &copy; <a href="https://www.pre.uth.gr/" class="text-white">Department of Primary Education</a></small>
         </div>
     </footer>
     <!-- END FOOTER -->
@@ -118,19 +147,23 @@
 
 
 
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <script src={% static "js/jquery.bootstrap.modal.forms.js" %}></script>
+    <!-- <script src="https://unpkg.com/@popperjs/core@2"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.4/umd/popper.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script> -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
     <script defer src="{% static 'js/solid.js' %}"></script>
-    <script defer src="{% static 'js/fontawesome.js' %}"></script>
-{#    <script defer src="{% static 'js/jquery.autoSuggest.minified.js' %}"></script>#}
+    <!-- <script defer src="{% static 'js/fontawesome.js' %}"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/fontawesome.min.js"></script>
+    <!-- {#    <script defer src="{% static 'js/jquery.autoSuggest.minified.js' %}"></script>#} -->
     <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
 
     <script type="text/javascript">
-    $(document).ready(function() {
-        $(".login-btn").modalForm({formURL: "{% url 'cas_ng_login' %}"});
-        $(".signup-btn").modalForm({formURL: "{% url 'signup' %}"});
-    });
+        $(document).ready(function () {
+            $(".login-btn").modalForm({ formURL: "{% url 'login' %}" });
+            $(".signup-btn").modalForm({ formURL: "{% url 'signup' %}" });
+        });
     </script>
 
     {% block extrascripts %}

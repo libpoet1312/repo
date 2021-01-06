@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from django.utils.translation import ugettext_lazy as _
+import ldap
+from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
+from django_auth_ldap.config import LDAPGroupQuery, GroupOfUniqueNamesType
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -34,16 +37,17 @@ INSTALLED_APPS = [
     # 'adminlte3',
     # Optional: Django admin theme (must be before django.contrib.admin)
     # 'adminlte3_theme',
-
-    'files.apps.SuitConfig',
+    
+    #'files.apps.SuitConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
     'django_cas_ng',
+    'django.contrib.sites',
+    
     #
     # 3rd party apps
     #
@@ -65,6 +69,9 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'star_ratings',
+
+    # search
+    'django_elasticsearch_dsl',
 
     # file app
     'files',
@@ -90,9 +97,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_cas_ng.middleware.CASMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_cas_ng.middleware.CASMiddleware',
+    
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -105,7 +113,7 @@ ROOT_URLCONF = 'repo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), ]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -119,16 +127,6 @@ TEMPLATES = [
         },
     },
 ]
-
-LANGUAGES = (
-    ('en', _('English')),
-    ('gr', _('Greek')),
-)
-
-
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale'),
-)
 
 WSGI_APPLICATION = 'repo.wsgi.application'
 
@@ -167,6 +165,16 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
+LANGUAGES = (
+    ('en', _('English')),
+    ('gr', _('Greek')),
+)
+
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
 LANGUAGE_CODE = 'gr'
 
 TIME_ZONE = 'Europe/Athens'
@@ -202,3 +210,11 @@ CAS_SERVER_URL = 'https://cas.uth.gr/login/'
 CAS_VERSION = '3'
 CAS_APPLY_ATTRIBUTES_TO_USER = True
 CAS_RENAME_ATTRIBUTES = {'ln': 'last_name'}
+
+
+### ELASTIC SEARCH
+ELASTICSEARCH_DSL={
+    'default': {
+        'hosts': 'localhost:9200'
+    },
+}

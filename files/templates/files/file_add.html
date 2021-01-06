@@ -190,48 +190,48 @@
                 let selected = $("#cat1 option:selected").val();
                 console.log(selected);
 
-                if(selected==='Προπτυχιακό/Μάθημα'){
+                if(selected==='Προπτυχιακό/Εργασία Μαθήματος' || selected === 'Μεταπτυχιακό/Εργασία Μεταπτυχιακού Μαθήματος'){
                     $.ajax({
-                    async : true,
-                    type : "GET",
-                    url : {% url 'file_add' %},
-                    dataType : "json",
-                    traditional : true,
-                    data: {cat1: selected},
+                        async : true,
+                        type : "GET",
+                        url : {% url 'file_add' %},
+                        dataType : "json",
+                        traditional : true,
+                        data: {cat1: selected},
 
 
-                    success : function(data) {
-                        data = $.parseJSON(data);
-                        console.log(data);
-                        //generate <options from JSON
-                        let list_html = '';
+                        success : function(data) {
+                            data = $.parseJSON(data);
+                            console.log(data);
+                            //generate <options from JSON
+                            let list_html = '';
 
-                        list_html += ' <option value=""></option>';
+                            list_html += ' <option value=""></option>';
 
-                        $.each(data, function(i, item) {
-                            console.log(data[i]);
-                            list_html += '<option value='+"'"+data[i] +"'"+ '>'+data[i]+'</option>';
-                        });
+                            $.each(data, function(i, item) {
+                                console.log(data[i]);
+                                list_html += '<option value='+"'"+data[i] +"'"+ '>'+data[i]+'</option>';
+                            });
 
-                        cat2.prop("disable", [false]);
-                        cat2.select2('enable', [true]);
+                            cat2.prop("disable", [false]);
+                            cat2.select2('enable', [true]);
 
 
 
-                        $('#cat2').html(list_html);
+                            $('#cat2').html(list_html);
 
-                        console.log(list_html);
+                            console.log(list_html);
 
-                        //set to enabled|disabled
+                            //set to enabled|disabled
 
-                    },
+                        },
 
-                    error : function(xhr, ajaxOptions, thrownError) {
-                        console.log(xhr.status);
-                        console.log(thrownError);
-                    }
-                });
-                }else if(selected==='Προπτυχιακό/Σ.Π.Α.'){
+                        error : function(xhr, ajaxOptions, thrownError) {
+                            console.log(xhr.status);
+                            console.log(thrownError);
+                        }
+                    });
+                }else if(selected==='Προπτυχιακό/Εργασία Σ.Π.Α.'){
                     $.ajax({
                         async : true,
                         type : "GET",
@@ -262,10 +262,11 @@
 
                             console.log(list_html);
                         },
-                    error : function(xhr, ajaxOptions, thrownError) {
-                        console.log(xhr.status);
-                        console.log(thrownError);
-                    }});
+                        error : function(xhr, ajaxOptions, thrownError) {
+                            console.log(xhr.status);
+                            console.log(thrownError);
+                        }
+                    });
                 }else{
                     cat2.prop("disable", [true]);
                     cat2.prop("disabled", true);

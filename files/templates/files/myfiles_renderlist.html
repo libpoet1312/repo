@@ -10,7 +10,7 @@
                 <div class="card-header"><a href="{% url 'file_detail' file.slug %}"><h5>{{ file }}</h5></a></div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col">
                             <div class="">
                                 <img {% if file.thumbnail.url %}
                                     src="{{ file.thumbnail.url }}"
@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <div class="col ">
-                            <p><a class="card-semi-title" style="color: #007489;" >Κατηγορία:</a><br/><i> {{ file.category.get_category_greek  }}</i></p>
+                            <p><a class="card-semi-title" style="color: #007489;" >Κατηγορία:</a><br/><i style="text-align: left;"> {{ file.category.get_category_greek  }}</i></p>
                             <p><a class="card-semi-title" style="color: #007489;">Επιστημονικές Περιοχές:</a><br/>
                                 {% for area in file.area.all %}
                                     <i> {{ area.get_area_greek }}</i> {% if not forloop.last %},{% endif %}
@@ -42,8 +42,40 @@
                                 {% endfor %}
                             </p>
                         </div>
-                        <div style="display: flex;flex-direction: column; justify-content: space-around;">
-                            <button style="align-self: flex-start" onclick="location.href='{% url 'file_edit' file.slug %}';" type="button" class="btn btn-warning">Επεξεργασία</button>
+                        
+                        <!-- Modal 2 with id="modal" -->
+                        <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+                            <div class="modal-dialog" role="document">
+                            <div class="modal-content"></div>
+                            </div>
+                        </div>
+
+                        <div class="" style="display: flex;flex-direction: column; justify-content: space-around;">
+                            <button style="align-self: flex-start" onclick="location.href='{% url 'file_edit' file.slug %}';" 
+                            type="button" class="btn btn-warning"
+                            >
+                                
+                                    <span> Επεξεργασία</span>
+                            </button>
+                            
+
+                            <button type="button" id="delete-book" class="bs-modal btn btn-sm btn-danger" data-form-url="{% url 'file_delete' file.pk %}">
+                                <span class="fa fa-trash"></span>Διαγραφή
+                            </button>
+
+                            <script type="text/javascript">
+                                $(function () {
+                              
+                                  // Update, Read and Delete book buttons open modal with id="modal" (default)
+                                  // The formURL is retrieved from the data of the element
+                                  $(".bs-modal").each(function () {
+                                    $(this).modalForm({
+                                        formURL: $(this).data('form-url')
+                                    });
+                                  });
+                                });
+                              </script>
+                            
                         </div>
 
                     </div>
@@ -88,8 +120,12 @@
                     {% endif %}
             </div>
         </div>
+        
     </div>
+
 </div>
+
+
 
 
 

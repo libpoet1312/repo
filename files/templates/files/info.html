@@ -34,7 +34,7 @@
 }
 
 .panel {
-  padding: 3px 18px;
+  padding: 2px 18px;
   background-color: white;
   max-height: 0;
   overflow: hidden;
@@ -46,13 +46,17 @@
 
 {% block content %}
 
-<div class="container text-center">
+<div class="container">
     <div class="terms-content">
-        <h2>Πληροφορίες</h2>
+        <h2 class="text-center">Πληροφορίες</h2>
         <p>Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα Μπλα </p>
         <button class="accordion">Τι είναι το αποθετήριο?</button>
         <div class="panel">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <p style="padding-top: 10px">
+            Το Αποθετήριο Εκπαιδευτικού Περιεχομένου Παιδαγωγικού Τμήματος Δημοτικής Αγωγής του Πανεπιστημίου Θεσσαλίας αποτελεί μια διαδυκτιακή πλατφόρμα του τμήματος Δημοτικής Αγωγής
+            του Π.Θ. το οποίο δίνει την δυνατότητα στους/στις διδάσκοντες του τμήματος να αναρτούν καλές πρακτικές Σχολικής Πρακτικής Άσκησης και επιλεγμένων εργασιών μαθημάτων καθώς
+            και πτυχιακών και διπλωματικών εργασιών φοιτητών/τριών του τμήματος.
+          </p>
         </div>
 
         <button class="accordion">Όροι χρήσης</button>
@@ -60,9 +64,35 @@
           <p style="padding-top: 10px">Οι όροι χρήσης αναπτύσσονται στην υποσελίδα <a href="{% url 'terms' %}">Όροι Χρήσης</a>.</p>
         </div>
 
-        <button class="accordion">Section 3</button>
+        <button class="accordion">Επικοινωνία</button>
         <div class="panel">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <h5 style="padding-top: 10px">Γενικά στοιχεία επικοινωνίας:</h5>
+          <p ><i class="fas fa-envelope-square"></i> <a href="mailto:admin@uth.gr" style="font-size: large;"> admin@uth.gr</a></p>
+          <hr/>
+          <h5>Επικοινωνία με τους υπεύθυνους του έργου:</h5>
+          <table border = "1" bordercolor = "green" width='100%'>
+            <tr>
+               <th>Ονοματεπώνυμο</th>
+               <th>Ιδιότητα</th>
+               <th>email</th>
+            </tr>
+            <tr>
+               <td>Πολίτης Παναγιώτης</td>
+               <td>Αναπληρωτής Καθηγητής</td>
+               <td><a href="mailto:ppol@uth.gr">ppol@uth.gr</a></td>
+            </tr>
+            <tr>
+               <td>Παπαρούση Μαρία</td>
+               <td>Επιστημονική Υπέυθυνος του Έργου - Αναπληρώτρια Καθηγήτρια</td>
+               <td><a href="mailto:mpaparou@uth.gr">mpaparou@uth.gr</a></td>
+            </tr>
+            <!-- <tr>
+              <td>Παππάς Νικόλαος</td>
+              <td>Ανάδοχος του Έργου</td>
+              <td><a href="mailto:npappas@uth.gr">npappas@uth.gr</a></td>
+            </tr> -->
+
+         </table>
         </div>
 
 
@@ -70,7 +100,7 @@
         <div style="padding: 10px">
             <p>
                 Οι υπηρεσίες του «Αποθετηρίου Εκπαιδευτικού Περιεχομένου Παιδαγωγικού Τμήματος Δημοτικής Αγωγής του Πανεπιστημίου Θεσσαλίας»
-                αναπτύχθηκαν στα πλαίσιο του έργου « ».
+                αναπτύχθηκαν στα πλαίσιο του έργου « <i>Ενίσχυση λειτουργικών και εκπαιδευτικών αναγκών - ΠΤΔΕ</i> » το οποίο χρηματοδοτήθηκε από το <a href="https://ee.uth.gr/">ΕΛΚΕ</a>.
             </p>
         </div>
 

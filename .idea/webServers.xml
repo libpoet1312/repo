@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="ffe7b942-7b1c-4cd9-8c5a-d25fce2fbd03" name="repo.uth" url="http://snf-15165.ok-kno.grnetcloud.net">
+        <fileTransfer host="snf-15165.ok-kno.grnetcloud.net" port="22" rootFolder="/home/user/repo" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

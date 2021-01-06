@@ -77,7 +77,7 @@ class File(models.Model):
                                  on_delete=models.CASCADE)
     area = models.ManyToManyField(Area, help_text='Επιλέξτε Επιστημονική κατηγορία', verbose_name='Επιστημονική '
                                                                                                   'κατηγορία')
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     file = models.FileField(upload_to='files', null=True, verbose_name='Αρχείο')
     thumbnail = models.ImageField(upload_to='thumbnail', null=True, verbose_name='Εικόνα αρχείου')

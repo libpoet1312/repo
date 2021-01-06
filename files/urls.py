@@ -4,6 +4,7 @@ from files.views import *
 from django.urls import path, include
 from django.contrib.auth.views import LogoutView
 from django.conf import settings
+import django_cas_ng.views
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -11,13 +12,14 @@ urlpatterns = [
     path('terms/', TermsView.as_view(), name='terms'),
 
     # AUTH VIEWS #
-    path('login/', CustomLoginView.as_view(), name='cas_ng_login'),
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('caslogin', django_cas_ng.views.LoginView.as_view(), name='cas_ng_login'),
     path('signup/', SignUpView.as_view(), name='signup'),
     path(r'logout/', LogoutView.as_view(), name='cas_ng_logout'),
     ##############
-    path(r'add/', AddFile, name='file_add'),
-
     path(r'files/myfiles/', Myfiles, name='my_files'),  # LIST MY FILES
+    path(r'files/myfiles/<pk>/delete', FileDeleteView.as_view(), name='file_delete'),  # DELETE A FILE
+
     path(r'files/<area>/', ListView, name='list_files'),  # LIST FILES BY AREA
     # path(r'files/<category>/', ListView, name='list_files'),  # LIST FILES BY CATEGORY
 
@@ -36,7 +38,7 @@ urlpatterns = [
 
 
 
-
+    path(r'add/', AddFile, name='file_add'),
     path(r'files/file/<slug:slug>/edit/', AddFile, name='file_edit'),
     ##############
 

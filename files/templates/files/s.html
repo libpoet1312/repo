@@ -156,3 +156,67 @@
     //     }
     //
     // });
+
+
+    <div class="">
+        <nav class="nav navbar navbar-light navbar-expand navbar-custom">
+            <!-- Button for next div -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarResponsive" style="cursor: pointer">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home"></i>
+                            Αρχική</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'info' %}"><i class="fas fa-info-circle"></i>
+                            Πληροφορίες</a></li>
+                </ul>
+
+                {% if user.is_authenticated %}
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            {{ user }} <i class="fas fa-user"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{% url 'file_add' %}">Νέο Αρχείο
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                    class="fas fa-plus-circle fa-2x"></i></a>
+                            <a class="dropdown-item" href="{% url 'my_files' %}">Τα αρχεία μου &nbsp;&nbsp;&nbsp;<i
+                                    class="fas fa-server fa-2x"></i></a>
+                            {% if request.user.is_staff %}<a class="dropdown-item"
+                                href="{% url 'admin:index' %}">Διαχείρηση&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                    class="fas fa-user-cog fa-2x"></i></a>{% endif %}
+                            <a href="{% url 'cas_ng_logout' %}"
+                                class="dropdown-item">Αποσύνδεση&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                    class="fas fa-sign-out-alt fa-2x"></i></a>
+                        </div>
+                    </li>
+                </ul>
+                {% else %}
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <span style="font-size: smaller;">Σύνδεση/Εγγραφή</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink"
+                            style="width: 200px; text-align: center;">
+                            <a style="text-align: center;" class="dropdown-item btn btn-light"
+                                href="{% url 'cas_ng_login' %}" target="_parent"><span>Σύνδεση Π.Θ.</span></a>
+                            <hr />
+                            <div class="">
+                                <button class="login-btn btn btn-light" type="button" name="button">Σύνδεση</button>
+                                <button class="signup-btn btn btn-light" type="button" name="button">Εγγραφή</button>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+        </nav>
+    </div>
