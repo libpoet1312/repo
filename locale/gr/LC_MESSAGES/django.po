@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-10 04:21+0300\n"
+"POT-Creation-Date: 2020-09-13 14:28+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,38 +17,43 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: files/forms.py:21 files/forms.py:31
+#: repo/files/forms.py:21 repo/files/forms.py:31
 msgid "username"
-msgstr "Όνομα Χρήστη"
+msgstr "Όνομα χρήστη"
 
-#: files/forms.py:22 files/forms.py:32
+#: repo/files/forms.py:22 repo/files/forms.py:32
 msgid "password1"
-msgstr "Κωδικός πρόσβασης"
+msgstr "Κωδικός"
 
-#: files/forms.py:23
+#: repo/files/forms.py:23
 msgid "password2"
-msgstr "Επιβεβαίωση κωδικού πρόσβασης"
+msgstr "Επιβεβαίωση Κωδικού"
 
-#: repo/settings.py:124
+#: repo/repo/settings.py:161
 msgid "English"
 msgstr ""
 
-#: repo/settings.py:125
+#: repo/repo/settings.py:162
 msgid "Greek"
 msgstr ""
 
-#: templates/comments/form.html:70
+#: repo/templates/comments/form.html:70
 msgid "send"
 msgstr "Αποστολή"
 
-#: templates/comments/form.html:71
+#: repo/templates/comments/form.html:71
 msgid "preview"
-msgstr "Προεσκόπιση"
+msgstr "Επισκόπηση"
 
 #: venv/lib/python3.6/site-packages/adminlte3/templates/adminlte/lib/_main_header.html:150
-#: venv/lib/python3.6/site-packages/suit/templates/admin/base.html:62
+#: venv/lib/python3.6/site-packages/suit/templates/admin/auth/user/change_password.html:32
+#: venv/lib/python3.6/site-packages/suit/templates/admin/auth/user/change_password.html:75
+#: venv/lib/python3.6/site-packages/suit/templates/admin/base.html:80
+#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:19
+#, fuzzy
+#| msgid "password1"
 msgid "Change password"
-msgstr "Αλλαγή κωδικού"
+msgstr "Κωδικός"
 
 #: venv/lib/python3.6/site-packages/adminlte3/templates/adminlte/lib/_main_header.html:151
 msgid "Sign out"
@@ -58,17 +63,25 @@ msgstr ""
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/change_form.html:57
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/change_list.html:54
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/login.html:7
-#: venv/lib/python3.6/site-packages/suit/templates/admin/login.html:9
-#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:21
+#: venv/lib/python3.6/site-packages/suit/templates/admin/auth/user/change_password.html:45
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_form.html:152
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_list.html:86
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:137
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/plugin_change_form.html:99
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/new_folder_form.html:10
+#: venv/lib/python3.6/site-packages/suit/templates/admin/login.html:27
+#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:44
 msgid "Please correct the error below."
-msgstr ""
+msgid_plural " Please correct the errors below."
+msgstr[0] ""
+msgstr[1] ""
 
 #: venv/lib/python3.6/site-packages/adminlte3/templates/adminlte/login.html:20
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/change_form.html:57
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/change_list.html:55
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/login.html:8
-#: venv/lib/python3.6/site-packages/suit/templates/admin/login.html:10
-#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:21
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_form.html:152
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_list.html:86
 msgid "Please correct the errors below."
 msgstr ""
 
@@ -78,41 +91,72 @@ msgstr ""
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/change_list.html:39
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/index.html:21
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/object_history.html:6
-#: venv/lib/python3.6/site-packages/suit/menu.py:107
-#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:7
+#: venv/lib/python3.6/site-packages/suit/templates/admin/app_index.html:8
+#: venv/lib/python3.6/site-packages/suit/templates/admin/auth/user/change_password.html:19
+#: venv/lib/python3.6/site-packages/suit/templates/admin/base.html:102
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_form.html:61
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_list.html:42
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:46
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_list.html:8
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/plugin_change_form.html:82
+#: venv/lib/python3.6/site-packages/suit/templates/admin/delete_confirmation.html:7
+#: venv/lib/python3.6/site-packages/suit/templates/admin/delete_selected_confirmation.html:7
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/breadcrumbs.html:5
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/change_form.html:8
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/base.html:10
+#: venv/lib/python3.6/site-packages/suit/templates/admin/object_history.html:7
+#: venv/lib/python3.6/site-packages/suit/templates/registration/logged_out.html:6
+#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:26
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/recover_form.html:8
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/recover_list.html:8
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/revision_form.html:8
+#: venv/lib/python3.6/site-packages/suit/templates/suit/menu.html:10
 msgid "Home"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/base_login.html:23
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/base_site.html:6
-#: venv/lib/python3.6/site-packages/suit/templates/admin/base.html:18
-#: venv/lib/python3.6/site-packages/suit/templates/admin/base.html:104
 msgid "Django administration"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/base_site.html:3
-#: venv/lib/python3.6/site-packages/suit/templates/admin/base.html:13
 msgid "Django site admin"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/change_form.html:29
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/change_list.html:82
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_form.html:123
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_list.html:68
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_list.html:116
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:108
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_list.html:113
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_list.html:141
 #, python-format
 msgid "Add %(name)s"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/change_form.html:43
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/object_history.html:10
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_form.html:108
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:105
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/change_form.html:33
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/image/change_form.html:10
+#: venv/lib/python3.6/site-packages/suit/templates/admin/object_history.html:15
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/revision_form.html:16
 msgid "History"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/change_form.html:45
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_form.html:112
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:104
+#: venv/lib/python3.6/site-packages/suit/templates/admin/edit_inline/stacked.html:14
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/change_form.html:37
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/image/change_form.html:15
 msgid "View on site"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/change_list.html:71
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/change_list.html:97
-#: venv/lib/python3.6/site-packages/suit/templates/admin/change_list.html:10
 msgid "Filter"
 msgstr ""
 
@@ -123,15 +167,28 @@ msgid "Models in the %(name)s application"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/index.html:69
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_form.html:50
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_form.html:76
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:53
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/plugin_change_form.html:85
+#: venv/lib/python3.6/site-packages/suit/templates/admin/index.html:34
 msgid "Add"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/index.html:74
 #: venv/lib/python3.6/site-packages/django/forms/widgets.py:400
+#: venv/lib/python3.6/site-packages/suit/templates/admin/edit_inline/tabular.html:17
+#: venv/lib/python3.6/site-packages/suit/templates/admin/edit_inline/tabular.html:67
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/change_form.html:24
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_listing.html:85
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:27
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:43
+#: venv/lib/python3.6/site-packages/suit/templates/admin/index.html:26
 msgid "Change"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/index.html:124
+#: venv/lib/python3.6/site-packages/suit/templates/admin/index.html:45
 msgid "You don't have permission to edit anything."
 msgstr ""
 
@@ -144,10 +201,12 @@ msgid "My actions"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/index.html:152
+#: venv/lib/python3.6/site-packages/suit/templates/admin/index.html:59
 msgid "None available"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/index.html:176
+#: venv/lib/python3.6/site-packages/suit/templates/admin/index.html:76
 msgid "Unknown content"
 msgstr ""
 
@@ -160,7 +219,7 @@ msgid "Sign Out"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/login.html:37
-#: venv/lib/python3.6/site-packages/suit/templates/admin/login.html:47
+#: venv/lib/python3.6/site-packages/suit/templates/admin/login.html:64
 msgid "Forgotten your password or username?"
 msgstr ""
 
@@ -169,7 +228,6 @@ msgid "Log In"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/login.html:53
-#: venv/lib/python3.6/site-packages/suit/templates/admin/login.html:26
 #, python-format
 msgid ""
 "You are authenticated as %(username)s, but are not authorized to access this "
@@ -177,18 +235,26 @@ msgid ""
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/object_history.html:22
+#: venv/lib/python3.6/site-packages/suit/templates/admin/object_history.html:27
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/object_history.html:15
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/recover_list.html:27
 msgid "Date/time"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/object_history.html:23
+#: venv/lib/python3.6/site-packages/suit/templates/admin/object_history.html:28
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/object_history.html:16
 msgid "User"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/object_history.html:24
+#: venv/lib/python3.6/site-packages/suit/templates/admin/object_history.html:29
 msgid "Action"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/object_history.html:38
+#: venv/lib/python3.6/site-packages/suit/templates/admin/object_history.html:43
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/object_history.html:36
 msgid ""
 "This object doesn't have a change history. It probably wasn't added via this "
 "admin site."
@@ -211,7 +277,7 @@ msgid ""
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/adminlte3_theme/templates/admin/search_form.html:19
-#: venv/lib/python3.6/site-packages/suit/templates/suit/search_form.html:21
+#: venv/lib/python3.6/site-packages/suit/templates/admin/pagination.html:26
 msgid "Show all"
 msgstr ""
 
@@ -385,6 +451,7 @@ msgstr ""
 
 #: venv/lib/python3.6/site-packages/django/db/models/base.py:1190
 #: venv/lib/python3.6/site-packages/django/forms/models.py:760
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/search_form.html:19
 msgid "and"
 msgstr ""
 
@@ -777,6 +844,14 @@ msgid "Order"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/django/forms/formsets.py:391
+#: venv/lib/python3.6/site-packages/suit/templates/admin/delete_confirmation.html:18
+#: venv/lib/python3.6/site-packages/suit/templates/admin/delete_confirmation.html:49
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:42
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/import.html:69
+#: venv/lib/python3.6/site-packages/suit/templates/admin/page_submit_line.html:10
+#: venv/lib/python3.6/site-packages/suit/templates/admin/page_submit_line.html:12
+#: venv/lib/python3.6/site-packages/suit/templates/admin/submit_line.html:10
+#: venv/lib/python3.6/site-packages/suit/templates/admin/submit_line.html:13
 msgid "Delete"
 msgstr ""
 
@@ -1429,11 +1504,11 @@ msgstr ""
 
 #: venv/lib/python3.6/site-packages/star_ratings/admin.py:21
 msgid "Score"
-msgstr "Σκορ"
+msgstr ""
 
 #: venv/lib/python3.6/site-packages/star_ratings/admin.py:39
 msgid "Rating average"
-msgstr "Μέσος όρος βαθμολογίας"
+msgstr ""
 
 #: venv/lib/python3.6/site-packages/star_ratings/models.py:21
 msgid ""
@@ -1442,120 +1517,949 @@ msgstr ""
 
 #: venv/lib/python3.6/site-packages/star_ratings/models.py:48
 msgid "Already rated."
-msgstr "Έχει ήδη βαθμολογηθεί."
+msgstr ""
 
 #: venv/lib/python3.6/site-packages/star_ratings/templates/star_ratings/widget_base.html:40
 msgid "Log in to rate"
-msgstr "Συνδεθείτε για να βαθμολογήσετε"
+msgstr "Συνδεθείτε για να βαθμολογήσετε."
 
 #: venv/lib/python3.6/site-packages/star_ratings/templates/star_ratings/widget_base.html:66
 msgid "Average: "
-msgstr "Μέση Βαθμολογία: "
+msgstr "Βαθμολογία: "
 
 #: venv/lib/python3.6/site-packages/star_ratings/templates/star_ratings/widget_base.html:69
 msgid "Rating Count: "
-msgstr "Αριθμός αξιολογήσεων: "
+msgstr "Αριθμός βαθμολογιών: "
 
 #: venv/lib/python3.6/site-packages/star_ratings/templates/star_ratings/widget_base.html:72
 msgid "You Rated: "
-msgstr "Βαθμολογήσατε: "
+msgstr "Εσείς βαθμολογήσατε με: "
 
 #: venv/lib/python3.6/site-packages/star_ratings/templates/star_ratings/widget_base.html:72
 msgid "Not rated"
-msgstr "Δεν έχετε βαθμολογήσει."
+msgstr "Δεν έχει βαθμολογηθεί"
 
 #: venv/lib/python3.6/site-packages/star_ratings/templates/star_ratings/widget_base.html:74
 msgid "Please log in to rate."
 msgstr "Συνδεθείτε για να βαθμολογήσετε."
 
-#: venv/lib/python3.6/site-packages/suit/admin_filters.py:6
-msgid "Is present"
+#: venv/lib/python3.6/site-packages/suit/templates/403.html:4
+msgid "forbidden"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/admin_filters.py:7
-msgid "Is Null"
+#: venv/lib/python3.6/site-packages/suit/templates/403.html:6
+#: venv/lib/python3.6/site-packages/suit/templates/404.html:6
+#: venv/lib/python3.6/site-packages/suit/templates/500.html:6
+#: venv/lib/python3.6/site-packages/suit/templates/suit/error_base.html:76
+msgid "error"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/admin_filters.py:21
-msgid "All"
+#: venv/lib/python3.6/site-packages/suit/templates/403.html:9
+msgid "We're sorry, but the requested action is forbidden"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/templates/admin/auth/user/add_form.html:8
+#: venv/lib/python3.6/site-packages/suit/templates/404.html:4
+msgid "Page not found"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/404.html:9
+msgid "We're sorry, but the requested page could not be found."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/500.html:4
+msgid "Server Error"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/500.html:9
+msgid ""
+"There's been an error. It's been reported to the site administrators via e-"
+"mail and should be fixed shortly. Thanks for your patience."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/actions.html:14
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/actions.html:5
+msgid "Run the selected action"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/actions.html:14
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/actions.html:5
+msgid "Go"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/actions.html:22
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/actions.html:14
+msgid "Click here to select the objects across all pages"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/actions.html:23
+#, python-format
+msgid ""
+"Select all %(total_count)s\n"
+"                    %(module_name)s"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/actions.html:26
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/actions.html:16
+msgid "Clear selection"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/app_index.html:11
+#, python-format
+msgid "%(name)s"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/auth/user/add_form.html:6
 msgid ""
 "First, enter a username and password. Then, you'll be able to edit more user "
 "options."
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/templates/admin/auth/user/add_form.html:10
+#: venv/lib/python3.6/site-packages/suit/templates/admin/auth/user/add_form.html:8
 msgid "Enter a username and password."
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/templates/admin/base.html:19
-msgid "Admin"
+#: venv/lib/python3.6/site-packages/suit/templates/admin/auth/user/change_password.html:48
+#, python-format
+msgid "Enter a new password for the user <strong>%(username)s</strong>."
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/templates/admin/base.html:50
-msgid "View site"
+#: venv/lib/python3.6/site-packages/suit/templates/admin/auth/user/change_password.html:54
+#: venv/lib/python3.6/site-packages/suit/templates/admin/login.html:56
+#, fuzzy
+#| msgid "password1"
+msgid "Password"
+msgstr "Κωδικός"
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/auth/user/change_password.html:64
+#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:77
+msgid "Password (again)"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/templates/admin/base.html:57
+#: venv/lib/python3.6/site-packages/suit/templates/admin/auth/user/change_password.html:68
+msgid "Enter the same password as above, for verification."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/base.html:68
+msgid "Welcome,"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/base.html:77
+#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:15
 msgid "Documentation"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/templates/admin/base.html:65
+#: venv/lib/python3.6/site-packages/suit/templates/admin/base.html:82
+#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:21
 msgid "Log out"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/templates/admin/change_list_results.html:17
-msgid "Remove from sorting"
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_form.html:21
+msgid "You have unsaved changes"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/templates/admin/change_list_results.html:18
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_form.html:98
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/image/change_form.html:7
+msgid "tools"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_list.html:110
+msgid "Nothing found"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_list.html:112
+msgid "Reset search and filters"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_list.html:114
+#, python-format
+msgid "%(name_plural)s are not created yet"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_list_results.html:19
 #, python-format
 msgid "Sorting priority: %(priority_number)s"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/templates/admin/change_list_results.html:19
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_list_results.html:20
 msgid "Toggle sorting"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/templates/admin/login.html:51
+#: venv/lib/python3.6/site-packages/suit/templates/admin/change_list_results.html:22
+msgid "Remove from sorting"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:4
+msgid "Change a page"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:64
+msgid "Confirm delete"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:65
+msgid "Remove delete request"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:68
+msgid "Confirm page deletion"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:93
+msgid "actions"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:97
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_list.html:78
+msgid "Publish"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:97
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:98
+msgid "draft"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:98
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/import.html:51
+#, fuzzy
+#| msgid "preview"
+msgid "Preview"
+msgstr "Επισκόπηση"
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:100
+msgid "Revert to public"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:157
+msgid "All permissions"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:158
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:169
+msgid "Loading..."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_form.html:168
+msgid "Page states"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_list.html:3
+msgid "List of pages"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_list.html:69
+msgid "Successfully moved"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_list.html:87
+msgid "An error occured. Please reload the page"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_list.html:110
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/change_list.html:8
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/recover_form.html:14
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/recover_list.html:14
+#, python-format
+msgid "Recover deleted %(name)s"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/change_list.html:125
+msgid "Pages on:"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/plugin_change_form.html:128
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/new_folder_form.html:43
+#: venv/lib/python3.6/site-packages/suit/templates/admin/page_submit_line.html:3
+#: venv/lib/python3.6/site-packages/suit/templates/admin/pagination.html:4
+#: venv/lib/python3.6/site-packages/suit/templates/admin/submit_line.html:3
+msgid "Save"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/cms/page/plugin_change_form.html:129
+msgid "Cancel"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/delete_confirmation.html:26
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/delete_confirmation.html:12
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
+"related objects, but your account doesn't have permission to delete the "
+"following types of objects:"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/delete_confirmation.html:36
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/delete_confirmation.html:21
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
+"following protected related objects:"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/delete_confirmation.html:51
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/delete_confirmation.html:31
+#, python-format
+msgid ""
+"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
+"All of the following related items will be deleted:"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/delete_confirmation.html:59
+#: venv/lib/python3.6/site-packages/suit/templates/admin/delete_selected_confirmation.html:61
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/delete_confirmation.html:36
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/delete_selected_files_confirmation.html:47
+msgid "Yes, I'm sure"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/delete_selected_confirmation.html:15
+msgid "Delete multiple objects"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/delete_selected_confirmation.html:23
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would result in deleting related "
+"objects, but your account doesn't have permission to delete the following "
+"types of objects:"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/delete_selected_confirmation.html:33
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would require deleting the following "
+"protected related objects:"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/delete_selected_confirmation.html:51
+msgid "Confirm deletion"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/delete_selected_confirmation.html:54
+#, python-format
+msgid ""
+"Are you sure you want to delete the selected %(objects_name)s? All of the "
+"following objects and their related items will be deleted:"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/edit_inline/stacked.html:72
+#: venv/lib/python3.6/site-packages/suit/templates/admin/edit_inline/tabular.html:127
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/edit_inline/stacked.html:75
+#: venv/lib/python3.6/site-packages/suit/templates/admin/edit_inline/tabular.html:130
+msgid "Remove"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/edit_inline/tabular.html:18
+msgid "Delete?"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/actions.html:14
+#, python-format
+msgid "Select all %(total_count)s files and/or folders"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/breadcrumbs.html:5
+msgid "Go back to admin homepage"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/breadcrumbs.html:8
+msgid "Go back to Filer app"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/breadcrumbs.html:8
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/change_form.html:12
+msgid "Filer"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/breadcrumbs.html:12
+msgid "Go back to root folder"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/breadcrumbs.html:12
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/change_form.html:15
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_listing.html:79
+msgid "root"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/breadcrumbs.html:17
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/breadcrumbs.html:23
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/change_form.html:19
+#, python-format
+msgid "Go back to '%(folder_name)s' folder"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/change_form.html:30
+msgid "duplicates"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/delete_selected_files_confirmation.html:11
+msgid ""
+"Deleting the selected files and/or folders would result in deleting related "
+"objects, but your account doesn't have permission to delete the following "
+"types of objects:"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/delete_selected_files_confirmation.html:20
+msgid ""
+"Deleting the selected files and/or folders would require deleting the "
+"following protected related objects:"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/delete_selected_files_confirmation.html:30
+msgid ""
+"<p>Are you sure you want to delete the selected files and/or folders? All of "
+"the following objects and their related items will be deleted:</p>"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/change_form.html:8
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/change_form.html:12
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/change_form.html:15
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_listing.html:79
+msgid "Go back to"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/change_form.html:8
+msgid "admin homepage"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/change_form.html:15
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_listing.html:79
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/new_folder_form.html:4
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard.html:15
+msgid "folder"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/change_form.html:50
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_listing.html:80
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_listing.html:90
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:23
+msgid "Folder Icon"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_copy_destination.html:12
+msgid ""
+"Your account doesn't have permissions to copy all of the selected files and/"
+"or folders."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_copy_destination.html:15
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_move_destination.html:15
+msgid "There are no destination folders available."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_copy_destination.html:18
+msgid "There are no files and/or folders available to copy."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_copy_destination.html:21
+msgid ""
+"The following files and/or folders will be copied to a destination folder "
+"(retaining their tree structure):"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_copy_destination.html:31
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_move_destination.html:32
+msgid "Destination folder:"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_copy_destination.html:38
+msgid "Copy"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_images_resize_options.html:12
+msgid ""
+"Your account doesn't have permissions to resize all of the selected images."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_images_resize_options.html:15
+msgid "There are no images available to resize."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_images_resize_options.html:18
+msgid "The following images will be resized:"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_images_resize_options.html:29
+msgid "Choose an existing thumbnail option or enter resize parameters:"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_images_resize_options.html:32
+msgid "Choose resize parameters:"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_images_resize_options.html:35
+msgid ""
+"Warning: Images will be resized in-place and originals will be lost. Maybe "
+"first make a copy of them to retain the originals."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_images_resize_options.html:36
+msgid "Resize"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_move_destination.html:12
+msgid ""
+"Your account doesn't have permissions to move all of the selected files and/"
+"or folders."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_move_destination.html:18
+msgid "There are no files and/or folders available to move."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_move_destination.html:21
+msgid ""
+"The following files and/or folders will be moved to a destination folder "
+"(retaining their tree structure):"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_move_destination.html:38
+msgid "Move"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_rename_format.html:12
+msgid ""
+"Your account doesn't have permissions to rename all of the selected files."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_rename_format.html:15
+msgid "There are no files available to rename."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_rename_format.html:18
+msgid ""
+"The following files will be renamed (they will stay in their folders and "
+"keep original filename, only displayed filename will be changed):"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/choose_rename_format.html:31
+#, fuzzy
+#| msgid "username"
+msgid "Rename"
+msgstr "Όνομα χρήστη"
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_listing.html:70
+msgid "Adds a new Folder"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_listing.html:70
+msgid "New Folder"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_listing.html:71
+msgid "upload files"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_listing.html:71
+msgid "Upload"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_listing.html:79
+msgid "Go back to the parent folder"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_listing.html:81
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:30
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/search_form.html:19
+#, python-format
+msgid "1 folder"
+msgid_plural "%(counter)s folders"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_listing.html:81
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:30
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/search_form.html:20
+#, python-format
+msgid "1 file"
+msgid_plural "%(counter)s files"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_listing.html:85
+msgid "Change current folder details"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:13
+msgid "Name"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:23
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:27
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:29
+#, python-format
+msgid "Change '%(item_label)s' folder details"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:30
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:45
+msgid "Owner"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:37
+msgid "Select this file"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:39
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:43
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:44
+#, python-format
+msgid "Change '%(item_label)s' details"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:42
+#, python-format
+msgid "Delete '%(item_label)s'"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:45
+msgid "Permissions"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:45
+msgid "disabled"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:45
+msgid "enabled"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:49
+msgid "Move to clipboard"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:57
+msgid "there are no files or subfolders"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:64
+#, fuzzy
+#| msgid "preview"
+msgid "previous"
+msgstr "Επισκόπηση"
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:68
+#, python-format
+msgid ""
+"\n"
+"            Page %(number)s of %(num_pages)s\n"
+"            "
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/directory_table.html:74
+msgid "next"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/folder/new_folder_form.html:4
+msgid "Add new"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/image/change_form.html:31
+msgid "Full size preview"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard.html:4
+msgid "Clipboard"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard.html:15
+msgid "discard"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard.html:15
+msgid "Move all clipboard files to"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard.html:15
+msgid "unfiled files"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard.html:24
+msgid "Paste all items here"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard.html:63
+msgid "the clipboard is empty"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard_item_rows.html:10
+msgid "upload failed"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/search_form.html:11
+msgid "Enter your search phrase here"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/search_form.html:12
+#: venv/lib/python3.6/site-packages/suit/templates/admin/search_form.html:26
+msgid "Search"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/search_form.html:12
+msgid "Click here to"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/search_form.html:12
+msgid "run search for entered phrase"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/search_form.html:15
+msgid "Check it to"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/search_form.html:15
+msgid "limit the search to current folder"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/search_form.html:19
+msgid "found"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/filer/tools/search_form.html:20
+msgid "cancel search"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/change_list_export.html:5
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/change_list_import_export.html:6
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/export.html:5
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/export.html:12
+msgid "Export"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/change_list_import.html:5
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/change_list_import_export.html:5
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/import.html:6
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/import.html:25
+msgid "Import"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/import.html:17
+msgid "This importer will import the following fields: "
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/import.html:34
+msgid "Errors"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/import.html:42
+msgid "Line number"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/import.html:65
+msgid "New"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/import.html:67
+msgid "Skipped"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/import.html:71
+msgid "Update"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/import_export/import.html:90
+msgid "Confirm import"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/index.html:19
+#, python-format
+msgid "Models available in the %(name)s application."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/index.html:54
+msgid "My Actions"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/index.html:68
+msgid "added"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/index.html:69
+msgid "changed"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/index.html:70
+msgid "deleted"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/login.html:68
 msgid "Log in"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:8
+#: venv/lib/python3.6/site-packages/suit/templates/admin/page_submit_line.html:4
+#: venv/lib/python3.6/site-packages/suit/templates/admin/submit_line.html:4
+msgid "Save and continue editing"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/page_submit_line.html:5
+#: venv/lib/python3.6/site-packages/suit/templates/admin/submit_line.html:5
+msgid "Save as new"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/page_submit_line.html:6
+#: venv/lib/python3.6/site-packages/suit/templates/admin/submit_line.html:6
+msgid "Save and add another"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/page_submit_line.html:20
+#: venv/lib/python3.6/site-packages/suit/templates/admin/page_submit_line.html:22
+#, python-format
+msgid "Delete %(language)s translation"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/search_form.html:8
+msgid "keyword"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/search_form.html:29
+#, python-format
+msgid "%(counter)s result"
+msgid_plural "%(counter)s results"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/admin/search_form.html:31
+#, python-format
+msgid "%(full_result_count)s total"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/registration/logged_out.html:9
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/registration/logged_out.html:12
+msgid "Log in again"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:28
+#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:32
 msgid "Password change"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:26
+#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:40
 msgid ""
 "Please enter your old password, for security's sake, and then enter your new "
 "password twice so we can verify you typed it in correctly."
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:54
+#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:55
+#, fuzzy
+#| msgid "password1"
+msgid "Old password"
+msgstr "Κωδικός"
+
+#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:66
+#, fuzzy
+#| msgid "password1"
+msgid "New password"
+msgstr "Κωδικός"
+
+#: venv/lib/python3.6/site-packages/suit/templates/registration/password_change_form.html:88
 msgid "Change my password"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/templates/suit/search_form.html:15
-msgid "Search"
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/object_history.html:8
+msgid ""
+"Choose a date from the list below to revert to a previous version of this "
+"object."
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/suit/templates/suit/search_form.html:17
-#, python-format
-msgid ""
-"%(counter)s result\n"
-"                        "
-msgid_plural "%(counter)s results"
-msgstr[0] "ς"
-msgstr[1] ""
-
-#: venv/lib/python3.6/site-packages/suit/templates/suit/search_form.html:20
-#, python-format
-msgid ""
-"%(full_result_count)s total\n"
-"                        "
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/object_history.html:17
+msgid "Comment"
 msgstr ""
 
-#~ msgid "password"
-#~ msgstr "Κωδικός"
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/recover_form.html:25
+msgid "Press the save button below to recover this version of the object."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/recover_list.html:21
+msgid ""
+"Choose a date from the list below to recover a deleted version of an object."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/recover_list.html:41
+msgid "There are no deleted objects to recover."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/revision_form.html:18
+#, python-format
+msgid "Revert %(verbose_name)s"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/reversion/revision_form.html:27
+msgid "Press the save button below to revert to this version of the object."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/suit/error_base.html:87
+msgid "Close window"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/suit/error_base.html:90
+msgid "Go back"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/templates/suit/error_base.html:93
+msgid "Go to admin home"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/widgets.py:104
+msgid "Date:"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/suit/widgets.py:118
+msgid "Time:"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/wagtail/api/v2/apps.py:10
+msgid "Wagtail API v2"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/wagtail/contrib/frontend_cache/apps.py:10
+msgid "Wagtail frontend cache"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/wagtail/contrib/postgres_search/models.py:61
+msgid "index entry"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/wagtail/contrib/postgres_search/models.py:62
+msgid "index entries"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/wagtail/contrib/routable_page/apps.py:8
+msgid "Wagtail routablepage"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/wagtail/contrib/sitemaps/apps.py:8
+msgid "Wagtail sitemaps"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/wagtail/tests/modeladmintest/apps.py:8
+msgid "Test Wagtail Model Admin"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/wagtail/tests/routablepage/apps.py:8
+msgid "Wagtail routable page tests"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/wagtail/tests/search/apps.py:8
+msgid "Wagtail search tests"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/wagtail/tests/snippets/apps.py:8
+msgid "Wagtail snippets tests"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/wagtail/tests/testapp/apps.py:8
+msgid "Wagtail tests"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/wagtail/tests/testapp/templates/tests/form_page_with_custom_submission.html:18
+msgid "The form is already filled."
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/wagtail/tests/testapp/templates/tests/form_page_with_custom_submission.html:21
+msgid "You must log in first."
+msgstr ""

@@ -46,6 +46,26 @@ a, a:hover {
   max-width: 1000px;
   // min-width: 500px;
   position: relative;
+
+  & .selectize-control.form-control {
+    border: none;
+  }
+
+  & .form-group {
+    &:not(:last-child){
+      border-bottom: 1px solid black;
+    }
+    margin-bottom: 0;
+    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+
+
+    & #file-clear_id, & #thumbnail-clear_id {
+      width: auto;
+    }
+
+
+  }
   
 
   &.active {
