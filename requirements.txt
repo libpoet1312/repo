@@ -38,7 +38,7 @@ html5lib==1.1
 idna==2.9
 l18n==2018.5
 libsass==0.19.4
-lxml==4.5.2
+lxml==4.6.3
 mysqlclient==1.4.6
 Pillow==7.2.0
 pkg-resources==0.0.0
