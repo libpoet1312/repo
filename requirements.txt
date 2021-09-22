@@ -2,7 +2,7 @@ asgiref==3.2.7
 beautifulsoup4==4.8.2
 certifi==2020.4.5
 chardet==3.0.4
-Django==3.1.1
+Django==3.1.13
 django-adminlte3==0.1.2
 django-appconf==1.0.4
 django-autoslug==1.9.8
